@@ -1,6 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
+  ${reset}
+
   @font-face {
     font-family: 'inter';
     src: url('/assets/fonts/inter/Inter-VariableFont_opsz,wght.woff') format('woff');
@@ -57,16 +60,34 @@ const GlobalStyle = createGlobalStyle`
 
   *, *::before, *::after {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  html {
-    font-size: 16px;
   }
 
   body {
     font-family: 'inter', 'inter italic', 'noto-serif', 'noto-serif italic', 'source-code-pro', 'source-code-pro italic', monospace;
+    font-size: 16px;
+    overflow-x: hidden;
+  }
+
+  button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox  */
+  input[type='number'] {
+    -moz-appearance: textfield;
   }
 `;
 
