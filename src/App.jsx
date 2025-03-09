@@ -1,4 +1,4 @@
-import GlobalStyle from "./GlobalStyle";
+import GlobalStyle from './GlobalStyle';
 
 function App() {
   return (
@@ -6,7 +6,7 @@ function App() {
       <GlobalStyle />
       <>hyunwlee</>
     </>
-  )
+  );
 }
 
 export default App;
