@@ -27,6 +27,6 @@ const SrOnlyHeading1 = styled.h1`
 `;
 
 export const LogoImgWrapper = styled.div`
-  width: 95px;
+  width: 100%; /* fulid */
   height: 28px;
 `;
