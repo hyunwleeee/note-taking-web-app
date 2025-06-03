@@ -2,7 +2,7 @@ import Colors from '@styles/colors';
 import Radius from '@styles/radius';
 import Spacing from '@styles/spacing';
 import Typography from '@styles/typhography';
-import Shadow from '@styes/shadow';
+import Shadow from '@styles/shadow';
 
 const Theme = {
   colors: Colors,
