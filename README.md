@@ -3,6 +3,7 @@
 This is a solution to the [Note-taking web app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/note-taking-web-app-773r7bUfOG). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
 ## Table of contents
+
 - [Todo List](#todo-list)
 - [Overview](#overview)
   - [The challenge](#the-challenge)
@@ -29,14 +30,19 @@ This is a solution to the [Note-taking web app challenge on Frontend Mentor](htt
     - [x] shadow
     - [ ] grid system
 - [x] fonts
-  - [ ] inter
-  - [ ] inter italic
-  - [ ] noto-serif
-  - [ ] noto-serif italic
-  - [ ] source-code-pro
-  - [ ] source-code-pro italic
+  - [x] inter
+  - [x] inter italic
+  - [x] noto-serif
+  - [x] noto-serif italic
+  - [x] source-code-pro
+  - [x] source-code-pro italic
 - [x] router
-- [ ] 
+  - [x] ''
+  - [x] '/test'
+- [x] base
+  - [x] Logo
+  - [x] BaseIcon
+  - [x] BaseButton
 
 ## Overview
 

@@ -1,13 +1,12 @@
+import Test from '@pages/test_page/Test';
 import {
-  createBrowserRouter,
-  createRoutesFromElements,
   Route,
   RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
 } from 'react-router-dom';
-import Test from '@pages/test_page/Test';
 
 const RootRouter = () => {
-
   const createRouteGroup = (
     <>
       <Route path="" element={<>main</>} />
@@ -15,11 +14,9 @@ const RootRouter = () => {
     </>
   );
 
-  const router = createBrowserRouter(
-    createRoutesFromElements(createRouteGroup)
-  )
+  const router = createBrowserRouter(createRoutesFromElements(createRouteGroup));
 
-  return <RouterProvider router={router} />
-}
+  return <RouterProvider router={router} />;
+};
 
 export default RootRouter;

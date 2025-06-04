@@ -9,15 +9,8 @@
   "bracketSpacing": true,
   "bracketSameLine": false,
   "jsxBracketSameLine": true,
-  "plugins": [
-    "@trivago/prettier-plugin-sort-imports"
-  ],
-  "importOrder": [
-    "<THIRD_PARTY_MODULES>",
-    "^@assets/(.*)$",
-    "^@components/(.*)$",
-    "^[./]"
-  ],
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "importOrder": ["<THIRD_PARTY_MODULES>", "^@assets/(.*)$", "^@components/(.*)$", "^[./]"],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true
 }
