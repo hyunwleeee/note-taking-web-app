@@ -1,5 +1,6 @@
-import Logo from './Logo';
 import styled from 'styled-components';
+
+import Logo from './Logo';
 
 export default {
   component: Logo,
@@ -27,10 +28,3 @@ Default.args = {
   className: '',
   backgroundColor: 'transparent',
 };
-
-export const LightGrayBackground = Template.bind({});
-LightGrayBackground.args = {
-  ...Default.args,
-  backgroundColor: 'lightgray',
-};
-
