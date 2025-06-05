@@ -47,9 +47,7 @@ export default {
 };
 
 const Template = (args) => (
-  <svg width={args.size} height={args.size} viewBox="0 0 24 24" fill="none">
-    <BaseIcon {...args} />
-  </svg>
+  <BaseIcon {...args} />
 );
 
 export const Default = Template.bind({});
