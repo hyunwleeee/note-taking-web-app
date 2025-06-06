@@ -1,8 +1,14 @@
 import BaseButton from '@components/base/BaseButton';
 import Logo from '@components/ui/header/Logo';
 import BaseIcon from '@components/base/BaseIcon';
+import BaseInput from '@components/base/BaseInput';
+import { useState } from 'react';
 
 const Test = () => {
+
+  const [value, setValue] = useState('');
+  const [num, setNum] = useState('');
+
   return (
     <>
       <Logo />
@@ -70,8 +76,52 @@ const Test = () => {
         <BaseIcon type='tag' />
       </div>
       <h1>hyunwlee</h1>
+
+      <BaseInput
+        label='Change Label'
+        leftIcon={<BaseIcon type='show-password' color={'#717784'} />}
+        rightIcon={<BaseIcon type='show-password' color={'#717784'} />}
+        placeholder='Placeholder text'
+        description='This is a hint text to help user.'
+        value={value}
+        onChange={setValue}
+        onEnterDown={() => { console.log('value: ', value) }}
+      />
+      <BaseInput
+        label='Change Label'
+        leftIcon={<BaseIcon type='show-password' color={'#717784'} />}
+        rightIcon={<BaseIcon type='show-password' color={'#717784'} />}
+        placeholder='Placeholder text'
+        description='This is a hint text to help user.'
+      />
+
+      <BaseInput
+        label='Change Label'
+        leftIcon={<BaseIcon type='show-password' color={'#717784'} />}
+        rightIcon={<BaseIcon type='show-password' color={'#717784'} />}
+        placeholder='Placeholder text'
+        description='This is a hint text to help user.'
+      />
+
+      <BaseInput
+        theme='disabled'
+        label='Change Label'
+        leftIcon={<BaseIcon type='show-password' color={'#717784'} />}
+        rightIcon={<BaseIcon type='show-password' color={'#717784'} />}
+        placeholder='Placeholder text'
+        description='This is a hint text to help user.'
+      />
+
+      <BaseInput
+        theme='error'
+        label='Change Label'
+        leftIcon={<BaseIcon type='show-password' color={'#717784'} />}
+        rightIcon={<BaseIcon type='show-password' color={'#717784'} />}
+        placeholder='Placeholder text'
+        description='This is a hint text to help user.'
+      />
     </>
-  );
-};
+  )
+}
 
 export default Test;
