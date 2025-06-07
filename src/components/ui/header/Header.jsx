@@ -1,9 +1,15 @@
 import styled from 'styled-components';
 
 import FlexBox from '@components/style/FlexBox';
+import { useLayoutStore } from '@store/layoutStore';
 import Logo from '@components/ui/header/Logo';
 
 function Header() {
+  const { deviceType } = useLayoutStore();
+  const isLaptop = deviceType === 'laptop';
+
+  if (isLaptop) return null;
+
   return (
     <header>
       <HeaderContainer>

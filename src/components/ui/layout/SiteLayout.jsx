@@ -1,4 +1,4 @@
-import { useLayoutStore } from '@store/layoutStore.js';
+import { useLayoutStore } from '@store/layoutStore';
 import { Suspense, useLayoutEffect } from 'react';
 
 import { BREAK_POINTS } from '@assets/styles/media';
@@ -19,7 +19,7 @@ function SiteLayout() {
       else if (window.innerWidth <= BREAK_POINTS.laptop) setDeviceType('tablet');
       else setDeviceType('laptop');
 
-      let vh = window.innerHeight * 0.01;
+      const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     };
 
@@ -30,6 +30,7 @@ function SiteLayout() {
 
   return (
     <>
+      {/* mobile, tablet일 경우만 Header 렌더링 */}
       <Header />
       <Suspense fallback={<div>loading...</div>}>
         <PageLayout>

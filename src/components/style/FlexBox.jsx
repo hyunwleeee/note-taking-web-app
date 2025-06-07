@@ -6,12 +6,13 @@ import Spacing from '@assets/styles/spacing';
 
 const FlexBox = forwardRef(
   (
-    { j = 'space-between', a = 'center', d = 'row', g = Spacing.s, className, children, onClick },
+    { j = 'space-between', a = 'center', d = 'row', g = Spacing.s, style, className, children, onClick },
     ref
   ) => {
     return (
       <FlexBoxContainer
         ref={ref}
+        style={style}
         className={className}
         $j={j}
         $a={a}
@@ -40,6 +41,7 @@ FlexBox.propTypes = {
   a: PropTypes.oneOf(['stretch', 'center', 'start', 'end']),
   d: PropTypes.oneOf(['row', 'row-reverse', 'column', 'column-reverse']),
   g: PropTypes.oneOf(Object.values(Spacing)),
+  style: PropTypes.object,
   className: PropTypes.string,
   children: PropTypes.node,
   onClick: PropTypes.func,
