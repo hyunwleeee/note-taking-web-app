@@ -1,17 +1,15 @@
 import BaseButton from '@components/base/BaseButton';
-import Logo from '@components/ui/header/Logo';
 import BaseIcon from '@components/base/BaseIcon';
 import BaseInput from '@components/base/BaseInput';
 import { useState } from 'react';
+import Header from '@components/ui/header/Header';
 
 const Test = () => {
-
   const [value, setValue] = useState('');
-  const [num, setNum] = useState('');
 
   return (
     <>
-      <Logo />
+      <Header />
       <BaseButton
         texture="Primary Button"
       />
