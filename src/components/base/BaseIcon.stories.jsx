@@ -46,9 +46,7 @@ export default {
   },
 };
 
-const Template = (args) => (
-  <BaseIcon {...args} />
-);
+const Template = (args) => <BaseIcon {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -56,4 +54,3 @@ Default.args = {
   size: 24,
   color: '#0E121B',
 };
-

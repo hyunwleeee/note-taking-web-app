@@ -1,6 +1,7 @@
-import PageController from '@components/ui/page/PageController';
 import { useOutlet } from 'react-router-dom';
 import styled from 'styled-components';
+
+import PageController from '@components/ui/page/PageController';
 
 function PageLayout() {
   const outlet = useOutlet();

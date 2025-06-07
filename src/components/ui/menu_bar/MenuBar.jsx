@@ -1,10 +1,11 @@
-import styled from "styled-components";
-import BaseIcon from "@components/base/BaseIcon";
-import FlexBox from "@components/style/FlexBox";
-import { Fragment } from "react";
-import clsx from "clsx";
-import useNavigation from "@hooks/useNavigation";
-import { useLayoutStore } from "@store/layoutStore";
+import useNavigation from '@hooks/useNavigation';
+import { useLayoutStore } from '@store/layoutStore';
+import clsx from 'clsx';
+import { Fragment } from 'react';
+import styled from 'styled-components';
+
+import BaseIcon from '@components/base/BaseIcon';
+import FlexBox from '@components/style/FlexBox';
 
 function MenuBar() {
   const { Navigate } = useNavigation();
@@ -24,28 +25,27 @@ function MenuBar() {
 
   const handleMove = (path) => {
     Navigate.move(path);
-  }
+  };
 
   return (
     <MenuBarContainer>
       <ul>
-        {
-          navList.map((item, idx) =>
-            <Fragment key={idx}>
-              <li
-                className={clsx(item.name, isActive(item.path) && 'active')}
-                onClick={() => handleMove(item.path)}
-              >
-                <FlexBox d='column' g={'4px'}>
-                  <BaseIcon type={item.icon} />
-                  {isTablet && item.name}
-                </FlexBox>
-              </li>
-              {(isVisibleDivider(idx)) && <Divider />}
-            </Fragment>
-          )}
+        {navList.map((item, idx) => (
+          <Fragment key={idx}>
+            <li
+              className={clsx(item.name, isActive(item.path) && 'active')}
+              onClick={() => handleMove(item.path)}
+            >
+              <FlexBox d="column" g={'4px'}>
+                <BaseIcon type={item.icon} />
+                {isTablet && item.name}
+              </FlexBox>
+            </li>
+            {isVisibleDivider(idx) && <Divider />}
+          </Fragment>
+        ))}
       </ul>
-    </MenuBarContainer >
+    </MenuBarContainer>
   );
 }
 
@@ -54,14 +54,15 @@ export default MenuBar;
 const MenuBarContainer = styled.nav`
   box-shadow: ${({ theme }) => theme.shadow};
 
-  ul, li {
+  ul,
+  li {
     list-style: none;
   }
 
   > ul {
     height: 56px;
     width: 100%;
-      padding: ${({ theme }) => `${theme.spacing[150]} ${theme.spacing[250]}`};
+    padding: ${({ theme }) => `${theme.spacing[150]} ${theme.spacing[250]}`};
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -78,7 +79,8 @@ const MenuBarContainer = styled.nav`
       height: 32px;
       text-transform: capitalize;
 
-      &.active, &:hover {
+      &.active,
+      &:hover {
         background: ${({ theme }) => theme.colors.blue50};
         color: ${({ theme }) => theme.colors.blue500};
         svg path {
@@ -86,8 +88,11 @@ const MenuBarContainer = styled.nav`
         }
       }
 
-      &.home, &.search, &.settings{
-        &.active, &:hover {
+      &.home,
+      &.search,
+      &.settings {
+        &.active,
+        &:hover {
           svg path {
             stroke: transparent;
             fill: ${({ theme }) => theme.colors.blue500};
@@ -107,7 +112,6 @@ const MenuBarContainer = styled.nav`
       }
     }
   `}
-
 
   ${({ theme }) => theme.media.laptop`
     display: none;

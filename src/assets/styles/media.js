@@ -4,14 +4,11 @@ export const BREAK_POINTS = Object.freeze({
   mobile: 0,
   tablet: 768,
   laptop: 1024,
-  desktop: 1440
+  desktop: 1440,
 });
 
-
 const Media = Object.keys(BREAK_POINTS).reduce((acc, label) => {
-  acc[label] = (
-    ...args
-  ) => css`
+  acc[label] = (...args) => css`
     @media (min-width: ${BREAK_POINTS[label]}px) {
       ${css(...args)};
     }
@@ -20,4 +17,3 @@ const Media = Object.keys(BREAK_POINTS).reduce((acc, label) => {
 }, {});
 
 export default Media;
-

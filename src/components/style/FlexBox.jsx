@@ -1,19 +1,12 @@
+import PropTypes from 'prop-types';
 import { forwardRef } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+
 import Spacing from '@assets/styles/spacing';
 
 const FlexBox = forwardRef(
   (
-    {
-      j = 'space-between',
-      a = 'center',
-      d = 'row',
-      g = Spacing.s,
-      className,
-      children,
-      onClick,
-    },
+    { j = 'space-between', a = 'center', d = 'row', g = Spacing.s, className, children, onClick },
     ref
   ) => {
     return (
@@ -24,7 +17,8 @@ const FlexBox = forwardRef(
         $a={a}
         $d={d}
         $g={g}
-        onClick={onClick}>
+        onClick={onClick}
+      >
         {children}
       </FlexBoxContainer>
     );

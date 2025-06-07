@@ -1,6 +1,7 @@
-import Logo from '@components/ui/header/Logo';
-import FlexBox from '@components/style/FlexBox';
 import styled from 'styled-components';
+
+import FlexBox from '@components/style/FlexBox';
+import Logo from '@components/ui/header/Logo';
 
 function Header() {
   return (
@@ -16,7 +17,7 @@ export default Header;
 
 const HeaderContainer = styled(FlexBox)`
   background: ${({ theme }) => theme.colors.neutral100};
-  height: 54px; 
+  height: 54px;
   padding: ${({ theme }) => `0 ${theme.spacing[200]}`};
 
   ${({ theme }) => theme.media.tablet`

@@ -1,22 +1,13 @@
-import clsx from "clsx";
-import PropTypes from "prop-types";
+import clsx from 'clsx';
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
-function BaseButton({
-  theme = 'primary',
-  leftIcon,
-  texture,
-  rightIcon,
-  ...restProps
-}) {
+function BaseButton({ theme = 'primary', leftIcon, texture, rightIcon, ...restProps }) {
   return (
-    <StyledButton
-      {...restProps}
-      className={clsx(theme, restProps.className)}
-    >
-      {leftIcon && <span className='left'>{leftIcon}</span>}
-      {texture && <span className='text'>{texture}</span>}
-      {rightIcon && <span className='right'>{rightIcon}</span>}
+    <StyledButton {...restProps} className={clsx(theme, restProps.className)}>
+      {leftIcon && <span className="left">{leftIcon}</span>}
+      {texture && <span className="text">{texture}</span>}
+      {rightIcon && <span className="right">{rightIcon}</span>}
       {restProps.children}
     </StyledButton>
   );
@@ -25,7 +16,7 @@ function BaseButton({
 const disabledStyles = css`
   &.primary:disabled,
   &.secondary:disabled,
-  &.border:disabled { 
+  &.border:disabled {
     color: ${({ theme }) => theme.colors.neutral300};
     background: ${({ theme }) => theme.colors.neutral100};
     cursor: not-allowed;
@@ -36,7 +27,7 @@ const disabledStyles = css`
       background: ${({ theme }) => theme.colors.neutral100};
       outline: none;
     }
-   
+
     svg path {
       fill: ${({ theme }) => theme.colors.neutral300};
     }
@@ -52,9 +43,10 @@ const StyledButton = styled.button`
 
   cursor: pointer;
 
-  .text, svg {
+  .text,
+  svg {
     vertical-align: middle;
-   }
+  }
 
   span {
     &.left {
@@ -70,7 +62,6 @@ const StyledButton = styled.button`
     width: 18px;
     height: 100%;
   }
-
 
   /* responsive tablet */
   ${({ theme }) => theme.media.tablet`
@@ -91,7 +82,7 @@ const StyledButton = styled.button`
   &.primary {
     color: ${({ theme }) => theme.colors.white};
     background: ${({ theme }) => theme.colors.blue500};
-    
+
     &:hover {
       background: ${({ theme }) => theme.colors.blue700};
     }
@@ -121,7 +112,6 @@ const StyledButton = styled.button`
       outline: ${({ theme }) => `2px solid ${theme.colors.neutral400}`};
       outline-offset: 2px;
     }
-
 
     ${disabledStyles}
   }
@@ -200,7 +190,6 @@ const StyledButton = styled.button`
       &:active {
         color: ${({ theme }) => theme.colors.blue500};
       }
-
     }
   }
 `;
@@ -212,4 +201,3 @@ BaseButton.propTypes = {
   texture: PropTypes.string,
   rightIcon: PropTypes.element,
 };
-

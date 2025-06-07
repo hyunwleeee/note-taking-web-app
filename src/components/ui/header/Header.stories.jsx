@@ -1,6 +1,7 @@
 import Theme from '@styles/theme';
-import Header from './Header';
 import { ThemeProvider } from 'styled-components';
+
+import Header from './Header';
 
 export default {
   component: Header,
@@ -16,4 +17,3 @@ const Template = () => (
 
 export const Default = Template.bind({});
 Default.args = {};
-

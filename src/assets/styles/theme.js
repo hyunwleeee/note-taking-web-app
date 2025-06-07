@@ -1,9 +1,9 @@
 import Colors from '@styles/colors';
+import Media from '@styles/media';
 import Radius from '@styles/radius';
 import Shadow from '@styles/shadow';
 import Spacing from '@styles/spacing';
 import Typography from '@styles/typhography';
-import Media from '@styles/media';
 
 const Theme = {
   colors: Colors,
@@ -11,7 +11,7 @@ const Theme = {
   spacing: Spacing,
   radius: Radius,
   shadow: Shadow,
-  media: Media
+  media: Media,
 };
 
 export default Theme;

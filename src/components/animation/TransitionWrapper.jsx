@@ -1,7 +1,6 @@
-import { useOutlet } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
-
 import { useRouteStore } from '@store/routeStore.js';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useOutlet } from 'react-router-dom';
 
 const TransitionComponent = () => {
   const outlet = useOutlet();
@@ -38,7 +37,8 @@ const TransitionComponent = () => {
         initial="initial"
         animate="animate"
         exit="exit"
-        transition={{ type: 'spring', duration: 0.2 }}>
+        transition={{ type: 'spring', duration: 0.2 }}
+      >
         {outlet}
       </motion.main>
     </AnimatePresence>

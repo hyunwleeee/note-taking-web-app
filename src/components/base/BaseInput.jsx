@@ -1,98 +1,104 @@
-import { forwardRef, useState } from "react";
-import PropTypes from "prop-types";
-import styled, { css } from "styled-components";
+import PropTypes from 'prop-types';
+import { forwardRef, useState } from 'react';
+import styled, { css } from 'styled-components';
+
 import BaseIcon from '@components/base/BaseIcon';
 
-const BaseInput = forwardRef(({
-  theme = 'normal',
-  type = 'text',
-  value,
-  placeholder,
-  onChange,
-  leftIcon,
-  rightIcon,
-  label,
-  name,
-  max,
-  onEnterDown,
-  description,
-  ...restProps
-}, ref) => {
-  const [isComposing, setIsComposing] = useState(false);
+const BaseInput = forwardRef(
+  (
+    {
+      theme = 'normal',
+      type = 'text',
+      value,
+      placeholder,
+      onChange,
+      leftIcon,
+      rightIcon,
+      label,
+      name,
+      max,
+      onEnterDown,
+      description,
+      ...restProps
+    },
+    ref
+  ) => {
+    const [isComposing, setIsComposing] = useState(false);
 
-  const handleChange = (value) => {
-    const _value = type !== 'number' || value === '' ? value : Number(value);
+    const handleChange = (value) => {
+      const _value = type !== 'number' || value === '' ? value : Number(value);
 
-    if (name) onChange(name, _value);
-    else onChange(_value);
-  }
+      if (name) onChange(name, _value);
+      else onChange(_value);
+    };
 
-  const handleMouseWheel = (e) => {
-    if (type === 'number') {
-      e.target.blur();
+    const handleMouseWheel = (e) => {
+      if (type === 'number') {
+        e.target.blur();
+        e.stopPropagation();
+
+        setTimeout(() => {
+          e.target.focus();
+        }, 0);
+      }
+    };
+
+    const handleKeyDown = (e) => {
       e.stopPropagation();
 
-      setTimeout(() => {
-        e.target.focus();
-      }, 0);
-    }
-  };
+      if (isComposing) return;
 
-  const handleKeyDown = (e) => {
-    e.stopPropagation();
+      if (onEnterDown && e.key === 'Enter') onEnterDown();
+    };
 
-    if (isComposing) return;
+    const handleCompositionStart = () => {
+      setIsComposing(true);
+    };
 
-    if (onEnterDown && e.key === 'Enter')
-      onEnterDown();
+    const handleCompositionEnd = () => {
+      setIsComposing(false);
+    };
+
+    return (
+      <InputContainer $theme={theme}>
+        {label && (
+          <div className="label_wrapper">
+            <label htmlFor={`${name}_${value}`}>{label}</label>
+          </div>
+        )}
+
+        <div className="input_wrapper">
+          {leftIcon && leftIcon}
+          <input
+            type={type}
+            value={value}
+            name={name}
+            id={`${name}_${value}`}
+            placeholder={placeholder}
+            disabled={theme === 'disabled'}
+            onChange={(e) => handleChange(e.target.value)}
+            min={0}
+            max={max}
+            onKeyDown={handleKeyDown}
+            ref={ref}
+            onWheel={handleMouseWheel}
+            onCompositionStart={handleCompositionStart}
+            onCompositionEnd={handleCompositionEnd}
+            {...restProps}
+          />
+          {rightIcon && rightIcon}
+        </div>
+
+        {description && (
+          <div className="description_wrapper">
+            <BaseIcon size={16} type="info" color="#525866" />
+            {description}
+          </div>
+        )}
+      </InputContainer>
+    );
   }
-
-
-  const handleCompositionStart = () => {
-    setIsComposing(true);
-  };
-
-  const handleCompositionEnd = () => {
-    setIsComposing(false);
-  };
-
-  return (
-    <InputContainer $theme={theme}>
-      {label && <div className="label_wrapper">
-        <label htmlFor={`${name}_${value}`}>
-          {label}
-        </label>
-      </div>}
-
-      <div className="input_wrapper">
-        {leftIcon && leftIcon}
-        <input
-          type={type}
-          value={value}
-          name={name}
-          id={`${name}_${value}`}
-          placeholder={placeholder}
-          disabled={theme === 'disabled'}
-          onChange={(e) => handleChange(e.target.value)}
-          min={0}
-          max={max}
-          onKeyDown={handleKeyDown}
-          ref={ref}
-          onWheel={handleMouseWheel}
-          onCompositionStart={handleCompositionStart}
-          onCompositionEnd={handleCompositionEnd}
-          {...restProps}
-        />
-        {rightIcon && rightIcon}
-      </div>
-
-      {description && <div className="description_wrapper">
-        <BaseIcon size={16} type='info' color='#525866' />
-        {description}
-      </div>}
-    </InputContainer >
-  );
-})
+);
 
 const InputContainer = styled.div`
   display: flex;
@@ -111,7 +117,7 @@ const InputContainer = styled.div`
     gap: ${({ theme }) => theme.spacing[100]};
     height: 44px;
     padding: ${({ theme }) => `${theme.spacing[0]} ${theme.spacing[200]}`};
-    
+
     > input {
       all: unset;
 
@@ -174,7 +180,6 @@ const getInputTheme = (theme) => {
         }
       `;
 
-
     case 'error':
       return css`
         .input_wrapper {
@@ -189,21 +194,14 @@ const getInputTheme = (theme) => {
         }
       `;
   }
-}
+};
 
 export default BaseInput;
 
 BaseInput.propTypes = {
-  theme: PropTypes.oneOf([
-    'normal',
-    'disabled',
-    'error'
-  ]),
+  theme: PropTypes.oneOf(['normal', 'disabled', 'error']),
   type: PropTypes.string,
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
 
@@ -220,4 +218,3 @@ BaseInput.propTypes = {
 };
 
 BaseInput.displayName = 'BaseInput';
-

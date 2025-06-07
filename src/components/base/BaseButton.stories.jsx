@@ -1,7 +1,9 @@
 import Theme from '@styles/theme';
 import { ThemeProvider } from 'styled-components';
-import BaseButton from './BaseButton';
+
 import BaseIcon from '@components/base/BaseIcon';
+
+import BaseButton from './BaseButton';
 
 export default {
   component: BaseButton,
@@ -44,14 +46,14 @@ export const WithLeftIcon = Template.bind({});
 WithLeftIcon.args = {
   theme: 'border',
   texture: 'Restore',
-  leftIcon: <BaseIcon type='restore' />
+  leftIcon: <BaseIcon type="restore" />,
 };
 
 export const WithRightIcon = Template.bind({});
 WithRightIcon.args = {
   theme: 'border',
   texture: 'Restore',
-  rightIcon: <BaseIcon type='restore' />
+  rightIcon: <BaseIcon type="restore" />,
 };
 
 export const Disabled = Template.bind({});
