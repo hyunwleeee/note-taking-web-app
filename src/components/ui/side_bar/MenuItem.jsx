@@ -12,6 +12,10 @@ function MenuItem({
 }) {
   const isActive = () => location.pathname === path;
 
+  /* Setting Menu icon highlighting 없음 */
+  const isHighlightIcon = () => location.pathname.includes('settings');
+
+
   const { Navigate } = useNavigation();
 
   const handleClick = () => {
@@ -22,6 +26,7 @@ function MenuItem({
     <Menu
       $icon={iconType}
       $active={isActive()}
+      $highlightIcon={isHighlightIcon()}
       onClick={handleClick}
     >
       <FlexBox a='center' style={{ height: '100%' }}>
@@ -48,8 +53,8 @@ const Menu = styled.li`
   background: ${({ $active, theme }) => $active ? theme.colors.neutral100 : 'inherit'};
   cursor: pointer;
   svg path {
-    fill: ${({ $active, $icon, theme }) => $active && $icon === 'home' ? theme.colors.blue500 : ''};
-    stroke: ${({ $active, $icon, theme }) => $active && $icon !== 'home' ? theme.colors.blue500 : ''};
+    fill: ${({ $active, $highlightIcon, $icon, theme }) => $active && !$highlightIcon && $icon === 'home' ? theme.colors.blue500 : ''};
+    stroke: ${({ $active, $highlightIcon, $icon, theme }) => $active && !$highlightIcon && $icon !== 'home' ? theme.colors.blue500 : ''};
   }
 
   &:hover  {
