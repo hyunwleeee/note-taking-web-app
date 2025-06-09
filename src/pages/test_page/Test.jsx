@@ -6,6 +6,9 @@ import BaseIcon from '@components/base/BaseIcon';
 import BaseInput from '@components/base/BaseInput';
 import Header from '@components/ui/header/Header';
 import ModalWrapper from '@components/ui/modal/ModalWrapper';
+import useAlert from '@hooks/useAlert';
+import FlexBox from '@components/style/FlexBox';
+import { Link } from 'react-router-dom';
 
 const TestModal = ({ onClose, onSubmit }) => {
   return (
@@ -35,6 +38,7 @@ const TestDeleteModal = ({ onClose, onSubmit }) => {
 const Test = () => {
   const [value, setValue] = useState('');
   const { openModal } = useModal();
+  const alert = useAlert();
 
   const handleModal = () => {
     openModal(TestModal, {
@@ -52,13 +56,26 @@ const Test = () => {
     });
   };
 
+
+  const handleAlert = () => {
+    alert(
+      <FlexBox style={{ width: '100%' }}>
+        <span>123</span>
+        <a href='https://www.naver.com'>Archived Notes</a>
+      </FlexBox>,
+      'success');
+    alert('', 'success');
+    alert('Note saved Successfully!', 'success');
+  }
   return (
     <>
       <Header />
       <BaseButton texture="Create" onClick={handleModal} />
       <BaseButton isDangerous texture="Delete" onClick={handleDeleteModal} />
+      <BaseButton texture="alert" onClick={handleAlert} />
       <BaseButton texture="Primary Button" />
       <BaseButton texture="Primary Button" disabled />
+      <Link to='https://www.naver.com'>naver</Link>
       <BaseButton theme="secondary" texture="Secondary Button" />
       <BaseButton theme="secondary" texture="Secondary Button" disabled />
       <BaseButton
