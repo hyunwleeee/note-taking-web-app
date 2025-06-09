@@ -1,6 +1,7 @@
-import Logo from '@components/ui/header/Logo';
-import FlexBox from '@components/style/FlexBox';
 import styled from 'styled-components';
+
+import FlexBox from '@components/style/FlexBox';
+import Logo from '@components/ui/header/Logo';
 
 import MenuItem from './MenuItem';
 
@@ -23,43 +24,32 @@ function Navigation() {
     { name: 'TypeScript', path: '/tags/TypeScript' },
   ];
 
-
   return (
     <NavigationContainer>
-      <FlexBox j='start' a='stretch' d='column' g='16px' className='logo_wrapper'>
+      <FlexBox j="start" a="stretch" d="column" g="16px" className="logo_wrapper">
         <Logo />
       </FlexBox>
       <nav>
-        <ul className='nav_list'>
+        <ul className="nav_list">
           {navList.map((item, idx) => (
-            <MenuItem
-              key={idx}
-              iconType={item.icon}
-              name={item.name}
-              path={item.path}
-            />
+            <MenuItem key={idx} iconType={item.icon} name={item.name} path={item.path} />
           ))}
         </ul>
-        <ul className='tag_list'>
+        <ul className="tag_list">
           <h3>Tags</h3>
           {tagList.map((item, idx) => (
-            <MenuItem
-              key={`item_${idx}`}
-              iconType='tag'
-              name={item.name}
-              path={item.path}
-            />
+            <MenuItem key={`item_${idx}`} iconType="tag" name={item.name} path={item.path} />
           ))}
         </ul>
       </nav>
-    </NavigationContainer >
+    </NavigationContainer>
   );
 }
 
 export default Navigation;
 
 const NavigationContainer = styled.div`
-  width: 272px; 
+  width: 272px;
   padding: ${({ theme }) => `${theme.spacing[150]} ${theme.spacing[200]}`};
   border-right: ${({ theme }) => `1px solid ${theme.colors.neutral200}`};
 
@@ -77,7 +67,7 @@ const NavigationContainer = styled.div`
     display: flex;
     flex-flow: column nowrap;
     width: 100%;
-    gap: 4px; 
+    gap: 4px;
     padding-bottom: ${({ theme }) => theme.spacing[100]};
     border-bottom: ${({ theme }) => `1px solid ${theme.colors.neutral200}`};
     margin-bottom: ${({ theme }) => theme.spacing[100]};

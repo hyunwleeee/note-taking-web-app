@@ -1,16 +1,62 @@
+import useModal from '@hooks/useModal';
 import { useState } from 'react';
 
 import BaseButton from '@components/base/BaseButton';
 import BaseIcon from '@components/base/BaseIcon';
 import BaseInput from '@components/base/BaseInput';
 import Header from '@components/ui/header/Header';
+import ModalWrapper from '@components/ui/modal/ModalWrapper';
+
+const TestModal = ({ onClose, onSubmit }) => {
+  return (
+    <ModalWrapper
+      icon={<BaseIcon type="archive" />}
+      title="Archive Note"
+      sub="Are you sure you want to archive this note? You can find it in the Archived Notes section and restore it anytime."
+      onClose={onClose}
+      onSubmit={onSubmit}
+    />
+  );
+};
+
+const TestDeleteModal = ({ onClose, onSubmit }) => {
+  return (
+    <ModalWrapper
+      icon={<BaseIcon type="delete" />}
+      title="Delete Note"
+      sub="Are you sure you want to permanently delete this note? This action cannot be undone."
+      onClose={onClose}
+      onSubmit={onSubmit}
+      isDangerous
+    />
+  );
+};
 
 const Test = () => {
   const [value, setValue] = useState('');
+  const { openModal } = useModal();
+
+  const handleModal = () => {
+    openModal(TestModal, {
+      onSubmit: () => {
+        console.log('delete');
+      },
+    });
+  };
+
+  const handleDeleteModal = () => {
+    openModal(TestDeleteModal, {
+      onSubmit: () => {
+        console.log('create');
+      },
+    });
+  };
 
   return (
     <>
       <Header />
+      <BaseButton texture="Create" onClick={handleModal} />
+      <BaseButton isDangerous texture="Delete" onClick={handleDeleteModal} />
       <BaseButton texture="Primary Button" />
       <BaseButton texture="Primary Button" disabled />
       <BaseButton theme="secondary" texture="Secondary Button" />

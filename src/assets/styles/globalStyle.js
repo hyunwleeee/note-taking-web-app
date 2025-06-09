@@ -89,6 +89,14 @@ const GlobalStyle = createGlobalStyle`
   input[type='number'] {
     -moz-appearance: textfield;
   }
+
+  /* react-modal */
+  .modal_overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+  }
 `;
 
 export default GlobalStyle;

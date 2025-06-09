@@ -6,7 +6,16 @@ import Spacing from '@assets/styles/spacing';
 
 const FlexBox = forwardRef(
   (
-    { j = 'space-between', a = 'center', d = 'row', g = Spacing.s, style, className, children, onClick },
+    {
+      j = 'space-between',
+      a = 'center',
+      d = 'row',
+      g = Spacing.s,
+      style,
+      className,
+      children,
+      onClick,
+    },
     ref
   ) => {
     return (

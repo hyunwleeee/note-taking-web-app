@@ -1,9 +1,9 @@
+import { useLayoutStore } from '@store/layoutStore';
 import { useOutlet } from 'react-router-dom';
 import styled from 'styled-components';
-import Navigation from '@components/ui/side_bar/Navigation';
-import { useLayoutStore } from '@store/layoutStore';
 
 import PageController from '@components/ui/page/PageController';
+import Navigation from '@components/ui/side_bar/Navigation';
 
 function PageLayout() {
   const { deviceType } = useLayoutStore();

@@ -2,9 +2,20 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
-function BaseButton({ theme = 'primary', leftIcon, texture, rightIcon, ...restProps }) {
+function BaseButton({
+  theme = 'primary',
+  isDangerous = false,
+  leftIcon,
+  texture,
+  rightIcon,
+  ...restProps
+}) {
   return (
-    <StyledButton {...restProps} className={clsx(theme, restProps.className)}>
+    <StyledButton
+      $dangerous={isDangerous}
+      {...restProps}
+      className={clsx(theme, restProps.className)}
+    >
       {leftIcon && <span className="left">{leftIcon}</span>}
       {texture && <span className="text">{texture}</span>}
       {rightIcon && <span className="right">{rightIcon}</span>}
@@ -37,9 +48,11 @@ const disabledStyles = css`
 const StyledButton = styled.button`
   all: unset;
 
+  height: 41px;
   ${({ theme }) => theme.typography.textPreset6};
-  padding: ${({ theme }) => `${theme.spacing[150]} ${theme.spacing[200]}`};
+  padding: ${({ theme }) => `${theme.spacing[0]} ${theme.spacing[200]}`};
   border-radius: ${({ theme }) => theme.radius[8]};
+  box-sizing: border-box;
 
   cursor: pointer;
 
@@ -81,15 +94,17 @@ const StyledButton = styled.button`
   /* theme */
   &.primary {
     color: ${({ theme }) => theme.colors.white};
-    background: ${({ theme }) => theme.colors.blue500};
+    background: ${({ $dangerous, theme }) =>
+      $dangerous ? theme.colors.red500 : theme.colors.blue500};
 
     &:hover {
-      background: ${({ theme }) => theme.colors.blue700};
+      background: ${({ $dangerous, theme }) => ($dangerous ? 'red' : theme.colors.blue700)};
     }
 
     &:active {
       outline: ${({ theme }) => `2px solid ${theme.colors.neutral400}`};
-      background: ${({ theme }) => theme.colors.blue500};
+      background: ${({ $dangerous, theme }) =>
+        $dangerous ? theme.colors.red500 : theme.colors.blue500};
       outline-offset: 2px;
     }
 
@@ -197,6 +212,7 @@ export default BaseButton;
 
 BaseButton.propTypes = {
   theme: PropTypes.oneOf(['primary', 'secondary', 'border', 'ghost']),
+  isDangerous: PropTypes.bool,
   leftIcon: PropTypes.element,
   texture: PropTypes.string,
   rightIcon: PropTypes.element,
