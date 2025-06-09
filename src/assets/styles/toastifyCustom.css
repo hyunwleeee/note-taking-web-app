@@ -18,7 +18,7 @@
   --toastify-text-color-light: #f6f6f6;
   --toastify-text-color-dark: #f6f6f6;
   --toastify-text-color-info: #f6f6f6;
-  --toastify-text-color-success: #0E121B;
+  --toastify-text-color-success: #0e121b;
   --toastify-text-color-warning: #fff;
   --toastify-text-color-error: #fff;
   --toastify-spinner-color: #616161;
@@ -39,16 +39,22 @@
   --toastify-color-progress-error: var(--toastify-color-error);
 }
 
-.Toastify__toast-container {}
-.Toastify__toast-container--bottom-center {}
-.Toastify__toast-container .Toastify__toast--error {}
-.Toastify__toast-container .Toastify__toast--error .Toastify__toast-icon {}
-.Toastify__toast-container .Toastify__toast--info {}
-.Toastify__toast-container .Toastify__toast--info .Toastify__toast-icon {}
+.Toastify__toast-container {
+}
+.Toastify__toast-container--bottom-center {
+}
+.Toastify__toast-container .Toastify__toast--error {
+}
+.Toastify__toast-container .Toastify__toast--error .Toastify__toast-icon {
+}
+.Toastify__toast-container .Toastify__toast--info {
+}
+.Toastify__toast-container .Toastify__toast--info .Toastify__toast-icon {
+}
 .Toastify__toast-container .Toastify__toast--success {
   background: var(--toastify-color-success);
   color: var(--toastify-text-color-success);
-  border: 1px solid #E0E4EA;
+  border: 1px solid #e0e4ea;
   font-size: 12px;
   font-weight: 400;
   letter-spacing: -0.2px;
@@ -77,7 +83,7 @@
   justify-content: center;
   align-items: center;
   svg {
-    fill: #21C16B;
+    fill: #21c16b;
   }
 }
 
@@ -107,7 +113,7 @@
   width: 16px;
   height: 16px;
   svg path {
-    fill: #99A0AE;
+    fill: #99a0ae;
     stroke: #fff;
   }
 }
@@ -117,7 +123,7 @@
   opacity: 1;
 }
 .Toastify__close-button > svg {
-  fill: #C8D0DB;
+  fill: #c8d0db;
   height: 100%;
   width: 100%;
 }

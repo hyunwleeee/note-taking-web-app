@@ -6,7 +6,7 @@ const AlertComponent = () => {
   return (
     <ToastContainer
       position="bottom-center"
-      autoClose={40000000}
+      autoClose={4000}
       hideProgressBar={false}
       transition={Slide}
       closeOnClick

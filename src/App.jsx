@@ -1,12 +1,13 @@
 import ModalProvider from '@contexts/modal.context';
 import GlobalStyle from '@styles/globalStyle';
 import Theme from '@styles/theme';
+import { createPortal } from 'react-dom';
 import ReactModal from 'react-modal';
 import { ThemeProvider } from 'styled-components';
+
 import AlertComponent from '@components/ui/toast/AlertComponent';
 
 import RootRouter from './router';
-import { createPortal } from 'react-dom';
 
 ReactModal.setAppElement('#root');
 
