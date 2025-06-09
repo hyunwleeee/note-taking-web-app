@@ -1,0 +1,17 @@
+.light {
+  --theme-bg-color: #ffffff; /* netral0 */
+  --theme-text-color: #525866; /* netral600 */
+  --theme-header-bg-color: #f3f5f8; /* netral100 */
+  --theme-header-text-color: #525866; /* netural600 */
+  --theme-divider-color: #f3f5f8; /* netural100 */
+  --theme-button-hover-color: #232530; /* netral300 */
+}
+
+.dark {
+  --theme-bg-color: #0e121b; /* netral950 */
+  --theme-text-color: #cacfd8; /* netral300 */
+  --theme-header-bg-color: #232530; /* netral800 */
+  --theme-header-text-color: #99a0ae; /* netural400 */
+  --theme-divider-color: #232530; /* netural800 */
+  --theme-button-hover-color: #cacfd8; /* netral300 */
+}

@@ -161,14 +161,15 @@ const StyledButton = styled.button`
   }
 
   &.ghost {
+    height: auto;
     padding: ${({ theme }) => theme.spacing[25]};
     color: ${({ theme }) => theme.colors.neutral600};
 
     &:hover {
-      color: ${({ theme }) => theme.colors.neutral950};
-      background: ${({ theme }) => theme.colors.neutral100};
+      color: var(--theme-button-hover-color);
+      background: var(--theme-header-bg-color);
       svg path {
-        stroke: ${({ theme }) => theme.colors.neutral950};
+        stroke: var(--theme-button-hover-color);
       }
     }
 
@@ -181,10 +182,10 @@ const StyledButton = styled.button`
 
     &.svg_fill {
       &:hover {
-        background: ${({ theme }) => theme.colors.neutral100};
+        background: var(--theme-header-bg-color);
         svg path {
           stroke: transparent;
-          fill: ${({ theme }) => theme.colors.neutral950};
+          fill: var(--theme-button-hover-color);
         }
       }
 

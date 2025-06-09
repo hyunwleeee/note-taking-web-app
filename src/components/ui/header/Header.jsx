@@ -1,3 +1,4 @@
+import { useLightDark, useLightDarkDispatch } from '@contexts/light_dark.context';
 import { useLayoutStore } from '@store/layoutStore';
 import styled from 'styled-components';
 
@@ -7,13 +8,16 @@ import Logo from '@components/ui/header/Logo';
 function Header() {
   const { deviceType } = useLayoutStore();
   const isLaptop = deviceType === 'laptop';
+  const theme = useLightDark();
+  const dispatch = useLightDarkDispatch();
 
   if (isLaptop) return null;
 
   return (
     <header>
-      <HeaderContainer>
+      <HeaderContainer $isDark={theme === 'dark'}>
         <Logo />
+        <button onClick={() => dispatch({ type: 'toggle' })}>toggle</button>
       </HeaderContainer>
     </header>
   );
@@ -22,7 +26,7 @@ function Header() {
 export default Header;
 
 const HeaderContainer = styled(FlexBox)`
-  background: ${({ theme }) => theme.colors.neutral100};
+  background: var(--theme-header-bg-color);
   height: 54px;
   padding: ${({ theme }) => `0 ${theme.spacing[200]}`};
 
@@ -30,7 +34,6 @@ const HeaderContainer = styled(FlexBox)`
     height: 74px; 
     align-items: center;
     padding: ${({ theme }) => `0 ${theme.spacing[400]}`};
-    background: ${({ theme }) => theme.colors.neutral100};
   `}
 
   ${({ theme }) => theme.media.laptop`

@@ -1,13 +1,18 @@
+import { useLightDark } from '@contexts/light_dark.context';
 import styled from 'styled-components';
 
 import mainLogoImg from '@assets/images/logo.svg';
+import darkLogoImg from '@assets/images/logo_dark.svg';
 
 function Logo({ ...restProps }) {
+  const theme = useLightDark();
+  const isDark = theme === 'dark';
+
   return (
     <section {...restProps}>
       <SrOnlyHeading1>Note-taking web app</SrOnlyHeading1>
       <LogoImgWrapper>
-        <img src={mainLogoImg} alt="note-taking" />
+        <img src={!isDark ? mainLogoImg : darkLogoImg} alt="note-taking" />
       </LogoImgWrapper>
     </section>
   );
@@ -30,4 +35,7 @@ const SrOnlyHeading1 = styled.h1`
 export const LogoImgWrapper = styled.div`
   width: 100%; /* fulid */
   height: 28px;
+  path {
+    stroke: white;
+  }
 `;

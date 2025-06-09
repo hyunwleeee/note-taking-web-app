@@ -53,6 +53,8 @@ export default MenuBar;
 
 const MenuBarContainer = styled.nav`
   box-shadow: ${({ theme }) => theme.shadow};
+  background: var(--theme-bg-color);
+  color: var(--theme-text-color);
 
   ul,
   li {
@@ -78,6 +80,17 @@ const MenuBarContainer = styled.nav`
       flex: 0 1 100%;
       height: 32px;
       text-transform: capitalize;
+      svg path {
+        stroke: var(--theme-text-color);
+      }
+      &.home,
+      &.search,
+      &.settings {
+        svg path {
+          stroke: transparent;
+          fill: var(--theme-text-color);
+        }
+      }
 
       &.active,
       &:hover {
@@ -120,5 +133,5 @@ const MenuBarContainer = styled.nav`
 
 const Divider = styled.div`
   width: 1px;
-  background-color: ${({ theme }) => theme.colors.neutral200};
+  background: var(--theme-divider-color);
 `;
