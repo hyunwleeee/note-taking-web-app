@@ -2,12 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import BaseButton from '@components/base/BaseButton';
 import BaseIcon from '@components/base/BaseIcon';
-
+import useNavigation from '@hooks/useNavigation';
 import BaseInput from '@components/base/BaseInput';
 // import useAuth from '@hooks/useAuth.js';
 
 function LoginPage() {
   // const auth = useAuth();
+  const { Navigate } = useNavigation();
   const refs = useRef({
     email: null,
     password: null
@@ -73,7 +74,10 @@ function LoginPage() {
             ref={el => refs.current.email = el}
           />
           <div className='password_wrapper'>
-            <BaseButton theme='ghost'>
+            <BaseButton
+              theme='ghost' 
+              onClick={() => Navigate.move('/forgot-password-page')}
+            >
               Forgot
             </BaseButton>
             <BaseInput
@@ -97,10 +101,10 @@ function LoginPage() {
               ref={el => refs.current.password = el}
             />
           </div>
-          <BaseButton 
+          <BaseButton
+            type='submit'
             texture="Login"
             size='full'
-            onClick={() => {}}
           />
           <div className='oauth_wrapper'>
             <p>Or log in with</p>
@@ -113,7 +117,12 @@ function LoginPage() {
         </div>
         <div className='sign_up_wrapper'>
           <span>No account yet? </span>
-          <BaseButton theme='ghost'>Sign Up</BaseButton>
+          <BaseButton 
+            theme='ghost'
+            onClick={() => Navigate.move('/sign-up')}
+          >
+            Sign Up
+          </BaseButton>
         </div>
       </LoginFormContainer>
     </LoginContainer>
