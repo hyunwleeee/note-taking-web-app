@@ -2,7 +2,9 @@ import { useLayoutStore } from '@store/layoutStore';
 import { useOutlet } from 'react-router-dom';
 import styled from 'styled-components';
 
+import FlexBox from '@components/style/FlexBox';
 import PageController from '@components/ui/page/PageController';
+import PageHeader from '@components/ui/page/PageHeader';
 import Navigation from '@components/ui/side_bar/Navigation';
 
 function PageLayout() {
@@ -14,7 +16,12 @@ function PageLayout() {
     <PageConatiner>
       {isLaptop && <Navigation />}
       <PageController />
-      {outlet}
+      <FlexBox j="start" a="stretch" d="column" style={{ width: '100%', height: '100%' }}>
+        <PageHeader>
+          <h2>Settings</h2>
+        </PageHeader>
+        {outlet}
+      </FlexBox>
     </PageConatiner>
   );
 }

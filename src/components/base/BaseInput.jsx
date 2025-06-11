@@ -48,7 +48,7 @@ const BaseInput = forwardRef(
 
       if (isComposing) return;
 
-      if (onEnterDown && e.key === 'Enter') onEnterDown();
+      if (onEnterDown && e.key === 'Enter') onEnterDown(e, name);
     };
 
     const handleCompositionStart = () => {

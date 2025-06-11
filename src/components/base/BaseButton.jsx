@@ -8,11 +8,13 @@ function BaseButton({
   leftIcon,
   texture,
   rightIcon,
+  size = 'normal',
   ...restProps
 }) {
   return (
     <StyledButton
       $dangerous={isDangerous}
+      $size={size}
       {...restProps}
       className={clsx(theme, restProps.className)}
     >
@@ -47,8 +49,10 @@ const disabledStyles = css`
 
 const StyledButton = styled.button`
   all: unset;
-
+  width: ${({ $size }) => $size==='full' ? '100%' : 'auto'};
+  text-align: ${({ $size }) => $size==='full' ? 'center' : 'auto'};
   height: 41px;
+  text-align: ${({ $size }) => $size==='full' ? 'center' : 'auto'};
   ${({ theme }) => theme.typography.textPreset6};
   padding: ${({ theme }) => `${theme.spacing[0]} ${theme.spacing[200]}`};
   border-radius: ${({ theme }) => theme.radius[8]};
@@ -217,4 +221,5 @@ BaseButton.propTypes = {
   leftIcon: PropTypes.element,
   texture: PropTypes.string,
   rightIcon: PropTypes.element,
+  size: PropTypes.oneOf(['normal', 'full'])
 };

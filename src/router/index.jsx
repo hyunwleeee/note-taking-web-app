@@ -7,6 +7,7 @@ import {
   createRoutesFromElements,
 } from 'react-router-dom';
 
+import AuthLayout from '@components/ui/layout/AuthLayout';
 import SiteLayout from '@components/ui/layout/SiteLayout';
 
 const HomePage = lazy(() => import('@pages/home_page/HomePage'));
@@ -23,6 +24,9 @@ const SettingsLayout = lazy(() => import('@pages/settings_page/SettingsLayout'))
 const ColorThemePage = lazy(() => import('@pages/settings_page/ColorThemePage'));
 const FontThemePage = lazy(() => import('@pages/settings_page/FontThemePage'));
 const ChangePasswordPage = lazy(() => import('@pages/settings_page/ChangePasswordPage'));
+
+const LoginPage = lazy(() => import('@pages/login_page/LoginPage'));
+const SignUpPage = lazy(() => import('@pages/sign_up_page/SignUpPage'));
 
 const RootRouter = () => {
   const createRouteGroup = (
@@ -42,6 +46,11 @@ const RootRouter = () => {
           <Route path="font-theme" element={<FontThemePage />} />
           <Route path="change-password" element={<ChangePasswordPage />} />
         </Route>
+      </Route>
+
+      <Route element={<AuthLayout />}>
+        <Route path="login" element={<LoginPage />} />
+        <Route path="sign-up" element={<SignUpPage />} />
       </Route>
       <Route path="test" element={<Test />} />
     </>
