@@ -111,7 +111,7 @@ const InputContainer = styled.div`
 
   .input_wrapper {
     display: flex;
-    border: ${({ theme }) => `1px solid ${theme.colors.neutral300}`};
+    border: 1px solid var(--theme-border-color);
     border-radius: ${({ theme }) => theme.radius[8]};
     align-items: center;
     gap: ${({ theme }) => theme.spacing[100]};
@@ -149,7 +149,7 @@ const getInputTheme = (theme) => {
       return css`
         .input_wrapper {
           &:hover {
-            background: ${({ theme }) => theme.colors.neutral50};
+            background: var(--theme-input-hover-color);
           }
           &:active {
           outline: ${({ theme }) => `2px solid ${theme.colors.neutral500}`};

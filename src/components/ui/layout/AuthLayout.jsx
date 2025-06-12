@@ -6,7 +6,7 @@ import Logo from '@components/ui/header/Logo';
 
 function AuthLayout() {
   const outlet = useOutlet();
-  
+
   /* 전체 프로젝트에 우 클릭 막음 */
   useEffect(() => {
     const handleContextMenu = (event) => {
@@ -18,7 +18,7 @@ function AuthLayout() {
       window.removeEventListener('contextmenu', handleContextMenu);
     };
   }, []);
-  
+
   return (
     <OverLay>
       <div className="auth_wrapper">

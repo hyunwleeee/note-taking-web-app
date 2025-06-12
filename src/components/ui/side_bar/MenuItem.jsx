@@ -1,6 +1,6 @@
 import useNavigation from '@hooks/useNavigation';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import BaseIcon from '@components/base/BaseIcon';
 import FlexBox from '@components/style/FlexBox';
@@ -45,8 +45,18 @@ const Menu = styled.li`
   padding: ${({ theme }) => `${theme.spacing[0]} ${theme.spacing[150]}`};
   border-radius: ${({ theme }) => theme.radius[8]};
   text-transform: capitalize;
-  background: ${({ $active, theme }) => ($active ? theme.colors.neutral100 : 'inherit')};
+  background:  ${({ $active }) => ($active ? 'var(--theme-bg2-color)' : '')};
   cursor: pointer;
+  svg path {
+    ${({ $icon }) =>
+      $icon === 'home' || $icon === 'font'
+        ? css`
+            fill: var(--theme-text-color);
+          `
+        : css`
+            stroke: var(--theme-text-color);
+          `};
+  }
   svg path {
     fill: ${({ $active, $highlightIcon, $icon, theme }) =>
       $active && !$highlightIcon && $icon === 'home' ? theme.colors.blue500 : ''};
@@ -55,7 +65,7 @@ const Menu = styled.li`
   }
 
   &:hover {
-    background: ${({ theme }) => theme.colors.neutral100};
+    background: var(--theme-bg2-color);
   }
 
   .arrow_icon_wrapper {
@@ -66,7 +76,7 @@ const Menu = styled.li`
       width: 100%;
       height: 12px;
       path {
-        stroke: ${({ theme }) => theme.colors.neutral950};
+        stroke: var(--theme-text-color)};
       }
     }
   }

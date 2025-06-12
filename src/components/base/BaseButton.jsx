@@ -49,10 +49,10 @@ const disabledStyles = css`
 
 const StyledButton = styled.button`
   all: unset;
-  width: ${({ $size }) => $size==='full' ? '100%' : 'auto'};
-  text-align: ${({ $size }) => $size==='full' ? 'center' : 'auto'};
+  width: ${({ $size }) => ($size === 'full' ? '100%' : 'auto')};
+  text-align: ${({ $size }) => ($size === 'full' ? 'center' : 'auto')};
   height: 41px;
-  text-align: ${({ $size }) => $size==='full' ? 'center' : 'auto'};
+  text-align: ${({ $size }) => ($size === 'full' ? 'center' : 'auto')};
   ${({ theme }) => theme.typography.textPreset6};
   padding: ${({ theme }) => `${theme.spacing[0]} ${theme.spacing[200]}`};
   border-radius: ${({ theme }) => theme.radius[8]};
@@ -171,7 +171,7 @@ const StyledButton = styled.button`
 
     &:hover {
       color: var(--theme-button-hover-color);
-      background: var(--theme-header-bg-color);
+      background: var(--theme-bg2-color);
       svg path {
         stroke: var(--theme-button-hover-color);
       }
@@ -221,5 +221,5 @@ BaseButton.propTypes = {
   leftIcon: PropTypes.element,
   texture: PropTypes.string,
   rightIcon: PropTypes.element,
-  size: PropTypes.oneOf(['normal', 'full'])
+  size: PropTypes.oneOf(['normal', 'full']),
 };

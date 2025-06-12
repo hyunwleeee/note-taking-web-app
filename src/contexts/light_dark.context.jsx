@@ -18,17 +18,30 @@ function LightDarkProvider({ children }) {
   }, []);
 
   useEffect(() => {
+    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const htmlElement = window.document.documentElement;
     if (htmlElement) {
       if (theme === 'light') {
         htmlElement.classList.remove('dark');
         htmlElement.classList.add('light');
-      } else {
+      } else if (theme === 'dark') {
         htmlElement.classList.remove('light');
         htmlElement.classList.add('dark');
+      } else {
+        if (isDark) {
+          htmlElement.classList.remove('light');
+          htmlElement.classList.add('dark');
+        } else {
+          htmlElement.classList.remove('dark');
+          htmlElement.classList.add('light');
+        }
       }
     }
-    window.localStorage.setItem('theme', theme === 'light' ? 'light' : 'dark');
+    if (window.localStorage.getItem('theme') === 'system') {
+      window.localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    } else {
+      window.localStorage.setItem('theme', theme === 'light' ? 'light' : 'dark');
+    }
   }, [theme]);
 
   return (
@@ -58,6 +71,8 @@ function lightDarkReducer(theme, action) {
   switch (action.type) {
     case 'toggle':
       return theme === 'light' ? 'dark' : 'light';
+    case 'set-theme':
+      return action.theme;
     default:
       throw new Error('Unknown action: ' + action.type);
   }

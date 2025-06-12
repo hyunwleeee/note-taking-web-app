@@ -9,7 +9,6 @@ function Header() {
   const { deviceType } = useLayoutStore();
   const isLaptop = deviceType === 'laptop';
   const theme = useLightDark();
-  const dispatch = useLightDarkDispatch();
 
   if (isLaptop) return null;
 
@@ -17,7 +16,6 @@ function Header() {
     <header>
       <HeaderContainer $isDark={theme === 'dark'}>
         <Logo />
-        <button onClick={() => dispatch({ type: 'toggle' })}>toggle</button>
       </HeaderContainer>
     </header>
   );
@@ -26,7 +24,7 @@ function Header() {
 export default Header;
 
 const HeaderContainer = styled(FlexBox)`
-  background: var(--theme-header-bg-color);
+  background: var(--theme-bg2-color);
   height: 54px;
   padding: ${({ theme }) => `0 ${theme.spacing[200]}`};
 

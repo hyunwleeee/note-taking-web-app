@@ -1,9 +1,11 @@
+import useNavigation from '@hooks/useNavigation';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+
 import BaseButton from '@components/base/BaseButton';
 import BaseIcon from '@components/base/BaseIcon';
-import useNavigation from '@hooks/useNavigation';
 import BaseInput from '@components/base/BaseInput';
+
 // import useAuth from '@hooks/useAuth.js';
 
 function LoginPage() {
@@ -11,12 +13,12 @@ function LoginPage() {
   const { Navigate } = useNavigation();
   const refs = useRef({
     email: null,
-    password: null
+    password: null,
   });
 
   const [loginData, setLoginData] = useState({
     email: '',
-    password: ''
+    password: '',
   });
 
   const [isPwType, setIsPwType] = useState(false);
@@ -38,10 +40,8 @@ function LoginPage() {
     if (name === 'email') {
       e.preventDefault();
       refs.current.password.focus();
-    }
-    else
-      handleSubmit(e);
-  }
+    } else handleSubmit(e);
+  };
 
   /* 전체 프로젝트에 우 클릭 막음 */
   useEffect(() => {
@@ -57,70 +57,54 @@ function LoginPage() {
 
   useEffect(() => {
     refs.current.email.focus();
-  }, [])
+  }, []);
 
   return (
     <LoginContainer>
       <h2>Welcome to Note</h2>
       <p>Please log in to continue</p>
       <LoginFormContainer onSubmit={handleSubmit}>
+        <BaseInput
+          label="Email Address"
+          name="email"
+          placeholder="email@example.com"
+          value={loginData.email}
+          onChange={handleChange}
+          onEnterDown={handleEnterInput}
+          ref={(el) => (refs.current.email = el)}
+        />
+        <div className="password_wrapper">
+          <BaseButton theme="ghost" onClick={() => Navigate.move('/forgot-password-page')}>
+            Forgot
+          </BaseButton>
           <BaseInput
-            label="Email Address"
-            name='email'
-            placeholder="email@example.com"
-            value={loginData.email}
+            type={isPwType ? 'text' : 'password'}
+            label="Password"
+            name="password"
+            rightIcon={
+              <BaseButton theme="ghost" onClick={() => setIsPwType((prev) => !prev)}>
+                <BaseIcon type="show-password" color={isPwType ? '#0E121B' : '#717784'} />
+              </BaseButton>
+            }
+            value={loginData.password}
             onChange={handleChange}
             onEnterDown={handleEnterInput}
-            ref={el => refs.current.email = el}
-          />
-          <div className='password_wrapper'>
-            <BaseButton
-              theme='ghost' 
-              onClick={() => Navigate.move('/forgot-password-page')}
-            >
-              Forgot
-            </BaseButton>
-            <BaseInput
-              type={isPwType ? 'text' : 'password'}
-              label="Password"
-              name='password'
-              rightIcon={
-                <BaseButton
-                  theme='ghost'
-                  onClick={() => setIsPwType((prev) => !prev)}
-                >
-                <BaseIcon
-                  type="show-password"
-                  color={isPwType ? '#0E121B': '#717784'}
-                />
-                </BaseButton>
-              }
-              value={loginData.password}
-              onChange={handleChange}
-              onEnterDown={handleEnterInput}
-              ref={el => refs.current.password = el}
-            />
-          </div>
-          <BaseButton
-            type='submit'
-            texture="Login"
-            size='full'
-          />
-          <div className='oauth_wrapper'>
-            <p>Or log in with</p>
-          <BaseButton
-            theme='border'
-            leftIcon={<BaseIcon type="google" color={'#0E121B'} />}
-            texture="Google"
-            size='full'
+            ref={(el) => (refs.current.password = el)}
           />
         </div>
-        <div className='sign_up_wrapper'>
+        <BaseButton type="submit" texture="Login" size="full" />
+        <div className="oauth_wrapper">
+          <p>Or log in with</p>
+          <BaseButton
+            theme="border"
+            leftIcon={<BaseIcon type="google" color={'#0E121B'} />}
+            texture="Google"
+            size="full"
+          />
+        </div>
+        <div className="sign_up_wrapper">
           <span>No account yet? </span>
-          <BaseButton 
-            theme='ghost'
-            onClick={() => Navigate.move('/sign-up')}
-          >
+          <BaseButton theme="ghost" onClick={() => Navigate.move('/sign-up')}>
             Sign Up
           </BaseButton>
         </div>
@@ -154,17 +138,17 @@ const LoginFormContainer = styled.form`
       position: absolute;
       right: 0;
       text-decoration: underline;
-      text-decoration-color : ${({ theme }) => theme.colors.neutral600};
+      text-decoration-color: ${({ theme }) => theme.colors.neutral600};
       text-underline-offset: ${({ theme }) => theme.spacing[50]};
     }
   }
   .oauth_wrapper {
     text-align: center;
-    border-top: ${({theme}) => `1px solid ${theme.colors.neutral200}`};
+    border-top: ${({ theme }) => `1px solid ${theme.colors.neutral200}`};
     ${({ theme }) => theme.typography.textPreset6};
     color: ${({ theme }) => theme.colors.neutral600};
     > p {
-        padding: ${({ theme }) => `${theme.spacing[300]} 0 ${theme.spacing[200]}`};
+      padding: ${({ theme }) => `${theme.spacing[300]} 0 ${theme.spacing[200]}`};
     }
   }
   .sign_up_wrapper {

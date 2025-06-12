@@ -51,7 +51,7 @@ export default Navigation;
 const NavigationContainer = styled.div`
   width: 272px;
   padding: ${({ theme }) => `${theme.spacing[150]} ${theme.spacing[200]}`};
-  border-right: ${({ theme }) => `1px solid ${theme.colors.neutral200}`};
+  border-right: 1px solid var(--theme-border-color);
 
   .logo_wrapper {
     height: 52px;
@@ -69,7 +69,7 @@ const NavigationContainer = styled.div`
     width: 100%;
     gap: 4px;
     padding-bottom: ${({ theme }) => theme.spacing[100]};
-    border-bottom: ${({ theme }) => `1px solid ${theme.colors.neutral200}`};
+    border-bottom: 1px solid var(--theme-border-color);
     margin-bottom: ${({ theme }) => theme.spacing[100]};
   }
 

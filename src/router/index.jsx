@@ -28,7 +28,9 @@ const ChangePasswordPage = lazy(() => import('@pages/settings_page/ChangePasswor
 const LoginPage = lazy(() => import('@pages/login_page/LoginPage'));
 const SignUpPage = lazy(() => import('@pages/sign_up_page/SignUpPage'));
 const ForgotPasswordPage = lazy(() => import('@pages/forgot_password_page/ForgotPasswordPage'));
-const ResetYourPasswordPage = lazy(() => import('@pages/reset_your_password_page/ResetYourPasswordPage'));
+const ResetYourPasswordPage = lazy(
+  () => import('@pages/reset_your_password_page/ResetYourPasswordPage')
+);
 
 const RootRouter = () => {
   const createRouteGroup = (

@@ -66,6 +66,8 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'inter', 'inter italic', 'noto-serif', 'noto-serif italic', 'source-code-pro', 'source-code-pro italic', monospace;
     font-size: 16px;
     overflow-x: hidden;
+    background-color: var(--theme-bg-color);
+    color: var(--theme-text-color);
   }
 
   button {

@@ -52,9 +52,8 @@ function MenuBar() {
 export default MenuBar;
 
 const MenuBarContainer = styled.nav`
-  box-shadow: ${({ theme }) => theme.shadow};
+  box-shadow: 0px -5px 6px 0px var(--theme-shadow-color);
   background: var(--theme-bg-color);
-  color: var(--theme-text-color);
 
   ul,
   li {
@@ -80,21 +79,22 @@ const MenuBarContainer = styled.nav`
       flex: 0 1 100%;
       height: 32px;
       text-transform: capitalize;
+      color: var(--theme-menu-text-color);
       svg path {
-        stroke: var(--theme-text-color);
+        stroke: var(--theme-menu-text-color);
       }
       &.home,
       &.search,
       &.settings {
         svg path {
           stroke: transparent;
-          fill: var(--theme-text-color);
+          fill: var(--theme-menu-text-color);
         }
       }
 
       &.active,
       &:hover {
-        background: ${({ theme }) => theme.colors.blue50};
+        background: var(--theme-menu-bg-color);
         color: ${({ theme }) => theme.colors.blue500};
         svg path {
           stroke: ${({ theme }) => theme.colors.blue500};
