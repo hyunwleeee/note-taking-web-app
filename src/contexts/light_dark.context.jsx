@@ -8,37 +8,41 @@ function LightDarkProvider({ children }) {
   const [theme, dispatch] = useReducer(lightDarkReducer, 'light');
 
   useEffect(() => {
-    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const localTheme = window.localStorage.getItem('theme');
+
     if (localTheme === 'dark') {
       dispatch({ type: 'toggle' });
-    } else if (!localTheme && isDark) {
+    } else if (!localTheme && prefersDark) {
       dispatch({ type: 'toggle' });
     }
   }, []);
 
   useEffect(() => {
-    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const htmlElement = window.document.documentElement;
-    if (htmlElement) {
-      if (theme === 'light') {
-        htmlElement.classList.remove('dark');
-        htmlElement.classList.add('light');
-      } else if (theme === 'dark') {
-        htmlElement.classList.remove('light');
-        htmlElement.classList.add('dark');
+
+    const addThemeClass = (theme) => {
+      htmlElement.classList.remove('light', 'dark');
+      htmlElement.classList.add(theme);
+    }
+    
+    if (theme === 'light') {
+      addThemeClass('light')
+    } else if (theme === 'dark') {
+      addThemeClass('dark')
+    }
+      
+    if (theme === 'system'){
+      if (prefersDark) {
+        addThemeClass('dark');
       } else {
-        if (isDark) {
-          htmlElement.classList.remove('light');
-          htmlElement.classList.add('dark');
-        } else {
-          htmlElement.classList.remove('dark');
-          htmlElement.classList.add('light');
-        }
+        addThemeClass('light');
       }
     }
+
     if (window.localStorage.getItem('theme') === 'system') {
-      window.localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      window.localStorage.setItem('theme', prefersDark ? 'dark' : 'light');
     } else {
       window.localStorage.setItem('theme', theme === 'light' ? 'light' : 'dark');
     }
