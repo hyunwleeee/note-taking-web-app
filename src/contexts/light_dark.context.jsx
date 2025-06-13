@@ -25,15 +25,15 @@ function LightDarkProvider({ children }) {
     const addThemeClass = (theme) => {
       htmlElement.classList.remove('light', 'dark');
       htmlElement.classList.add(theme);
-    }
-    
+    };
+
     if (theme === 'light') {
-      addThemeClass('light')
+      addThemeClass('light');
     } else if (theme === 'dark') {
-      addThemeClass('dark')
+      addThemeClass('dark');
     }
-      
-    if (theme === 'system'){
+
+    if (theme === 'system') {
       if (prefersDark) {
         addThemeClass('dark');
       } else {

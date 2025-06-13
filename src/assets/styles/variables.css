@@ -1,3 +1,19 @@
+:root {
+  --font-family: ui-sans-serif, system-ui;
+}
+
+.sans-serif {
+  --font-family: 'inter', 'inter italic';
+}
+
+.serif {
+  --font-family: 'noto-serif', 'noto-serif italic';
+}
+
+.monospace {
+  --font-family: 'source-code-pro', 'source-code-pro italic';
+}
+
 .light {
   --theme-bg-color: #ffffff; /* neutral0 */
   --theme-bg2-color: #f3f5f8; /* neutral100 */
