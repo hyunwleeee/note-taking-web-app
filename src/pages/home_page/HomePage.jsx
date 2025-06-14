@@ -1,5 +1,6 @@
+import data from '/data.json';
 function HomePage() {
-  return <div>home page</div>;
+  return <div>{JSON.stringify(data)}</div>;
 }
 
 export default HomePage;
