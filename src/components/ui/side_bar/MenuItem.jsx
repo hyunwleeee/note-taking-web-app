@@ -3,36 +3,52 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
 import BaseIcon from '@components/base/BaseIcon';
+import { useLocation } from 'react-router-dom';
 import FlexBox from '@components/style/FlexBox';
+import dayjs from 'dayjs';
 
-function MenuItem({ path, iconType = 'home', name }) {
-  const isActive = () => location.pathname === path;
-
-  /* Setting Menu icon highlighting 없음 */
-  const isHighlightIcon = () => location.pathname.includes('settings');
-
+function MenuItem({ 
+  type = 'normal',
+  path,
+  iconType, 
+  name,
+  tags,
+  isHighlightIcon = false,
+  lastEdited,
+}) {
+  const location = useLocation();
   const { Navigate } = useNavigation();
+
+  const pathname = location.pathname;
 
   const handleClick = () => {
     Navigate.move(path);
   };
+  const getIsActive = () => {
+    if (path === '/' && pathname.includes('notes'))
+      return true;
+    return pathname === path;
+  }
 
   return (
     <Menu
+      $note={type === 'note'}
       $icon={iconType}
-      $active={isActive()}
-      $highlightIcon={isHighlightIcon()}
+      $active={getIsActive()}
+      $highlightIcon={isHighlightIcon}
       onClick={handleClick}
     >
       <FlexBox a="center" style={{ height: '100%' }}>
         <FlexBox j="start" g="8px">
-          <BaseIcon type={iconType} />
+          {iconType && <BaseIcon type={iconType} />}
           {name}
         </FlexBox>
-        <div className="arrow_icon_wrapper">
+        {type === 'normal' && <div className="arrow_icon_wrapper">
           <BaseIcon type="arrow-left" />
-        </div>
+        </div>}
       </FlexBox>
+      {tags && <ul className='tags'>{tags.map((item, idx) => (<li key={idx}>{item}</li>))}</ul>}
+      {lastEdited && <div className='date'>{dayjs(lastEdited).format('DD MMM YYYY')}</div>}
     </Menu>
   );
 }
@@ -40,13 +56,14 @@ function MenuItem({ path, iconType = 'home', name }) {
 export default MenuItem;
 
 const Menu = styled.li`
-  ${({ theme }) => theme.typography.textPreset4};
-  height: 40px;
-  padding: ${({ theme }) => `${theme.spacing[0]} ${theme.spacing[150]}`};
+  ${({ $note, theme }) => $note ? theme.typography.textPreset3 : theme.typography.textPreset4};
+  height: ${({ $note }) => $note ? 'auto' : '40px'};
+  padding: ${({ $note, theme }) => $note ? theme.spacing[100] : `${theme.spacing[0]} ${theme.spacing[150]}`};
   border-radius: ${({ theme }) => theme.radius[8]};
   text-transform: capitalize;
   background:  ${({ $active }) => ($active ? 'var(--theme-bg2-color)' : '')};
   cursor: pointer;
+  border-bottom: ${({$note}) => $note && `1px solid var(--theme-divider-color)`};
   svg path {
     ${({ $icon }) =>
       $icon === 'home' || $icon === 'font'
@@ -59,9 +76,9 @@ const Menu = styled.li`
   }
   svg path {
     fill: ${({ $active, $highlightIcon, $icon, theme }) =>
-      $active && !$highlightIcon && $icon === 'home' ? theme.colors.blue500 : ''};
+      $active && $highlightIcon && $icon === 'home' ? theme.colors.blue500 : ''};
     stroke: ${({ $active, $highlightIcon, $icon, theme }) =>
-      $active && !$highlightIcon && $icon !== 'home' ? theme.colors.blue500 : ''};
+      $active && $highlightIcon && $icon !== 'home' ? theme.colors.blue500 : ''};
   }
 
   &:hover {
@@ -80,10 +97,32 @@ const Menu = styled.li`
       }
     }
   }
+
+  .tags {
+    display: flex;
+    margin-top: ${({theme}) => theme.spacing[150]};
+    gap: ${({theme}) => theme.spacing[50]};
+    > li {
+      padding: ${({ theme }) => `${theme.spacing[25]} ${theme.spacing[75]}`};
+      background: ${({theme}) => theme.colors.neutral200};
+      border-radius: ${({ theme }) => theme.radius[4]};
+      ${({theme}) => theme.typography.textPreset6};
+    }
+  }
+
+  .date {
+    margin-top: ${({theme}) => theme.spacing[150]};
+    ${({theme}) => theme.typography.textPreset6};
+    color: ${({theme}) => theme.colors.neutral700};
+  }
 `;
 
 MenuItem.propTypes = {
+  type: PropTypes.oneOf(['normal', 'note']),
   path: PropTypes.string,
   iconType: PropTypes.oneOf(['home', 'archive', 'tags']),
   name: PropTypes.string,
+  tags: PropTypes.array,
+  isHighlightIcon: PropTypes.bool,
+  lastEdited: PropTypes.string
 };

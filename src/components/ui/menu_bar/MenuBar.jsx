@@ -69,6 +69,8 @@ const MenuBarContainer = styled.nav`
     justify-content: space-between;
     height: 100%;
     > li {
+      padding: 0;
+      margin: 0;
       cursor: pointer;
       display: flex;
       justify-content: center;

@@ -1,5 +1,6 @@
 import useNavigation from '@hooks/useNavigation';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import BaseButton from '@components/base/BaseButton';
@@ -10,11 +11,28 @@ import FlexBox from '@components/style/FlexBox';
 function PageHeader() {
   const [searchValue, setSearchValue] = useState('');
   const { Navigate } = useNavigation();
+  const location = useLocation();
 
-  const header = 'Settings';
+  const header = location.pathname;
+
+  const renderHeader = () => {
+    switch (true) {
+      case header === '/' || header.includes('/notes'):
+        return 'All Notes';
+      case header.includes('archived'):
+        return 'Archived Notes';
+      case header.includes('tags'):
+        return <><span>'Notes Tagged: </span>location.pathname.split('/')[2]</>;
+      case header.includes('settings'):
+        return 'Settings';
+      default:
+        return '';
+    }
+  };
+
   return (
     <PageHeaderContainer>
-      <h3>{header}</h3>
+      <h3>{renderHeader()}</h3>
       <FlexBox g="16px">
         <BaseInput
           leftIcon={<BaseIcon type="search" color={'#717784'} />}

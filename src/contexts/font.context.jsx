@@ -28,9 +28,7 @@ function FontProvider({ children }) {
 
   return (
     <FontContext.Provider value={font}>
-      <FontDispatchContext.Provider value={dispatch}>
-        {children}
-      </FontDispatchContext.Provider>
+      <FontDispatchContext.Provider value={dispatch}>{children}</FontDispatchContext.Provider>
     </FontContext.Provider>
   );
 }

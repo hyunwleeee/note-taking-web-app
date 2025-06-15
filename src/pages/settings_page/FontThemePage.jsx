@@ -5,41 +5,41 @@ import BaseRadioGroup from '@components/base/BaseRadioGroup';
 
 function FontThemePage() {
   const font = useFont();
-    const diapatch = useFontDispatch();
+  const diapatch = useFontDispatch();
 
-    return (
-      <PageWrapper>
-        <h3>Font Theme</h3>
-        <p>Choose your font theme:</p>
-        <BaseRadioGroup
-          name="font"
-          list={[
-            {
-              label: 'Sans-serif',
-              sub: 'Clean and modren, easy to read.',
-              value: 'sans-serif',
-              iconType: 'font-sans-serif',
-            },
-            {
-              label: 'Serif',
-              sub: 'Classic and elegant for a timeless feel.',
-              value: 'serif',
-              iconType: 'font-serif',
-            },
-            {
-              label: 'Monospace',
-              sub: "Code-like, great for a technical vibe.",
-              value: 'monospace',
-              iconType: 'font-monospace',
-            },
-          ]}
-          selected={font}
-          onChange={(_, value) => {
-            diapatch({ type: 'set-font', font: value });
-          }}
-        />
-      </PageWrapper>
-    );
+  return (
+    <PageWrapper>
+      <h3>Font Theme</h3>
+      <p>Choose your font theme:</p>
+      <BaseRadioGroup
+        name="font"
+        list={[
+          {
+            label: 'Sans-serif',
+            sub: 'Clean and modren, easy to read.',
+            value: 'sans-serif',
+            iconType: 'font-sans-serif',
+          },
+          {
+            label: 'Serif',
+            sub: 'Classic and elegant for a timeless feel.',
+            value: 'serif',
+            iconType: 'font-serif',
+          },
+          {
+            label: 'Monospace',
+            sub: 'Code-like, great for a technical vibe.',
+            value: 'monospace',
+            iconType: 'font-monospace',
+          },
+        ]}
+        selected={font}
+        onChange={(_, value) => {
+          diapatch({ type: 'set-font', font: value });
+        }}
+      />
+    </PageWrapper>
+  );
 }
 
 const PageWrapper = styled.div`
@@ -53,6 +53,5 @@ const PageWrapper = styled.div`
     margin-bottom: ${({ theme }) => theme.spacing[300]}};
   }
 `;
-
 
 export default FontThemePage;

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import FlexBox from '@components/style/FlexBox';
 import PageHeader from '@components/ui/page/PageHeader';
+import Menulist from '@components/ui/side_bar/MenuList';
 import Navigation from '@components/ui/side_bar/Navigation';
 
 function PageLayout() {
@@ -17,6 +18,7 @@ function PageLayout() {
       <FlexBox j="start" a="stretch" d="column" style={{ width: '100%', height: '100%' }}>
         <PageHeader />
         <FlexBox j="start" a="stretch" d="row" style={{ width: '100%', height: '100%' }}>
+          <Menulist />
           {outlet}
         </FlexBox>
       </FlexBox>
@@ -28,6 +30,7 @@ export default PageLayout;
 
 const PageConatiner = styled.div`
   height: calc(100 * var(--vh, 1vh) - 54px - 56px);
+  overflow: hidden;
 
   ${({ theme }) => theme.media.tablet`
     height: calc(100 * var(--vh, 1vh) - 74px - 74px);

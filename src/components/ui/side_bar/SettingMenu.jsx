@@ -1,26 +1,23 @@
+import { LOGOUT_MENU_DATA, SETTING_MENU_LIST } from '@constants/MenuConstants';
 import styled from 'styled-components';
 
 import MenuItem from './MenuItem';
 
 function SettingMenu() {
-  const settingList = [
-    { name: 'color theme', path: '/settings/color-theme', icon: 'sun' },
-    { name: 'font theme', path: '/settings/font-theme', icon: 'font' },
-    { name: 'change password', path: '/settings/change-password', icon: 'lock' },
-  ];
-
-  const logoutData = { name: 'logout', path: '/logout', icon: 'logout' };
-
   return (
     <SettingContainer>
       <nav>
         <ul className="top_list">
-          {settingList.map((item, idx) => (
-            <MenuItem key={idx} iconType={item.icon} name={item.name} path={item.path} />
+          {SETTING_MENU_LIST.map((menu, idx) => (
+            <MenuItem key={idx} iconType={menu.icon} name={menu.name} path={menu.path} />
           ))}
         </ul>
         <ul>
-          <MenuItem iconType={logoutData.icon} name={logoutData.name} path={logoutData.path} />
+          <MenuItem
+            iconType={LOGOUT_MENU_DATA.icon}
+            name={LOGOUT_MENU_DATA.name}
+            path={LOGOUT_MENU_DATA.path}
+          />
         </ul>
       </nav>
     </SettingContainer>
@@ -30,9 +27,9 @@ function SettingMenu() {
 export default SettingMenu;
 
 const SettingContainer = styled.div`
-  width: 272px;
+  min-width: 258px;
   height: 100%;
-  padding: ${({ theme }) => `${theme.spacing[150]} ${theme.spacing[200]}`};
+  padding: ${({ theme }) => `${theme.spacing[250]} ${theme.spacing[200]} 0 ${theme.spacing[400]}`};
   border-right: 1px solid var(--theme-divider-color);
 
   .logo_wrapper {
