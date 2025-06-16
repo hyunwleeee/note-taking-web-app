@@ -3,15 +3,15 @@
 }
 
 .sans-serif {
-  --font-family: 'inter', 'inter italic';
+  --font-family: inter;
 }
 
 .serif {
-  --font-family: 'noto-serif', 'noto-serif italic';
+  --font-family: noto-serif;
 }
 
 .monospace {
-  --font-family: 'source-code-pro', 'source-code-pro italic';
+  --font-family: source-code-pro;
 }
 
 .light {
