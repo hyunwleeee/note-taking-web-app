@@ -41,7 +41,7 @@ export default PageController;
 
 const PageControllerContainer = styled(FlexBox)`
   height: 50px;
-  border-bottom: ${({ theme }) => `1px solid var(--theme-divider2-color)`};
+  border-bottom: 1px solid var(--theme-divider2-color);
   background: var(--theme-bg-color);
   color: var(--theme-text-color);
 `;

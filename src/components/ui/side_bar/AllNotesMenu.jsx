@@ -46,35 +46,56 @@ function AllNotesMenu() {
 export default AllNotesMenu;
 
 const AllNotesContainer = styled.div`
-  min-width: 290px;
-  height: calc(100% - 80px);
+  width: 100%;
+  height: calc(100% - 56px);
   overflow-y: auto;
-  
   -ms-overflow-style: none;
   scrollbar-width: none;
   ::-webkit-scrollbar {
     display: none;
   }
 
-  border-right: 1px solid var(--theme-divider2-color);
-
   .top_list {
-    margin: ${({ theme }) => `0 ${theme.spacing[200]} 0 ${theme.spacing[400]}`};
     display: flex;
     flex-flow: column nowrap;
     gap: 4px;
     padding-bottom: ${({ theme }) => theme.spacing[100]};
-    margin-bottom: ${({ theme }) => theme.spacing[100]};
+    margin: ${({ theme }) => `0 ${theme.spacing[200]}`};
   }
 
   .button_wrapper {
-    position: sticky;
-    top: 0;
-    background: var(--theme-shdaow-color);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    padding: ${({ theme }) =>
-      `${theme.spacing[250]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
+    display: none;
+  }
+
+  ${({ theme }) => theme.media.tablet`
+    height: calc(100% - 74px);
+    .top_list {
+      margin: ${({ theme }) => `0 ${theme.spacing[300]}`};
     }
+  `}
+
+  ${({ theme }) => theme.media.laptop`
+    width: 290px;
+    height: calc(100% - 80px);
+    border-right: 1px solid var(--theme-divider2-color);
+    .button_wrapper {
+      display: inline-block;
+      width: 100%;
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: ${({ theme }) =>
+        `${theme.spacing[250]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
+    }
+    .top_list {
+      margin: ${({ theme }) => `0 ${theme.spacing[200]} 0 ${theme.spacing[400]}`};
+      display: flex;
+      flex-flow: column nowrap;
+      gap: 4px;
+      padding-bottom: ${({ theme }) => theme.spacing[100]};
+      margin-bottom: ${({ theme }) => theme.spacing[100]};
+    }
+  `}
 }
 `;

@@ -1,4 +1,5 @@
 import useNavigation from '@hooks/useNavigation';
+import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -8,7 +9,7 @@ import FlexBox from '@components/style/FlexBox';
 
 import PageHeaderSearch from './PageHeaderSearch';
 
-function PageHeader() {
+function PageHeader({ isLaptop }) {
   const { Navigate } = useNavigation();
   const location = useLocation();
 
@@ -36,30 +37,42 @@ function PageHeader() {
   return (
     <PageHeaderContainer>
       <h3>{renderHeader()}</h3>
-      <FlexBox g="16px">
-        <PageHeaderSearch />
-        <BaseButton
-          theme="ghost"
-          className="svg_fill"
-          onClick={() => {
-            Navigate.move('/settings');
-          }}
-        >
-          <BaseIcon type="settings" color="#525866" />
-        </BaseButton>
-      </FlexBox>
+      {isLaptop && (
+        <FlexBox g="16px">
+          <PageHeaderSearch />
+          <BaseButton
+            theme="ghost"
+            className="svg_fill"
+            onClick={() => {
+              Navigate.move('/settings');
+            }}
+          >
+            <BaseIcon type="settings" color="#525866" />
+          </BaseButton>
+        </FlexBox>
+      )}
     </PageHeaderContainer>
   );
 }
 
 const PageHeaderContainer = styled.div`
-  padding: ${({ theme }) => `${theme.spacing[200]} ${theme.spacing[400]}`};
+  padding: ${({ theme }) => theme.spacing[200]};
   display: flex;
   justify-content: space-between;
   align-items: center;
   ${({ theme }) => theme.typography.textPreset1};
-  border-bottom: 1px solid var(--theme-divider2-color);
-  background-color: var(--theme-bg-color);
+  ${({ theme }) => theme.media.tablet`
+    padding: ${({ theme }) => `${theme.spacing[300]} ${theme.spacing[400]} ${theme.spacing[200]}`};
+  `}
+
+  ${({ theme }) => theme.media.laptop`
+    padding: ${({ theme }) => `${theme.spacing[200]} ${theme.spacing[400]}`};
+    border-bottom: 1px solid var(--theme-divider2-color);
+  `}
 `;
 
 export default PageHeader;
+
+PageHeader.propTypes = {
+  isLaptop: PropTypes.bool,
+};
