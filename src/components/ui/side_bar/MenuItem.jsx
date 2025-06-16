@@ -66,11 +66,11 @@ const Menu = styled.li`
   ${({ $note, theme }) => ($note ? theme.typography.textPreset3 : theme.typography.textPreset4)};
   height: ${({ $note }) => ($note ? 'auto' : '40px')};
   padding: ${({ $note, theme }) => ($note ? theme.spacing[100] : `${theme.spacing[0]} ${theme.spacing[150]}`)};
-  border-radius: ${({ theme }) => theme.radius[8]};
   text-transform: capitalize;
   background:  ${({ $active }) => ($active ? 'var(--theme-bg2-color)' : '')};
+  border-radius: ${({ $active, theme }) => ($active ? theme.radius[8] : 0)};
   cursor: pointer;
-  border-bottom: ${({ $note }) => $note && `1px solid var(--theme-divider2-color)`};
+  border-bottom: ${({ $active, $note }) => !$active && $note && `1px solid var(--theme-divider2-color)`};
   svg path {
     ${({ $icon }) =>
       $icon === 'home' || $icon === 'font'
@@ -90,6 +90,8 @@ const Menu = styled.li`
 
   &:hover {
     background: var(--theme-bg2-color);
+    border-radius: ${({ theme }) => theme.radius[8]};
+    border-bottom: none;
   }
 
   .arrow_icon_wrapper {
@@ -111,7 +113,7 @@ const Menu = styled.li`
     gap: ${({ theme }) => theme.spacing[50]};
     > li {
       padding: ${({ theme }) => `${theme.spacing[25]} ${theme.spacing[75]}`};
-      background: ${({ theme }) => theme.colors.neutral200};
+      background: var(--theme-bg3-color);
       border-radius: ${({ theme }) => theme.radius[4]};
       ${({ theme }) => theme.typography.textPreset6};
     }
@@ -120,7 +122,7 @@ const Menu = styled.li`
   .date {
     margin-top: ${({ theme }) => theme.spacing[150]};
     ${({ theme }) => theme.typography.textPreset6};
-    color: ${({ theme }) => theme.colors.neutral700};
+    color: var(--theme-text3-color);
   }
 `;
 

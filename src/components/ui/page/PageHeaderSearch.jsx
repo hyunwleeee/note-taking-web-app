@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import BaseInput from '@components/base/BaseInput';
+
 import BaseIcon from '@components/base/BaseIcon';
+import BaseInput from '@components/base/BaseInput';
 
 function PageHeaderSearch() {
   const [searchValue, setSearchValue] = useState('');
@@ -14,18 +15,14 @@ function PageHeaderSearch() {
     };
 
     document.addEventListener('mousedown', blurFocus);
-    
+
     return () => {
       document.removeEventListener('mousedown', blurFocus);
     };
   }, []);
 
   return (
-    <HeaderSearchWrapper
-      ref={wrapperRef}
-      onClick={() => setIsFocused(true)}
-      $open={isFocused}
-    >
+    <HeaderSearchWrapper ref={wrapperRef} onClick={() => setIsFocused(true)} $open={isFocused}>
       <BaseInput
         leftIcon={<BaseIcon type="search" color={'#717784'} />}
         placeholder="Search by title, content, or tags..."
@@ -40,7 +37,7 @@ function PageHeaderSearch() {
 }
 
 const HeaderSearchWrapper = styled.div`
-  width: ${({$open}) => $open ? '400px' : '300px'};
+  width: ${({ $open }) => ($open ? '400px' : '300px')};
   transition: 0.2s ease-in;
 `;
 

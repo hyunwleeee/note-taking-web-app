@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import BaseButton from '@components/base/BaseButton';
 import BaseIcon from '@components/base/BaseIcon';
 import FlexBox from '@components/style/FlexBox';
+
 import PageHeaderSearch from './PageHeaderSearch';
 
 function PageHeader() {
@@ -36,7 +37,7 @@ function PageHeader() {
     <PageHeaderContainer>
       <h3>{renderHeader()}</h3>
       <FlexBox g="16px">
-        <PageHeaderSearch/>
+        <PageHeaderSearch />
         <BaseButton
           theme="ghost"
           className="svg_fill"

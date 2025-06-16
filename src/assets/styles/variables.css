@@ -17,8 +17,10 @@
 .light {
   --theme-bg-color: #ffffff; /* neutral0 */
   --theme-bg2-color: #f3f5f8; /* neutral100 */
+  --theme-bg3-color: #e0e4ea; /* neutral200 */
   --theme-text-color: #0e121b; /* netral950 */
   --theme-text2-color: #525866; /* neutral600 */
+  --theme-text3-color: #232530; /* neutral700 */
   --theme-divider-color: #f3f5f8; /* neutral100 */
   --theme-divider2-color: #e0e4ea; /* neutral200 */
   --theme-button-hover-color: #232530; /* neutral700 */
@@ -32,10 +34,12 @@
 .dark {
   --theme-bg-color: #0e121b; /* netral950 */
   --theme-bg2-color: #232530; /* netral800 */
+  --theme-bg3-color: #2b303b; /* neutral700 */
   --theme-text-color: #ffffff; /* neutral0 */
   --theme-text2-color: #cacfd8; /* netral300 */
+  --theme-text3-color: #e0e4ea; /* neutral200 */
   --theme-divider-color: #232530; /* netural800 */
-  --theme-divider2-color: #f3f5f8; /* neutral200 */
+  --theme-divider2-color: #232530; /* neutral800 */
   --theme-button-hover-color: #cacfd8; /* netral300 */
   --theme-input-hover-color: #232530; /* neutral800 */
   --theme-border-color: #2b303b; /* netral700 */
