@@ -30,7 +30,7 @@ const SettingContainer = styled.div`
   min-width: 258px;
   height: 100%;
   padding: ${({ theme }) => `${theme.spacing[250]} ${theme.spacing[200]} 0 ${theme.spacing[400]}`};
-  border-right: 1px solid var(--theme-divider-color);
+  border-right: 1px solid var(--theme-divider2-color);
 
   .logo_wrapper {
     height: 52px;
@@ -48,7 +48,7 @@ const SettingContainer = styled.div`
     width: 100%;
     gap: 4px;
     padding-bottom: ${({ theme }) => theme.spacing[100]};
-    border-bottom: 1px solid var(--theme-divider-color);
+    border-bottom: 1px solid var(--theme-divider2-color);
     margin-bottom: ${({ theme }) => theme.spacing[100]};
   }
 `;

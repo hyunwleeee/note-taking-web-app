@@ -1,4 +1,4 @@
-import { useLightDark, useLightDarkDispatch } from '@contexts/light_dark.context';
+import { useLightDark } from '@contexts/light_dark.context';
 import { useLayoutStore } from '@store/layoutStore';
 import styled from 'styled-components';
 

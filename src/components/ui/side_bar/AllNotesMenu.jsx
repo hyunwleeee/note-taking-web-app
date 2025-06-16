@@ -22,14 +22,14 @@ function AllNotesMenu() {
       <nav>
         <ul className="top_list">
           {settingList.map((item, idx) => (
-            <MenuItem 
+            <MenuItem
               key={idx}
-              type='note' 
-              iconType={item.icon} 
-              name={item.name} 
+              type="note"
+              iconType={item.icon}
+              name={item.name}
               path={item.path}
-              tags={item.tags} 
-              lastEdited={item.lastEdited} 
+              tags={item.tags}
+              lastEdited={item.lastEdited}
             />
           ))}
         </ul>
@@ -51,7 +51,7 @@ const AllNotesContainer = styled.div`
   }
 
   padding: ${({ theme }) => `${theme.spacing[250]} ${theme.spacing[200]} 0 ${theme.spacing[400]}`};
-  border-right: 1px solid var(--theme-divider-color);
+  border-right: 1px solid var(--theme-divider2-color);
 
   .logo_wrapper {
     height: 52px;

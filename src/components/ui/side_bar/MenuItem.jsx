@@ -1,16 +1,16 @@
 import useNavigation from '@hooks/useNavigation';
+import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import BaseIcon from '@components/base/BaseIcon';
-import { useLocation } from 'react-router-dom';
 import FlexBox from '@components/style/FlexBox';
-import dayjs from 'dayjs';
 
-function MenuItem({ 
+function MenuItem({
   type = 'normal',
   path,
-  iconType, 
+  iconType,
   name,
   tags,
   isHighlightIcon = false,
@@ -25,10 +25,9 @@ function MenuItem({
     Navigate.move(path);
   };
   const getIsActive = () => {
-    if (path === '/' && pathname.includes('notes'))
-      return true;
+    if (path === '/' && pathname.includes('notes')) return true;
     return pathname === path;
-  }
+  };
 
   return (
     <Menu
@@ -43,12 +42,20 @@ function MenuItem({
           {iconType && <BaseIcon type={iconType} />}
           {name}
         </FlexBox>
-        {type === 'normal' && <div className="arrow_icon_wrapper">
-          <BaseIcon type="arrow-left" />
-        </div>}
+        {type === 'normal' && (
+          <div className="arrow_icon_wrapper">
+            <BaseIcon type="arrow-left" />
+          </div>
+        )}
       </FlexBox>
-      {tags && <ul className='tags'>{tags.map((item, idx) => (<li key={idx}>{item}</li>))}</ul>}
-      {lastEdited && <div className='date'>{dayjs(lastEdited).format('DD MMM YYYY')}</div>}
+      {tags && (
+        <ul className="tags">
+          {tags.map((item, idx) => (
+            <li key={idx}>{item}</li>
+          ))}
+        </ul>
+      )}
+      {lastEdited && <div className="date">{dayjs(lastEdited).format('DD MMM YYYY')}</div>}
     </Menu>
   );
 }
@@ -56,14 +63,14 @@ function MenuItem({
 export default MenuItem;
 
 const Menu = styled.li`
-  ${({ $note, theme }) => $note ? theme.typography.textPreset3 : theme.typography.textPreset4};
-  height: ${({ $note }) => $note ? 'auto' : '40px'};
-  padding: ${({ $note, theme }) => $note ? theme.spacing[100] : `${theme.spacing[0]} ${theme.spacing[150]}`};
+  ${({ $note, theme }) => ($note ? theme.typography.textPreset3 : theme.typography.textPreset4)};
+  height: ${({ $note }) => ($note ? 'auto' : '40px')};
+  padding: ${({ $note, theme }) => ($note ? theme.spacing[100] : `${theme.spacing[0]} ${theme.spacing[150]}`)};
   border-radius: ${({ theme }) => theme.radius[8]};
   text-transform: capitalize;
   background:  ${({ $active }) => ($active ? 'var(--theme-bg2-color)' : '')};
   cursor: pointer;
-  border-bottom: ${({$note}) => $note && `1px solid var(--theme-divider-color)`};
+  border-bottom: ${({ $note }) => $note && `1px solid var(--theme-divider2-color)`};
   svg path {
     ${({ $icon }) =>
       $icon === 'home' || $icon === 'font'
@@ -100,20 +107,20 @@ const Menu = styled.li`
 
   .tags {
     display: flex;
-    margin-top: ${({theme}) => theme.spacing[150]};
-    gap: ${({theme}) => theme.spacing[50]};
+    margin-top: ${({ theme }) => theme.spacing[150]};
+    gap: ${({ theme }) => theme.spacing[50]};
     > li {
       padding: ${({ theme }) => `${theme.spacing[25]} ${theme.spacing[75]}`};
-      background: ${({theme}) => theme.colors.neutral200};
+      background: ${({ theme }) => theme.colors.neutral200};
       border-radius: ${({ theme }) => theme.radius[4]};
-      ${({theme}) => theme.typography.textPreset6};
+      ${({ theme }) => theme.typography.textPreset6};
     }
   }
 
   .date {
-    margin-top: ${({theme}) => theme.spacing[150]};
-    ${({theme}) => theme.typography.textPreset6};
-    color: ${({theme}) => theme.colors.neutral700};
+    margin-top: ${({ theme }) => theme.spacing[150]};
+    ${({ theme }) => theme.typography.textPreset6};
+    color: ${({ theme }) => theme.colors.neutral700};
   }
 `;
 
@@ -124,5 +131,5 @@ MenuItem.propTypes = {
   name: PropTypes.string,
   tags: PropTypes.array,
   isHighlightIcon: PropTypes.bool,
-  lastEdited: PropTypes.string
+  lastEdited: PropTypes.string,
 };

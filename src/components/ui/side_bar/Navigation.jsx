@@ -1,10 +1,10 @@
+import { NAV_LIST, TAG_MENU_LIST } from '@constants/MenuConstants';
 import styled from 'styled-components';
 
 import FlexBox from '@components/style/FlexBox';
 import Logo from '@components/ui/header/Logo';
 
 import MenuItem from './MenuItem';
-import { NAV_LIST, TAG_MENU_LIST } from '@constants/MenuConstants';
 
 function Navigation() {
   return (
@@ -15,13 +15,25 @@ function Navigation() {
       <nav>
         <ul className="nav_list">
           {NAV_LIST.map((item, idx) => (
-            <MenuItem key={idx} iconType={item.icon} name={item.name} path={item.path} isHighlightIcon/>
+            <MenuItem
+              key={idx}
+              iconType={item.icon}
+              name={item.name}
+              path={item.path}
+              isHighlightIcon
+            />
           ))}
         </ul>
         <ul className="tag_list">
           <h3>Tags</h3>
           {TAG_MENU_LIST.map((item, idx) => (
-            <MenuItem key={`item_${idx}`} iconType="tag" name={item.name} path={item.path} isHighlightIcon/>
+            <MenuItem
+              key={`item_${idx}`}
+              iconType="tag"
+              name={item.name}
+              path={item.path}
+              isHighlightIcon
+            />
           ))}
         </ul>
       </nav>
@@ -34,7 +46,7 @@ export default Navigation;
 const NavigationContainer = styled.div`
   min-width: 272px;
   padding: ${({ theme }) => `${theme.spacing[150]} ${theme.spacing[200]}`};
-  border-right: 1px solid var(--theme-border-color);
+  border-right: 1px solid var(--theme-divider2-color);
 
   .logo_wrapper {
     height: 52px;
@@ -52,7 +64,7 @@ const NavigationContainer = styled.div`
     width: 100%;
     gap: 4px;
     padding-bottom: ${({ theme }) => theme.spacing[100]};
-    border-bottom: 1px solid var(--theme-border-color);
+    border-bottom: 1px solid var(--theme-divider2-color);
     margin-bottom: ${({ theme }) => theme.spacing[100]};
   }
 

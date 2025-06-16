@@ -1,15 +1,13 @@
 import useNavigation from '@hooks/useNavigation';
-import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import BaseButton from '@components/base/BaseButton';
 import BaseIcon from '@components/base/BaseIcon';
-import BaseInput from '@components/base/BaseInput';
 import FlexBox from '@components/style/FlexBox';
+import PageHeaderSearch from './PageHeaderSearch';
 
 function PageHeader() {
-  const [searchValue, setSearchValue] = useState('');
   const { Navigate } = useNavigation();
   const location = useLocation();
 
@@ -22,7 +20,11 @@ function PageHeader() {
       case header.includes('archived'):
         return 'Archived Notes';
       case header.includes('tags'):
-        return <><span>'Notes Tagged: </span>location.pathname.split('/')[2]</>;
+        return (
+          <>
+            <span>'Notes Tagged: </span>location.pathname.split('/')[2]
+          </>
+        );
       case header.includes('settings'):
         return 'Settings';
       default:
@@ -34,15 +36,7 @@ function PageHeader() {
     <PageHeaderContainer>
       <h3>{renderHeader()}</h3>
       <FlexBox g="16px">
-        <BaseInput
-          leftIcon={<BaseIcon type="search" color={'#717784'} />}
-          placeholder="Search by title, content, or tags..."
-          value={searchValue}
-          onChange={setSearchValue}
-          onEnterDown={() => {
-            console.log('value: ', searchValue);
-          }}
-        />
+        <PageHeaderSearch/>
         <BaseButton
           theme="ghost"
           className="svg_fill"
@@ -63,7 +57,7 @@ const PageHeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   ${({ theme }) => theme.typography.textPreset1};
-  border-bottom: 1px solid var(--theme-divider-color);
+  border-bottom: 1px solid var(--theme-divider2-color);
   background-color: var(--theme-bg-color);
 `;
 

@@ -135,5 +135,5 @@ const MenuBarContainer = styled.nav`
 
 const Divider = styled.div`
   width: 1px;
-  background: var(--theme-divider-color);
+  background: var(--theme-divider2-color);
 `;
