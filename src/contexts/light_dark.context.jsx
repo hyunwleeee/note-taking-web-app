@@ -41,7 +41,7 @@ function LightDarkProvider({ children }) {
       }
     }
 
-    if (window.localStorage.getItem('theme') === 'system') {
+    if (theme === 'system') {
       window.localStorage.setItem('theme', prefersDark ? 'dark' : 'light');
     } else {
       window.localStorage.setItem('theme', theme === 'light' ? 'light' : 'dark');
