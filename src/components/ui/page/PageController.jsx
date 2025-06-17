@@ -1,3 +1,4 @@
+import useNavigation from '@hooks/useNavigation';
 import { useLayoutStore } from '@store/layoutStore';
 import styled from 'styled-components';
 
@@ -8,6 +9,8 @@ import FlexBox from '@components/style/FlexBox';
 function PageController() {
   const { deviceType } = useLayoutStore();
 
+  const { Navigate } = useNavigation();
+
   const isResponsiveLaptop = deviceType === 'laptop';
 
   if (isResponsiveLaptop) return null;
@@ -15,7 +18,7 @@ function PageController() {
   return (
     <PageControllerContainer>
       <FlexBox g={'4px'}>
-        <BaseButton theme="ghost" className="svg_fill">
+        <BaseButton theme="ghost" className="svg_fill" onClick={() => Navigate.goBack()}>
           <BaseIcon type="arrow-left" color="#525866" size={18} />
           <span className="text">Go Back</span>
         </BaseButton>

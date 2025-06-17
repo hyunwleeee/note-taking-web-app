@@ -47,13 +47,7 @@ export default AllNotesMenu;
 
 const AllNotesContainer = styled.div`
   width: 100%;
-  height: calc(100% - 56px);
-  overflow-y: auto;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  ::-webkit-scrollbar {
-    display: none;
-  }
+  height: 100%;
 
   .top_list {
     display: flex;
@@ -62,6 +56,7 @@ const AllNotesContainer = styled.div`
   }
 
   ${({ theme }) => theme.inner};
+  padding-top: 0;
 
   .button_wrapper {
     display: none;
@@ -69,16 +64,13 @@ const AllNotesContainer = styled.div`
 
   ${({ theme }) => theme.media.tablet`
     height: calc(100% - 74px);
-    .top_list {
-      // margin: ${({ theme }) => `0 ${theme.spacing[300]}`};
-    }
+    padding-top: 0;
   `}
 
   ${({ theme }) => theme.media.laptop`
-  padding: 0;
+    padding: 0;
      width: 290px;
     height: calc(100% - 80px);
-    border-right: 1px solid var(--theme-divider2-color);
     .button_wrapper {
        padding: ${({ theme }) =>
          `${theme.spacing[250]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};

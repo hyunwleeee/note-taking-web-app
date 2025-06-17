@@ -1,9 +1,9 @@
-import { useRouteStore } from '@store/routeStore.js';
+import { useRouteStore } from '@store/routeStore';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useOutlet } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-const TransitionComponent = () => {
-  const outlet = useOutlet();
+const TransitionWrapper = ({ children }) => {
   const { slideDirection } = useRouteStore();
 
   const variants = () => {
@@ -14,15 +14,13 @@ const TransitionComponent = () => {
           animate: { left: ['80%', '0%'] },
           exit: { left: ['0%', '-100%'] },
         };
-
       case 'slide-prev':
         return {
           initial: { left: '-80%' },
           animate: { left: ['-80%', '0%'] },
           exit: { left: ['0%', '100%'] },
         };
-
-      case 'null':
+      default:
         return {
           initial: { opacity: 0 },
           animate: { opacity: [0, 1] },
@@ -30,19 +28,29 @@ const TransitionComponent = () => {
         };
     }
   };
+
   return (
-    <AnimatePresence mode={'popLayout'}>
-      <motion.main
+    <AnimatePresence key={location.pathname}>
+      <MainContainer
         variants={variants()}
         initial="initial"
         animate="animate"
         exit="exit"
-        transition={{ type: 'spring', duration: 0.2 }}
+        transition={{ type: 'tween', duration: 0.3 }}
       >
-        {outlet}
-      </motion.main>
+        {children}
+      </MainContainer>
     </AnimatePresence>
   );
 };
 
-export default TransitionComponent;
+const MainContainer = styled(motion.main)`
+  position: relative;
+  width: 100%;
+`;
+
+export default TransitionWrapper;
+
+TransitionWrapper.propTypes = {
+  children: PropTypes.node,
+};

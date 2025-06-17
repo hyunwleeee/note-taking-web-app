@@ -1,9 +1,9 @@
 import { useLayoutStore } from '@store/layoutStore';
-import { Suspense, useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
+import { useOutlet } from 'react-router-dom';
 
 import { BREAK_POINTS } from '@assets/styles/media';
 
-import TransitionComponent from '@components/animation/TransitionWrapper';
 import Header from '@components/ui/header/Header';
 import MenuBar from '@components/ui/menu_bar/MenuBar';
 
@@ -11,6 +11,7 @@ import PageLayout from './PageLayout';
 
 function SiteLayout() {
   const { setDeviceType } = useLayoutStore();
+  const { outlet } = useOutlet();
 
   //반응형 vh설정
   useLayoutEffect(() => {
@@ -30,13 +31,8 @@ function SiteLayout() {
 
   return (
     <>
-      {/* mobile, tablet일 경우만 Header 렌더링 */}
       <Header />
-      <Suspense fallback={<div>loading...</div>}>
-        <PageLayout>
-          <TransitionComponent />
-        </PageLayout>
-      </Suspense>
+      <PageLayout>{outlet}</PageLayout>
       <MenuBar />
     </>
   );

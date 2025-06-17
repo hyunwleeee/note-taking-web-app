@@ -60,7 +60,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: var(--font-family);
     font-size: 16px;
     overflow-x: hidden;
-    background-color: var(--theme-bg-color);
+    background-color: var(--theme-bg2-color);
     color: var(--theme-text-color);
   }
 

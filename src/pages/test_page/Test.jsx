@@ -1,5 +1,6 @@
 import useAlert from '@hooks/useAlert';
 import useModal from '@hooks/useModal';
+import useNavigation from '@hooks/useNavigation';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -39,6 +40,11 @@ const Test = () => {
   const [value, setValue] = useState('');
   const { openModal } = useModal();
   const alert = useAlert();
+  const { Navigate } = useNavigation();
+
+  const handleMove = (path) => {
+    Navigate.move(path);
+  };
 
   const handleModal = () => {
     openModal(TestModal, {
@@ -70,6 +76,7 @@ const Test = () => {
   return (
     <>
       <Header />
+      <BaseButton texture="setting" onClick={() => handleMove('/settings')} />
       <BaseButton texture="Create" onClick={handleModal} />
       <BaseButton isDangerous texture="Delete" onClick={handleDeleteModal} />
       <BaseButton texture="alert" onClick={handleAlert} />

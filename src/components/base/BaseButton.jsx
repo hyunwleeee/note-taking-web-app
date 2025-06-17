@@ -136,28 +136,29 @@ const StyledButton = styled.button`
   }
 
   &.border {
-    color: ${({ theme }) => theme.colors.neutral950};
-    border: ${({ theme }) => `1px solid ${theme.colors.neutral300}`};
-
+    color: var(--theme-text-color);
+    border: 1px solid var(--theme-border-color);
+    svg path {
+      fill: ${({theme}) => theme.colors.white};
+    }
     &:hover {
-      color: ${({ theme }) => theme.colors.neutral600};
-      background: ${({ theme }) => theme.colors.neutral100};
-      border: ${({ theme }) => `1px solid ${theme.colors.neutral100}`};
+      color: var(--theme-text2-color);
+      background: var(--theme-bg2-color);
 
       svg path {
-        fill: ${({ theme }) => theme.colors.neutral600};
+        fill: ${({theme}) => theme.colors.neutral100};
       }
     }
 
     &:active {
-      color: ${({ theme }) => theme.colors.neutral950};
-      background: ${({ theme }) => theme.colors.white};
-      border: ${({ theme }) => `1px solid ${theme.colors.neutral950}`};
+      color: var(--theme-text-color);
+      background: var(--theme-bg-color);
+      border: 1px solid var(--theme-text2-color);
       outline: ${({ theme }) => `2px solid ${theme.colors.neutral400}`};
       outline-offset: 2px;
 
       svg path {
-        fill: ${({ theme }) => theme.colors.neutral950};
+        fill: ${({ theme }) => theme.colors.white};
       }
     }
 

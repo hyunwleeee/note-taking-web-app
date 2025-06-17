@@ -7,8 +7,11 @@ import {
   createRoutesFromElements,
 } from 'react-router-dom';
 
+import TransitionComponent from '@components/animation/TransitionWrapper';
 import AuthLayout from '@components/ui/layout/AuthLayout';
 import SiteLayout from '@components/ui/layout/SiteLayout';
+
+import DetailNotePage from '../pages/home_page/DetailNotePage';
 
 const HomePage = lazy(() => import('@pages/home_page/HomePage'));
 
@@ -39,7 +42,7 @@ const RootRouter = () => {
         <Route path="search" element={<SearchPage />} />
         <Route path="archived" element={<ArchivedPage />} />
 
-        <Route path="notes/:slug" element={<ArchivedPage />} />
+        <Route path="notes/:slug" element={<DetailNotePage />} />
 
         <Route path="tags">
           <Route path="" element={<TagsPage />} />
@@ -59,7 +62,9 @@ const RootRouter = () => {
         <Route path="forgot-password-page" element={<ForgotPasswordPage />} />
         <Route path="reset-your-password-page" element={<ResetYourPasswordPage />} />
       </Route>
-      <Route path="test" element={<Test />} />
+      <Route path="test" element={<TransitionComponent />}>
+        <Route path="" element={<Test />} />
+      </Route>
     </>
   );
 

@@ -58,9 +58,7 @@ const SettingContainer = styled.div`
   ${({ theme }) => theme.media.laptop`
     width: 290px;
     height: calc(100% - 80px);
-    border-right: 1px solid var(--theme-divider2-color);
     padding: ${({ theme }) =>
       `${theme.spacing[250]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
-   
   `}
 `;

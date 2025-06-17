@@ -52,6 +52,7 @@ function MenuBar() {
 export default MenuBar;
 
 const MenuBarContainer = styled.nav`
+  position: relative;
   box-shadow: 0px -5px 6px 0px var(--theme-shadow-color);
   background: var(--theme-bg-color);
 
