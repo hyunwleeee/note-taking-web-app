@@ -12,7 +12,7 @@ function SettingMenu() {
             <MenuItem key={idx} iconType={menu.icon} name={menu.name} path={menu.path} />
           ))}
         </ul>
-        <ul>
+        <ul className='bottom_list'>
           <MenuItem
             iconType={LOGOUT_MENU_DATA.icon}
             name={LOGOUT_MENU_DATA.name}
@@ -27,11 +27,9 @@ function SettingMenu() {
 export default SettingMenu;
 
 const SettingContainer = styled.div`
-  min-width: 258px;
+  width: 100%;
   height: 100%;
-  padding: ${({ theme }) => `${theme.spacing[250]} ${theme.spacing[200]} 0 ${theme.spacing[400]}`};
-  border-right: 1px solid var(--theme-divider2-color);
-
+  padding: ${({ theme }) => `0 ${theme.spacing[200]}`};
   .logo_wrapper {
     height: 52px;
     display: flex;
@@ -51,4 +49,18 @@ const SettingContainer = styled.div`
     border-bottom: 1px solid var(--theme-divider2-color);
     margin-bottom: ${({ theme }) => theme.spacing[100]};
   }
+
+  ${({ theme }) => theme.media.tablet`
+    height: calc(100% - 74px);
+    padding: ${({ theme }) => `0 ${theme.spacing[400]}`};
+  `}
+
+  ${({ theme }) => theme.media.laptop`
+    width: 290px;
+    height: calc(100% - 80px);
+    border-right: 1px solid var(--theme-divider2-color);
+    padding: ${({ theme }) =>
+        `${theme.spacing[250]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
+   
+  `}
 `;
