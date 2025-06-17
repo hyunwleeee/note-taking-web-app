@@ -12,7 +12,7 @@ function SettingMenu() {
             <MenuItem key={idx} iconType={menu.icon} name={menu.name} path={menu.path} />
           ))}
         </ul>
-        <ul className='bottom_list'>
+        <ul className="bottom_list">
           <MenuItem
             iconType={LOGOUT_MENU_DATA.icon}
             name={LOGOUT_MENU_DATA.name}
@@ -60,7 +60,7 @@ const SettingContainer = styled.div`
     height: calc(100% - 80px);
     border-right: 1px solid var(--theme-divider2-color);
     padding: ${({ theme }) =>
-        `${theme.spacing[250]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
+      `${theme.spacing[250]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
    
   `}
 `;

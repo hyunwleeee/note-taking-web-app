@@ -16,7 +16,7 @@ function PageLayout() {
     <PageConatiner>
       {isLaptop && <Navigation />}
       <FlexBox j="start" a="stretch" d="column" style={{ width: '100%', height: '100%' }}>
-        <PageHeader isLaptop={isLaptop}/>
+        <PageHeader isLaptop={isLaptop} />
         <FlexBox j="start" a="stretch" d="row" style={{ width: '100%', height: '100%' }}>
           <Menulist />
           {outlet}
