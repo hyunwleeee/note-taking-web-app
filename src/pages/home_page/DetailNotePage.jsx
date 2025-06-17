@@ -1,5 +1,7 @@
 import { useLayoutStore } from '@store/layoutStore';
 import { makeSlugByTitle } from '@utils/makeSlug';
+import useModal from '@hooks/useModal';
+import useAlert from '@hooks/useAlert';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
@@ -11,15 +13,17 @@ import BaseIcon from '@components/base/BaseIcon';
 import FlexBox from '@components/style/FlexBox';
 import PageController from '@components/ui/page/PageController';
 
+import ModalWrapper from '@components/ui/modal/ModalWrapper';
+
 import data from '/data.json';
 
-import { useLayoutStore } from '@store/layoutStore';
 
 function DetailNotePage() {
   const { deviceType } = useLayoutStore();
   const isLaptop = deviceType === 'laptop';
   const { slug } = useParams();
   const [note, setNote] = useState();
+  const { openModal } = useModal();
 
   useEffect(() => {
     const foundNote = data.notes.find((item) => makeSlugByTitle(item.title) === slug);
@@ -27,6 +31,49 @@ function DetailNotePage() {
   }, [slug]);
 
   if (!note) return;
+
+  const ArichivedModal = ({ onClose, onSubmit }) => {
+  return (
+    <ModalWrapper
+      icon={<BaseIcon type="archive" />}
+      title="Archive Note"
+      sub="Are you sure you want to archive this note? You can find it in the Archived Notes section and restore it anytime."
+      onClose={onClose}
+      submitText='Archive Note'
+      onSubmit={onSubmit}
+    />
+  );
+};
+
+const DeleteModal = ({ onClose, onSubmit }) => {
+  return (
+    <ModalWrapper
+      icon={<BaseIcon type="delete" />}
+      title="Delete Note"
+      sub="Are you sure you want to permanently delete this note? This action cannot be undone."
+      onClose={onClose}
+      onSubmit={onSubmit}
+      submitText='Delete Note'
+      isDangerous
+    />
+  );
+};
+
+  const handleModal = () => {
+    openModal(ArichivedModal, {
+      onSubmit: () => {
+        console.log('create');
+      },
+    });
+  };
+
+  const handleDeleteModal = () => {
+    openModal(DeleteModal, {
+      onSubmit: () => {
+        console.log('delete');
+      },
+    });
+  };
 
   return (
     <PageContainer>
@@ -58,8 +105,12 @@ function DetailNotePage() {
             theme="border"
             leftIcon={<BaseIcon type="archive" />}
             texture="Archive Note"
+            onClick={handleModal}
           />
-          <BaseButton theme="border" leftIcon={<BaseIcon type="delete" />} texture="Delete Note" />
+          <BaseButton theme="border" leftIcon={<BaseIcon type="delete" />} texture="Delete Note" 
+          
+            onClick={handleDeleteModal}
+          />
         </div>
       )}
     </PageContainer>
