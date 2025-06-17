@@ -29,7 +29,10 @@ const BaseRadioWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing[200]};
-  width: 528px;
+  width: 100%;
+  ${({ theme }) => theme.media.laptop`
+    width: 528px;
+  `}
 `;
 
 BaseRadioGroup.propTypes = {

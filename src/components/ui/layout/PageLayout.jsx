@@ -13,22 +13,25 @@ function PageLayout() {
   const isLaptop = deviceType === 'laptop';
 
   return (
-    <PageConatiner>
+    <PageWrapper>
       {isLaptop && <Navigation />}
       <FlexBox j="start" a="stretch" d="column" style={{ width: '100%', height: '100%' }}>
         <PageHeader isLaptop={isLaptop} />
-        <FlexBox j="start" a="stretch" d="row" style={{ width: '100%', height: '100%' }}>
+        <FlexBox
+          j="start"
+          a="stretch"
+          d={isLaptop ? 'row' : 'column'}
+          style={{ width: '100%', height: '100%' }}
+        >
           <Menulist />
           {outlet}
         </FlexBox>
       </FlexBox>
-    </PageConatiner>
+    </PageWrapper>
   );
 }
 
-export default PageLayout;
-
-const PageConatiner = styled.div`
+const PageWrapper = styled.div`
   height: calc(100 * var(--vh, 1vh) - 54px - 56px);
   overflow: hidden;
 
@@ -41,3 +44,5 @@ const PageConatiner = styled.div`
     display: flex;
   `}
 `;
+
+export default PageLayout;

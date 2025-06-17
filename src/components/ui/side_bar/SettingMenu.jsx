@@ -30,6 +30,7 @@ const SettingContainer = styled.div`
   width: 100%;
   height: 100%;
   padding: ${({ theme }) => `0 ${theme.spacing[200]}`};
+  ${({ theme }) => theme.inner};
   .logo_wrapper {
     height: 52px;
     display: flex;
@@ -52,7 +53,6 @@ const SettingContainer = styled.div`
 
   ${({ theme }) => theme.media.tablet`
     height: calc(100% - 74px);
-    padding: ${({ theme }) => `0 ${theme.spacing[400]}`};
   `}
 
   ${({ theme }) => theme.media.laptop`

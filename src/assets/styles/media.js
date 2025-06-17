@@ -1,6 +1,8 @@
 import { css } from 'styled-components';
 
-export const BREAK_POINTS = Object.freeze({
+import Spacing from './spacing';
+
+const BREAK_POINTS = Object.freeze({
   mobile: 0,
   tablet: 768,
   laptop: 1024,
@@ -16,4 +18,12 @@ const Media = Object.keys(BREAK_POINTS).reduce((acc, label) => {
   return acc;
 }, {});
 
-export default Media;
+const Inner = css`
+  padding: ${Spacing[200]};
+
+  ${Media.tablet`
+    padding: ${Spacing[200]} ${Spacing[400]};
+  `}
+`;
+
+export { BREAK_POINTS, Media, Inner };

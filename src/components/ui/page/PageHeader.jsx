@@ -56,13 +56,13 @@ function PageHeader({ isLaptop }) {
 }
 
 const PageHeaderContainer = styled.div`
-  padding: ${({ theme }) => theme.spacing[200]};
+  padding: ${({ theme }) => `${theme.spacing[300]} 0 0 ${theme.spacing[200]}`};
   display: flex;
   justify-content: space-between;
   align-items: center;
   ${({ theme }) => theme.typography.textPreset1};
   ${({ theme }) => theme.media.tablet`
-    padding: ${({ theme }) => `${theme.spacing[300]} ${theme.spacing[400]} ${theme.spacing[200]}`};
+    padding: ${({ theme }) => `${theme.spacing[300]} 0 0 ${theme.spacing[400]}`};
   `}
 
   ${({ theme }) => theme.media.laptop`

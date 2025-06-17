@@ -59,9 +59,9 @@ const AllNotesContainer = styled.div`
     display: flex;
     flex-flow: column nowrap;
     gap: 4px;
-    padding-bottom: ${({ theme }) => theme.spacing[100]};
-    margin: ${({ theme }) => `0 ${theme.spacing[200]}`};
   }
+
+  ${({ theme }) => theme.inner};
 
   .button_wrapper {
     display: none;
@@ -70,31 +70,31 @@ const AllNotesContainer = styled.div`
   ${({ theme }) => theme.media.tablet`
     height: calc(100% - 74px);
     .top_list {
-      margin: ${({ theme }) => `0 ${theme.spacing[300]}`};
+      // margin: ${({ theme }) => `0 ${theme.spacing[300]}`};
     }
   `}
 
   ${({ theme }) => theme.media.laptop`
-    width: 290px;
+  padding: 0;
+     width: 290px;
     height: calc(100% - 80px);
     border-right: 1px solid var(--theme-divider2-color);
     .button_wrapper {
+       padding: ${({ theme }) =>
+         `${theme.spacing[250]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
       display: inline-block;
       width: 100%;
       position: sticky;
       top: 0;
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      padding: ${({ theme }) =>
-        `${theme.spacing[250]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
-    }
+       }
     .top_list {
-      margin: ${({ theme }) => `0 ${theme.spacing[200]} 0 ${theme.spacing[400]}`};
+      padding: ${({ theme }) =>
+        `${theme.spacing[0]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
       display: flex;
       flex-flow: column nowrap;
       gap: 4px;
-      padding-bottom: ${({ theme }) => theme.spacing[100]};
-      margin-bottom: ${({ theme }) => theme.spacing[100]};
     }
   `}
 }

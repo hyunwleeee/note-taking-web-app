@@ -113,6 +113,7 @@ const RadioLabel = styled.label`
   }
 
   .circle_wrapper {
+    flex-shrink: 0;
     transition: 0.2s;
     width: 16px;
     height: 16px;

@@ -42,8 +42,8 @@ function FontThemePage() {
   );
 }
 
-const PageWrapper = styled.div`
-  padding: ${({ theme }) => `${theme.spacing[400]} ${theme.spacing[400]}`};
+const PageWrapper = styled.main`
+  ${({ theme }) => theme.inner};
   h3 {
     ${({ theme }) => theme.typography.textPreset3};
     margin-bottom: ${({ theme }) => theme.spacing[50]}};
