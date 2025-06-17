@@ -44,9 +44,8 @@ function Navigation() {
 export default Navigation;
 
 const NavigationContainer = styled.div`
-
-  background-color: var(--theme-bg-color);  
-min-width: 272px;
+  background-color: var(--theme-bg-color);
+  min-width: 272px;
   padding: ${({ theme }) => `${theme.spacing[150]} ${theme.spacing[200]}`};
   border-right: 1px solid var(--theme-divider2-color);
 

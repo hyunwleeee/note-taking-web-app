@@ -139,14 +139,14 @@ const StyledButton = styled.button`
     color: var(--theme-text-color);
     border: 1px solid var(--theme-border-color);
     svg path {
-      fill: ${({theme}) => theme.colors.white};
+      stroke: var(--theme-text-color);
     }
     &:hover {
       color: var(--theme-text2-color);
       background: var(--theme-bg2-color);
 
       svg path {
-        fill: ${({theme}) => theme.colors.neutral100};
+        stroke: var(--theme-text2-color);
       }
     }
 
@@ -156,9 +156,8 @@ const StyledButton = styled.button`
       border: 1px solid var(--theme-text2-color);
       outline: ${({ theme }) => `2px solid ${theme.colors.neutral400}`};
       outline-offset: 2px;
-
       svg path {
-        fill: ${({ theme }) => theme.colors.white};
+        stroke: var(--theme-text-color);
       }
     }
 

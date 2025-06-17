@@ -25,15 +25,15 @@ function PageLayout() {
               d={isLaptop ? 'row' : 'column'}
               style={{ width: '100%', height: '100%' }}
             >
-                <div className="menu_list_wrapper">
-                  <Menulist />
-                </div>
-             <Outlet />
-           </FlexBox>
-         </FlexBox>
-       </PageContainer>
-     </TransitionWrapper>
-   </PageWrapper>
+              <div className="menu_list_wrapper">
+                <Menulist />
+              </div>
+              <Outlet />
+            </FlexBox>
+          </FlexBox>
+        </PageContainer>
+      </TransitionWrapper>
+    </PageWrapper>
   );
 }
 
@@ -61,7 +61,8 @@ const PageContainer = styled.div`
 
   .menu_list_wrapper {
     min-width: 290px;
-    height: ${({ $needMinHeight }) => !$needMinHeight ? 'calc(100 * var(--vh, 1vh) - 54px - 54px - 66px)' : 'auto'};
+    height: ${({ $needMinHeight }) =>
+      !$needMinHeight ? 'calc(100 * var(--vh, 1vh) - 54px - 54px - 66px)' : 'auto'};
     overflow-y: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -69,11 +70,11 @@ const PageContainer = styled.div`
       display: none;
     }
 
-   ${({ theme }) => theme.media.tablet`
-      height: ${({ $needMinHeight }) => !$needMinHeight ? 'calc(100 * var(--vh, 1vh) - 74px - 74px - 74px)' : 'auto'};
+    ${({ theme }) => theme.media.tablet`
+      height: ${({ $needMinHeight }) => (!$needMinHeight ? 'calc(100 * var(--vh, 1vh) - 74px - 74px - 74px)' : 'auto')};
    `}
 
-   ${({ theme }) => theme.media.laptop`
+    ${({ theme }) => theme.media.laptop`
      display: flex;
      height: calc(100 * var(--vh, 1vh) - 77px);
      border-right: 1px solid var(--theme-divider2-color);
@@ -82,4 +83,3 @@ const PageContainer = styled.div`
 `;
 
 export default PageLayout;
-

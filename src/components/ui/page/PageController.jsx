@@ -19,7 +19,7 @@ function PageController() {
     <PageControllerContainer>
       <FlexBox g={'4px'}>
         <BaseButton theme="ghost" className="svg_fill" onClick={() => Navigate.goBack()}>
-          <BaseIcon type="arrow-left" color="#525866" size={18} />
+          <BaseIcon type="arrow-left" color="#525866" />
           <span className="text">Go Back</span>
         </BaseButton>
       </FlexBox>
@@ -47,4 +47,7 @@ const PageControllerContainer = styled(FlexBox)`
   border-bottom: 1px solid var(--theme-divider2-color);
   background: var(--theme-bg-color);
   color: var(--theme-text-color);
+  > div:first-child button svg {
+    width: 16px;
+  }
 `;
