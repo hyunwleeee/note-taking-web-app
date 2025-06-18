@@ -8,7 +8,7 @@ import BaseIcon from '@components/base/BaseIcon';
 import MenuItem from './MenuItem';
 import data from '/data.json';
 
-function AllNotesMenu({ isLaptop }) {
+function AllNotesMenu() {
   const changeToOptionList = (list) => {
     return list.map(({ title, tags, lastEdited }) => ({
       name: title,
@@ -22,32 +22,19 @@ function AllNotesMenu({ isLaptop }) {
   const settingList = changeToOptionList(data.notes);
 
   return (
-    <AllNotesContainer>
-      <div className="button_wrapper">
-        <BaseButton
-          texture={isLaptop && '+ Create New Note'}
-          size={isLaptop && 'full'}
-          onClick={() => { }}
-        >
-          {!isLaptop && <BaseIcon type="plus" color="#fff" />}
-        </BaseButton>
-      </div>
-      <nav>
-        <ul className="top_list">
-          {settingList.map((item, idx) => (
-            <MenuItem
-              key={idx}
-              type="note"
-              iconType={item.icon}
-              name={item.name}
-              path={item.path}
-              tags={item.tags}
-              lastEdited={item.lastEdited}
-            />
-          ))}
-        </ul>
-      </nav>
-    </AllNotesContainer>
+    <ul className="top_list">
+      {settingList.map((item, idx) => (
+        <MenuItem
+          key={idx}
+          type="note"
+          iconType={item.icon}
+          name={item.name}
+          path={item.path}
+          tags={item.tags}
+          lastEdited={item.lastEdited}
+        />
+      ))}
+    </ul>
   );
 }
 
@@ -109,7 +96,7 @@ const AllNotesContainer = styled.div`
       position: sticky;
       top: 0;
        padding: ${({ theme }) =>
-      `${theme.spacing[250]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
+         `${theme.spacing[250]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
       display: inline-block;
       width: 100%;
       position: sticky;
@@ -123,7 +110,7 @@ const AllNotesContainer = styled.div`
     }
     .top_list {
       padding: ${({ theme }) =>
-      `${theme.spacing[0]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
+        `${theme.spacing[0]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
       display: flex;
       flex-flow: column nowrap;
       gap: 4px;

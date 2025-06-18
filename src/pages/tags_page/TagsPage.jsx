@@ -1,5 +1,5 @@
 function TagsPage() {
-  return <>tags page</>;
+  return <></>;
 }
 
 export default TagsPage;

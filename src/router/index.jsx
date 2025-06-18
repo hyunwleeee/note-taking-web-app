@@ -43,6 +43,7 @@ const RootRouter = () => {
         <Route path="archived" element={<ArchivedPage />} />
 
         <Route path="notes/:slug" element={<DetailNotePage />} />
+        <Route path="archived/:slug" element={<DetailNotePage />} />
 
         <Route path="tags">
           <Route path="" element={<TagsPage />} />

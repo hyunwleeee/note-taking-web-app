@@ -73,19 +73,19 @@ const Menu = styled.li`
   border-bottom: ${({ $active, $note }) => !$active && $note && `1px solid var(--theme-divider2-color)`};
   svg path {
     ${({ $icon }) =>
-      $icon === 'home' || $icon === 'font'
-        ? css`
+    $icon === 'home' || $icon === 'font'
+      ? css`
             fill: var(--theme-text-color);
           `
-        : css`
+      : css`
             stroke: var(--theme-text-color);
           `};
   }
   svg path {
     fill: ${({ $active, $highlightIcon, $icon, theme }) =>
-      $active && $highlightIcon && $icon === 'home' ? theme.colors.blue500 : ''};
+    $active && $highlightIcon && $icon === 'home' ? theme.colors.blue500 : ''};
     stroke: ${({ $active, $highlightIcon, $icon, theme }) =>
-      $active && $highlightIcon && $icon !== 'home' ? theme.colors.blue500 : ''};
+    $active && $highlightIcon && $icon !== 'home' ? theme.colors.blue500 : ''};
   }
 
   &:hover {

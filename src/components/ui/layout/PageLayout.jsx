@@ -8,6 +8,9 @@ import PageHeader from '@components/ui/page/PageHeader';
 import Menulist from '@components/ui/side_bar/MenuList';
 import Navigation from '@components/ui/side_bar/Navigation';
 
+import MenuLayout from './MenuLayout';
+import { checkIsDetailDepth } from '@utils/path';
+
 function PageLayout() {
   const { deviceType } = useLayoutStore();
   const isLaptop = deviceType === 'laptop';
@@ -16,7 +19,7 @@ function PageLayout() {
     <PageWrapper>
       {isLaptop && <Navigation />}
       <TransitionWrapper>
-        <PageContainer $needMinHeight={location.pathname.split('/').length > 2}>
+        <PageContainer $needMinHeight={checkIsDetailDepth()}>
           <FlexBox j="start" a="stretch" d="column">
             <PageHeader isLaptop={isLaptop} />
             <FlexBox
@@ -25,9 +28,9 @@ function PageLayout() {
               d={isLaptop ? 'row' : 'column'}
               style={{ width: '100%', height: '100%' }}
             >
-              <div className="menu_list_wrapper">
+              <MenuLayout isLaptop={isLaptop}>
                 <Menulist />
-              </div>
+              </MenuLayout>
               <Outlet />
             </FlexBox>
           </FlexBox>
@@ -58,28 +61,6 @@ const PageContainer = styled.div`
   ${({ theme }) => theme.media.laptop`
     border-radius: ${({ theme }) => theme.radius[0]};
   `}
-
-  .menu_list_wrapper {
-    min-width: 290px;
-    height: ${({ $needMinHeight }) =>
-      !$needMinHeight ? 'calc(100 * var(--vh, 1vh) - 54px - 54px - 66px)' : 'auto'};
-    overflow-y: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-
-    ${({ theme }) => theme.media.tablet`
-      height: ${({ $needMinHeight }) => (!$needMinHeight ? 'calc(100 * var(--vh, 1vh) - 74px - 74px - 74px)' : 'auto')};
-   `}
-
-    ${({ theme }) => theme.media.laptop`
-     display: flex;
-     height: calc(100 * var(--vh, 1vh) - 77px);
-     border-right: 1px solid var(--theme-divider2-color);
-   `}
-  }
 `;
 
 export default PageLayout;

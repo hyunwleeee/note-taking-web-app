@@ -24,6 +24,8 @@ function DetailNotePage() {
   const [note, setNote] = useState();
   const { openModal } = useModal();
 
+  const isArchived = true;
+
   useEffect(() => {
     const foundNote = data.notes.find((item) => makeSlugByTitle(item.title) === slug);
     setNote(foundNote);
@@ -60,6 +62,19 @@ function DetailNotePage() {
             </FlexBox>
           </div>
           <div className="value">{note.tags.join(', ')}</div>
+
+          {isArchived &&
+            <>
+              <div className='label'>
+                <FlexBox j="start" g="6px">
+                  <BaseIcon type="status" size={16} />
+                  <span>Status</span>
+                </FlexBox>
+              </div>
+              <div className="value">Archived</div>
+            </>
+          }
+
 
           <div className="label">
             <FlexBox j="start" g="6px">
@@ -140,7 +155,6 @@ const PageContainer = styled.div`
 
   .left_wrapper {
     width: 100%;
-    padding-top: ${({ theme }) => theme.spacing[100]};
   }
 
   .right_wrapper {

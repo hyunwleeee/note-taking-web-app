@@ -1,5 +1,5 @@
 function ArchivedPage() {
-  return <>archived page</>;
+  return <></>;
 }
 
 export default ArchivedPage;
