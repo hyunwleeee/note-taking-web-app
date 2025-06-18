@@ -13,11 +13,11 @@ function Menulist() {
 
   switch (true) {
     case location.pathname.includes('archived'):
-      return <ArchivedNoteMenu isLaptop={isLaptop} />;
+      return <ArchivedNoteMenu />;
     case location.pathname.includes('settings'):
       return <SettingMenu />;
     default:
-      return <AllNotesMenu isLaptop={isLaptop} />;
+      return <AllNotesMenu />;
   }
 }
 

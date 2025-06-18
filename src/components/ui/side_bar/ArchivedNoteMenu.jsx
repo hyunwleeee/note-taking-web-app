@@ -1,18 +1,19 @@
 import { makeSlugByTitle } from '@utils/makeSlug';
-import PropTypes from 'prop-types';
 
 import MenuItem from './MenuItem';
 import data from '/data.json';
 
-function ArchivedNoteMenu({ isLaptop }) {
+function ArchivedNoteMenu() {
   const changeToOptionList = (list) => {
-    return list.map(({ title, tags, lastEdited }) => ({
-      name: title,
-      value: title,
-      tags,
-      lastEdited,
-      path: '/archived/' + makeSlugByTitle(title),
-    }));
+    return list
+      .filter(({ isArchived }) => isArchived)
+      .map(({ title, tags, lastEdited }) => ({
+        name: title,
+        value: title,
+        tags,
+        path: '/archived/' + makeSlugByTitle(title),
+        lastEdited,
+      }));
   };
 
   const settingList = changeToOptionList(data.notes);
@@ -36,7 +37,3 @@ function ArchivedNoteMenu({ isLaptop }) {
 }
 
 export default ArchivedNoteMenu;
-
-ArchivedNoteMenu.propTypes = {
-  isLaptop: PropTypes.bool,
-};

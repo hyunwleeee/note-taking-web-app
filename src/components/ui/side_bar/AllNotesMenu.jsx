@@ -96,7 +96,7 @@ const AllNotesContainer = styled.div`
       position: sticky;
       top: 0;
        padding: ${({ theme }) =>
-         `${theme.spacing[250]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
+      `${theme.spacing[250]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
       display: inline-block;
       width: 100%;
       position: sticky;
@@ -110,7 +110,7 @@ const AllNotesContainer = styled.div`
     }
     .top_list {
       padding: ${({ theme }) =>
-        `${theme.spacing[0]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
+      `${theme.spacing[0]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
       display: flex;
       flex-flow: column nowrap;
       gap: 4px;
@@ -118,7 +118,3 @@ const AllNotesContainer = styled.div`
   `}
 }
 `;
-
-AllNotesMenu.propTypes = {
-  isLaptop: PropTypes.bool,
-};
