@@ -102,6 +102,7 @@ const ModalContainer = styled(ReactModal)`
     }
     h3 {
       ${({ theme }) => theme.typography.textPreset3};
+      color: ${({ theme }) => theme.colors.neutral950};
     }
     p {
       ${({ theme }) => theme.typography.textPreset5};

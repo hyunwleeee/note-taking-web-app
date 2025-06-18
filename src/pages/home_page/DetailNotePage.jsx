@@ -1,9 +1,10 @@
+import useAlert from '@hooks/useAlert';
+import useModal from '@hooks/useModal';
 import { useLayoutStore } from '@store/layoutStore';
 import { makeSlugByTitle } from '@utils/makeSlug';
-import useModal from '@hooks/useModal';
-import useAlert from '@hooks/useAlert';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
+import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -11,12 +12,10 @@ import styled from 'styled-components';
 import BaseButton from '@components/base/BaseButton';
 import BaseIcon from '@components/base/BaseIcon';
 import FlexBox from '@components/style/FlexBox';
+import ModalWrapper from '@components/ui/modal/ModalWrapper';
 import PageController from '@components/ui/page/PageController';
 
-import ModalWrapper from '@components/ui/modal/ModalWrapper';
-
 import data from '/data.json';
-
 
 function DetailNotePage() {
   const { deviceType } = useLayoutStore();
@@ -32,37 +31,10 @@ function DetailNotePage() {
 
   if (!note) return;
 
-  const ArichivedModal = ({ onClose, onSubmit }) => {
-  return (
-    <ModalWrapper
-      icon={<BaseIcon type="archive" />}
-      title="Archive Note"
-      sub="Are you sure you want to archive this note? You can find it in the Archived Notes section and restore it anytime."
-      onClose={onClose}
-      submitText='Archive Note'
-      onSubmit={onSubmit}
-    />
-  );
-};
-
-const DeleteModal = ({ onClose, onSubmit }) => {
-  return (
-    <ModalWrapper
-      icon={<BaseIcon type="delete" />}
-      title="Delete Note"
-      sub="Are you sure you want to permanently delete this note? This action cannot be undone."
-      onClose={onClose}
-      onSubmit={onSubmit}
-      submitText='Delete Note'
-      isDangerous
-    />
-  );
-};
-
   const handleModal = () => {
-    openModal(ArichivedModal, {
+    openModal(ArchivedModal, {
       onSubmit: () => {
-        console.log('create');
+        console.log('Archive Note');
       },
     });
   };
@@ -70,7 +42,7 @@ const DeleteModal = ({ onClose, onSubmit }) => {
   const handleDeleteModal = () => {
     openModal(DeleteModal, {
       onSubmit: () => {
-        console.log('delete');
+        console.log('Delete Note');
       },
     });
   };
@@ -78,7 +50,7 @@ const DeleteModal = ({ onClose, onSubmit }) => {
   return (
     <PageContainer>
       <div className="left_wrapper">
-        <PageController />
+        <PageController onArchiveModal={handleModal} onDeleteModal={handleDeleteModal} />
         <h2>{note?.title}</h2>
         <div className="information">
           <div className={clsx('label', 'stroke_icn')}>
@@ -107,8 +79,10 @@ const DeleteModal = ({ onClose, onSubmit }) => {
             texture="Archive Note"
             onClick={handleModal}
           />
-          <BaseButton theme="border" leftIcon={<BaseIcon type="delete" />} texture="Delete Note" 
-          
+          <BaseButton
+            theme="border"
+            leftIcon={<BaseIcon type="delete" />}
+            texture="Delete Note"
             onClick={handleDeleteModal}
           />
         </div>
@@ -187,3 +161,52 @@ const PageContainer = styled.div`
 `;
 
 export default DetailNotePage;
+
+function ArchivedModal({ onClose, onSubmit }) {
+  const alert = useAlert();
+  const handleSubmit = () => {
+    onSubmit();
+    alert('정상으로 보관되었습니다.', 'success');
+    onClose();
+  };
+  return (
+    <ModalWrapper
+      icon={<BaseIcon type="archive" />}
+      title="Archive Note"
+      sub="Are you sure you want to archive this note? You can find it in the Archived Notes section and restore it anytime."
+      onClose={onClose}
+      submitText="Archive Note"
+      onSubmit={handleSubmit}
+    />
+  );
+}
+
+ArchivedModal.propTypes = {
+  onClose: PropTypes.func,
+  onSubmit: PropTypes.func,
+};
+
+function DeleteModal({ onClose, onSubmit }) {
+  const alert = useAlert();
+  const handleSubmit = () => {
+    onSubmit();
+    alert('정상으로 삭제되었습니다.', 'success');
+    onClose();
+  };
+  return (
+    <ModalWrapper
+      icon={<BaseIcon type="delete" />}
+      title="Delete Note"
+      sub="Are you sure you want to permanently delete this note? This action cannot be undone."
+      onClose={onClose}
+      onSubmit={handleSubmit}
+      submitText="Delete Note"
+      isDangerous
+    />
+  );
+}
+
+DeleteModal.propTypes = {
+  onClose: PropTypes.func,
+  onSubmit: PropTypes.func,
+};

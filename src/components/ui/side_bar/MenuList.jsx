@@ -19,7 +19,7 @@ function Menulist() {
     case location.pathname.includes('settings'):
       return <SettingMenu />;
     default:
-      return <AllNotesMenu />;
+      return <AllNotesMenu isLaptop={isLaptop} />;
   }
 }
 

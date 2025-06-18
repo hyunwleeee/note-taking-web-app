@@ -1,12 +1,13 @@
 import useNavigation from '@hooks/useNavigation';
 import { useLayoutStore } from '@store/layoutStore';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import BaseButton from '@components/base/BaseButton';
 import BaseIcon from '@components/base/BaseIcon';
 import FlexBox from '@components/style/FlexBox';
 
-function PageController() {
+function PageController({ onArchiveModal, onDeleteModal }) {
   const { deviceType } = useLayoutStore();
 
   const { Navigate } = useNavigation();
@@ -24,7 +25,7 @@ function PageController() {
         </BaseButton>
       </FlexBox>
       <FlexBox g={'16px'}>
-        <BaseButton theme="ghost">
+        <BaseButton theme="ghost" onClick={onDeleteModal}>
           <BaseIcon type="delete" color="#525866" />
         </BaseButton>
 
@@ -34,7 +35,12 @@ function PageController() {
 
         <BaseButton theme="ghost" texture="Cancel" />
 
-        <BaseButton theme="ghost" texture="Save Note" className="text_blue" />
+        <BaseButton
+          theme="ghost"
+          texture="Save Note"
+          className="text_blue"
+          onClick={onArchiveModal}
+        />
       </FlexBox>
     </PageControllerContainer>
   );
@@ -51,3 +57,8 @@ const PageControllerContainer = styled(FlexBox)`
     width: 16px;
   }
 `;
+
+PageController.propTypes = {
+  onArchiveModal: PropTypes.func,
+  onDeleteModal: PropTypes.func,
+};
