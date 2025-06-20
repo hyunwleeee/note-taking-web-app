@@ -1,9 +1,10 @@
-import Colors from '@styles/colors';
-import { Inner, Media } from '@styles/media';
-import Radius from '@styles/radius';
-import Shadow from '@styles/shadow';
-import Spacing from '@styles/spacing';
-import Typography from '@styles/typhography';
+import Colors from './colors';
+import { Inner, Media } from './media';
+import Radius from './radius';
+import Shadow from './shadow';
+import Spacing from './spacing';
+import Typography from './typhography';
+import SrOnly from './srOnly';
 
 const Theme = {
   colors: Colors,
@@ -13,6 +14,7 @@ const Theme = {
   shadow: Shadow,
   media: Media,
   inner: Inner,
+  'sr-only': SrOnly,
 };
 
 export default Theme;
