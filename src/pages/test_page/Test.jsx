@@ -1,12 +1,19 @@
+import { TAG_MENU_LIST } from '@constants/MenuConstants';
 import useAlert from '@hooks/useAlert';
+import useFormState from '@hooks/useFormState';
 import useModal from '@hooks/useModal';
 import useNavigation from '@hooks/useNavigation';
+import { changeToOptionList } from '@utils/changeToOptionList';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import BaseButton from '@components/base/BaseButton';
+import BaseCheckBoxGroup from '@components/base/BaseCheckBoxGroup';
 import BaseIcon from '@components/base/BaseIcon';
 import BaseInput from '@components/base/BaseInput';
+import BaseMultiSelect from '@components/base/BaseMultiSelect';
+import BaseTextarea from '@components/base/BaseTextarea';
 import FlexBox from '@components/style/FlexBox';
 import Header from '@components/ui/header/Header';
 import ModalWrapper from '@components/ui/modal/ModalWrapper';
@@ -23,6 +30,11 @@ const TestModal = ({ onClose, onSubmit }) => {
   );
 };
 
+TestModal.propTypes = {
+  onClose: PropTypes.func,
+  onSubmit: PropTypes.func,
+};
+
 const TestDeleteModal = ({ onClose, onSubmit }) => {
   return (
     <ModalWrapper
@@ -36,7 +48,16 @@ const TestDeleteModal = ({ onClose, onSubmit }) => {
   );
 };
 
+TestDeleteModal.propTypes = {
+  onClose: PropTypes.func,
+  onSubmit: PropTypes.func,
+};
+
 const Test = () => {
+  const { formState, formDispatch } = useFormState({
+    content: '',
+    skills: ['1', '3', '4'],
+  });
   const [value, setValue] = useState('');
   const { openModal } = useModal();
   const alert = useAlert();
@@ -179,6 +200,30 @@ const Test = () => {
         placeholder="Placeholder text"
         description="This is a hint text to help user."
       />
+
+      <BaseTextarea
+        value={formState.content}
+        onChange={(value) => formDispatch({ type: 'content', value })}
+        maxLength={24}
+      />
+
+      <div style={{ border: '2px solid black' }}>
+        <h3>Skills</h3>
+        <BaseCheckBoxGroup
+          value={formState.skills}
+          onChange={(value) => formDispatch({ type: 'skills', value })}
+          options={[
+            { name: 'React', value: '1' },
+            { name: 'Vite', value: '2' },
+            { name: 'Next.js', value: '3' },
+            { name: 'Git', value: '4' },
+            { name: 'SCSS', value: '5' },
+            { name: 'styled-component', value: '6' },
+          ]}
+        />
+      </div>
+
+      <BaseMultiSelect isSearch options={() => changeToOptionList(TAG_MENU_LIST, 'name', 'name')} />
     </>
   );
 };
