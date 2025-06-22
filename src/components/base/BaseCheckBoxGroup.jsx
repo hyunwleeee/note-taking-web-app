@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import BaseCheckBox from './BaseCheckBox';
 
@@ -9,7 +10,7 @@ function BaseCheckBoxGroup({ value, onChange, options }) {
   };
 
   return (
-    <ul>
+    <CheckBoxGroupContainer>
       {options.map((option, idx) => (
         <BaseCheckBox
           key={idx}
@@ -19,9 +20,15 @@ function BaseCheckBoxGroup({ value, onChange, options }) {
           onChange={handleChange}
         />
       ))}
-    </ul>
+    </CheckBoxGroupContainer>
   );
 }
+
+const CheckBoxGroupContainer = styled.ul`
+  display: flex;
+  row-gap: ${({ theme }) => theme.spacing[100]};
+  column-gap: ${({ theme }) => theme.spacing[200]};
+`;
 
 export default BaseCheckBoxGroup;
 
