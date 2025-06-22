@@ -1,4 +1,5 @@
 import useNavigation from '@hooks/useNavigation';
+import { checkIsDetailDepth } from '@utils/path';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
@@ -8,7 +9,6 @@ import BaseIcon from '@components/base/BaseIcon';
 import FlexBox from '@components/style/FlexBox';
 
 import PageHeaderSearch from './PageHeaderSearch';
-import { checkIsDetailDepth } from '@utils/path';
 
 function PageHeader({ isLaptop }) {
   const { Navigate } = useNavigation();
@@ -25,7 +25,8 @@ function PageHeader({ isLaptop }) {
       case header.includes('tags'):
         return (
           <>
-            <span>Notes Tagged: </span>{location.pathname.split('/')[2]}
+            <span>Notes Tagged: </span>
+            {location.pathname.split('/')[2]}
           </>
         );
       case header.includes('settings'):
@@ -68,7 +69,7 @@ const PageHeaderContainer = styled.div`
   > h3 {
     span {
       color: var(--theme-text2-color);
-    }  
+    }
   }
   ${({ theme }) => theme.typography.textPreset1};
   ${({ theme }) => theme.media.tablet`

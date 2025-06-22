@@ -63,9 +63,9 @@ function DetailNotePage() {
           </div>
           <div className="value">{note.tags.join(', ')}</div>
 
-          {isArchived &&
+          {isArchived && (
             <>
-              <div className='label'>
+              <div className="label">
                 <FlexBox j="start" g="6px">
                   <BaseIcon type="status" size={16} />
                   <span>Status</span>
@@ -73,8 +73,7 @@ function DetailNotePage() {
               </div>
               <div className="value">Archived</div>
             </>
-          }
-
+          )}
 
           <div className="label">
             <FlexBox j="start" g="6px">

@@ -1,9 +1,5 @@
 import { makeSlugByTitle } from '@utils/makeSlug';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
-import BaseButton from '@components/base/BaseButton';
-import BaseIcon from '@components/base/BaseIcon';
 
 import MenuItem from './MenuItem';
 import data from '/data.json';
@@ -96,7 +92,7 @@ const AllNotesContainer = styled.div`
       position: sticky;
       top: 0;
        padding: ${({ theme }) =>
-      `${theme.spacing[250]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
+         `${theme.spacing[250]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
       display: inline-block;
       width: 100%;
       position: sticky;
@@ -110,7 +106,7 @@ const AllNotesContainer = styled.div`
     }
     .top_list {
       padding: ${({ theme }) =>
-      `${theme.spacing[0]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
+        `${theme.spacing[0]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
       display: flex;
       flex-flow: column nowrap;
       gap: 4px;

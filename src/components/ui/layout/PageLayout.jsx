@@ -1,4 +1,5 @@
 import { useLayoutStore } from '@store/layoutStore';
+import { checkIsDetailDepth } from '@utils/path';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -9,7 +10,6 @@ import Menulist from '@components/ui/side_bar/MenuList';
 import Navigation from '@components/ui/side_bar/Navigation';
 
 import MenuLayout from './MenuLayout';
-import { checkIsDetailDepth } from '@utils/path';
 
 function PageLayout() {
   const { deviceType } = useLayoutStore();

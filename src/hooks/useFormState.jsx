@@ -1,6 +1,6 @@
 import { useReducer } from 'react';
 
-const useFilter = (init) => {
+const useFormState = (init) => {
   const [formState, formDispatch] = useReducer(formStateReducer, init);
 
   return {
@@ -18,10 +18,9 @@ const formStateReducer = (state, action) => {
     }
   });
 
-  if (action.type === 'set-data')
-    result = action.value;
+  if (action.type === 'set-data') result = action.value;
 
   return result;
 };
 
-export default useFilter;
+export default useFormState;

@@ -223,7 +223,18 @@ const Test = () => {
         />
       </div>
 
-      <BaseMultiSelect isSearch options={() => changeToOptionList(TAG_MENU_LIST, 'name', 'name')} />
+      <BaseMultiSelect
+        value={formState.skills}
+        onChange={(value) => formDispatch({ type: 'skills', value })}
+        options={[
+          { name: 'React', value: '1' },
+          { name: 'Vite', value: '2' },
+          { name: 'Next.js', value: '3' },
+          { name: 'Git', value: '4' },
+          { name: 'SCSS', value: '5' },
+          { name: 'styled-component', value: '6' },
+        ]}
+      />
     </>
   );
 };

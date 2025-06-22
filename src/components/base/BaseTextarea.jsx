@@ -36,7 +36,7 @@ const TextareaContainer = styled.div`
     border: 1px solid var(--theme-border-color);
     border-radius: ${({ theme }) => theme.radius[8]};
     padding: ${({ theme }) => `${theme.spacing[150]} ${theme.spacing[200]}`};
-      ${({ theme }) => theme.typography.textPreset5};
+    ${({ theme }) => theme.typography.textPreset5};
     background: transparent;
     &::placeholder {
       color: ${({ theme }) => theme.colors.neutral500};
@@ -45,8 +45,8 @@ const TextareaContainer = styled.div`
       background: var(--theme-input-hover-color);
     }
     &:active {
-     outline: ${({ theme }) => `2px solid ${theme.colors.neutral500}`};
-     outline-offset: 2px;
+      outline: ${({ theme }) => `2px solid ${theme.colors.neutral500}`};
+      outline-offset: 2px;
     }
   }
 `;

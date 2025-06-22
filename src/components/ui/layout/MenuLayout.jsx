@@ -1,19 +1,21 @@
+import useNavigation from '@hooks/useNavigation';
+import { checkIsDetailDepth } from '@utils/path';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import BaseButton from '@components/base/BaseButton';
 import BaseIcon from '@components/base/BaseIcon';
-import { checkIsDetailDepth } from '@utils/path';
-function MenuLayout({ children, isLaptop }) {
 
-  // TODO: util func
-  /* desktop이고, pathname depth > 2이면 */
+function MenuLayout({ children, isLaptop }) {
+  const { Navigate } = useNavigation();
   if (!isLaptop && checkIsDetailDepth()) {
     return <></>;
   }
-
-  const description = location.pathname.includes('archived') ? 'All your archived notes are stored here. You can restore or delete them anytime.' :
-    location.pathname.includes('tags') ? 'All notes with the ”Dev” tag are shown here.' : '';
+  const description = location.pathname.includes('archived')
+    ? 'All your archived notes are stored here. You can restore or delete them anytime.'
+    : location.pathname.includes('tags')
+      ? 'All notes with the ”Dev” tag are shown here.'
+      : '';
 
   return (
     <MenuWrapper $needMinHeight={checkIsDetailDepth()}>
@@ -21,7 +23,9 @@ function MenuLayout({ children, isLaptop }) {
         <BaseButton
           texture={isLaptop && '+ Create New Note'}
           size={isLaptop && 'full'}
-          onClick={() => { }}
+          onClick={() => {
+            Navigate.move('/notes/create');
+          }}
         >
           {!isLaptop && <BaseIcon type="plus" color="#fff" />}
         </BaseButton>
@@ -74,7 +78,7 @@ const MenuWrapper = styled.div`
 
     .top_list {
       padding: ${({ theme }) =>
-      `0 ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
+        `0 ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
       display: flex;
       flex-flow: column nowrap;
       gap: 4px;

@@ -54,15 +54,7 @@ function BaseRadioButton({
 
 const RadioButtonWrapper = styled.div`
   input {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    border: 0;
-    clip: rect(0 0 0 0);
+    ${({ theme }) => theme['sr-only']};
   }
 
   .icon_wrapper {
@@ -118,7 +110,7 @@ const RadioLabel = styled.label`
     width: 16px;
     height: 16px;
     background-color: ${({ $isChecked, theme }) =>
-      $isChecked ? theme.colors.blue500 : theme.colors.neutral200};
+    $isChecked ? theme.colors.blue500 : theme.colors.neutral200};
 
     display: flex;
     flex-direction: column;

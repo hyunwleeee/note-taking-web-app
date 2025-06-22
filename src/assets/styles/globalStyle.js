@@ -93,6 +93,10 @@ const GlobalStyle = createGlobalStyle`
     background: rgba(0, 0, 0, 0.5);
     z-index: 99;
   }
+
+  ul, ol, li {
+    list-style: none;
+  }
 `;
 
 export default GlobalStyle;

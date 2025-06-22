@@ -56,11 +56,6 @@ const MenuBarContainer = styled.nav`
   box-shadow: 0px -5px 6px 0px var(--theme-shadow-color);
   background: var(--theme-bg-color);
 
-  ul,
-  li {
-    list-style: none;
-  }
-
   > ul {
     height: 56px;
     width: 100%;

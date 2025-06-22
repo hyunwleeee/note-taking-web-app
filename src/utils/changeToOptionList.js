@@ -1,6 +1,4 @@
-import { makeSlugByTitle } from '@utils/makeSlug';
-
-function changeToOptionList(list, name, key) {
+export function changeToOptionList(list, name, key) {
   return list.map((item) => {
     return {
       name: item[name],
@@ -8,6 +6,3 @@ function changeToOptionList(list, name, key) {
     };
   });
 }
-
-
-

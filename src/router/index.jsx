@@ -11,8 +11,8 @@ import TransitionComponent from '@components/animation/TransitionWrapper';
 import AuthLayout from '@components/ui/layout/AuthLayout';
 import SiteLayout from '@components/ui/layout/SiteLayout';
 
-import DetailNotePage from '../pages/home_page/DetailNotePage';
-
+const CreateNotePage = lazy(() => import('@pages/home_page/CreateNotePage'));
+const DetailNotePage = lazy(() => import('@pages/home_page/DetailNotePage'));
 const HomePage = lazy(() => import('@pages/home_page/HomePage'));
 
 const SearchPage = lazy(() => import('@pages/search_page/SearchPage'));
@@ -42,6 +42,7 @@ const RootRouter = () => {
         <Route path="search" element={<SearchPage />} />
         <Route path="archived" element={<ArchivedPage />} />
 
+        <Route path="notes/create" element={<CreateNotePage />} />
         <Route path="notes/:slug" element={<DetailNotePage />} />
         <Route path="archived/:slug" element={<DetailNotePage />} />
 
@@ -63,7 +64,7 @@ const RootRouter = () => {
         <Route path="forgot-password-page" element={<ForgotPasswordPage />} />
         <Route path="reset-your-password-page" element={<ResetYourPasswordPage />} />
       </Route>
-      <Route path="test" element={<TransitionComponent />}>
+      <Route path="test">
         <Route path="" element={<Test />} />
       </Route>
     </>
