@@ -102,14 +102,12 @@ const BaseMultiSelect = ({ value = [], onChange, options, isSearch, style, selec
         left,
         top: 'unset',
         bottom: -(elementTop - pageHeight - 8),
-        width: rect.width,
       });
     } else {
       setSelectLocation({
         left,
         top: rect.top + rect.height + 8,
         bottom: 'unset',
-        width: rect.width,
       });
     }
   }, [isOpen]);
@@ -135,7 +133,6 @@ const BaseMultiSelect = ({ value = [], onChange, options, isSearch, style, selec
                 left: selectLocation.left,
                 top: selectLocation.top,
                 bottom: selectLocation.bottom,
-                width: `${selectLocation.width}px`,
               }}
             >
               {isSearch && (

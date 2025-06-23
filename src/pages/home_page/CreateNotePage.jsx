@@ -1,29 +1,18 @@
 import useFormState from '@hooks/useFormState';
-import useModal from '@hooks/useModal';
 import { useLayoutStore } from '@store/layoutStore';
-import { makeSlugByTitle } from '@utils/makeSlug';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import BaseButton from '@components/base/BaseButton';
 import BaseIcon from '@components/base/BaseIcon';
 import BaseInput from '@components/base/BaseInput';
 import BaseMultiSelect from '@components/base/BaseMultiSelect';
 import BaseTextarea from '@components/base/BaseTextarea';
 import FlexBox from '@components/style/FlexBox';
-import PageController from '@components/ui/page/PageController';
-
-import data from '/data.json';
 
 function CreateNotePage() {
   const { deviceType } = useLayoutStore();
   const isLaptop = deviceType === 'laptop';
-  const { slug } = useParams();
-  const [note, setNote] = useState();
-  const { openModal } = useModal();
   const { formState, formDispatch } = useFormState({
     title: '',
     tags: [],
