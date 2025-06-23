@@ -1,4 +1,4 @@
-import { useLightDark } from '@contexts/light_dark.context';
+import useNavigation from '@hooks/useNavigation';
 import styled from 'styled-components';
 
 function Logo({ ...restProps }) {
@@ -11,6 +11,7 @@ function Logo({ ...restProps }) {
 }
 
 function LogoSvg() {
+  const { Navigate } = useNavigation();
   return (
     <LogoSvgContainer
       xmlns="http://www.w3.org/2000/svg"
@@ -18,6 +19,7 @@ function LogoSvg() {
       height="28"
       fill="none"
       viewBox="0 0 95 28"
+      onClick={() => Navigate.move('/')}
     >
       <g clipPath="url(#a)">
         <g fill="#335CFF" fillRule="evenodd" clipPath="url(#b)" clipRule="evenodd">
@@ -53,6 +55,7 @@ const SrOnlyHeading1 = styled.h1`
 `;
 
 const LogoSvgContainer = styled.svg`
+  cursor: pointer;
   > g > path {
     fill: var(--theme-text-color);
   }
