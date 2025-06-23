@@ -55,10 +55,6 @@ const BaseMultiSelect = ({ value = [], onChange, options, isSearch, style, selec
   };
 
   useEffect(() => {
-    if (value.length <= 0) {
-      setText('Please select options...');
-      return;
-    }
     const arr = options.filter((option) => value.includes(option.value)).map((item) => item.name);
     setText(arr.join(', '));
     setIsAllChecked(options.length === arr.length);
@@ -122,7 +118,7 @@ const BaseMultiSelect = ({ value = [], onChange, options, isSearch, style, selec
     <MultiSelectWrapper $open={isOpen} style={style}>
       <div className="select_container" ref={selectContainerRef} style={selectStyle}>
         <div className="select_input" ref={inputRef} onClick={(e) => handleClickSelector(e)}>
-          <p>{text}</p>
+          <p>{text || <span>Please select options...</span>}</p>
           <BaseIcon type="chevron-right" />
         </div>
       </div>
@@ -181,6 +177,9 @@ const MultiSelectWrapper = styled.div`
         path {
           fill: var(--theme-text-color);
         }
+      }
+      p span {
+        color: var(--theme-text2-color);
       }
     }
   }

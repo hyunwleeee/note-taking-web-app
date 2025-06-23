@@ -11,12 +11,12 @@ import styled from 'styled-components';
 import BaseButton from '@components/base/BaseButton';
 import BaseIcon from '@components/base/BaseIcon';
 import BaseInput from '@components/base/BaseInput';
+import BaseMultiSelect from '@components/base/BaseMultiSelect';
 import BaseTextarea from '@components/base/BaseTextarea';
 import FlexBox from '@components/style/FlexBox';
 import PageController from '@components/ui/page/PageController';
 
 import data from '/data.json';
-import BaseMultiSelect from '@components/base/BaseMultiSelect';
 
 function CreateNotePage() {
   const { deviceType } = useLayoutStore();
@@ -144,7 +144,7 @@ const PageContainer = styled.div`
 
     > div:last-child textarea {
       border: none;
-      padding: 0;
+      padding: ${({ theme }) => `${theme.spacing[50]} 0`};
       border-radius: 0;
       &:active,
       &:hover {
@@ -164,7 +164,7 @@ const PageContainer = styled.div`
   }
 
   .content_wrapper {
-    height: calc(100% - 200px);
+    height: calc(100% - 250px);
     white-space: pre-wrap;
     ${({ theme }) => theme.typography.textPreset5};
     color: var(--theme-text3-color);
@@ -177,6 +177,9 @@ const PageContainer = styled.div`
     display: flex;
     height: calc(100 * var(--vh, 1vh) - 77px);
     padding-top: 0;
+    .content_wrapper {
+      height: calc(100% - 148px);
+    }
   `}
 `;
 
