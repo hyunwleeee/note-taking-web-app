@@ -7,25 +7,28 @@ import {
   useReducer,
 } from 'react';
 
-import Modals from '@components/ui/modal/Modals';
-
-type ModalItem<T> = {
-  Component: ComponentType<T>;
-  props: T;
+type BaseModalProps = {
+  onClose: () => void;
+  onSubmit?: () => void;
 };
 
-type ModalAction<T> =
-  | { type: 'open'; Component: ComponentType<T>; props: T }
-  | { type: 'close'; Component: ComponentType<T> }
+type ModalItem = {
+  Component: ComponentType<BaseModalProps>;
+  props: BaseModalProps;
+};
+
+type ModalAction =
+  | { type: 'open'; Component: ComponentType<BaseModalProps>; props: BaseModalProps }
+  | { type: 'close'; Component: ComponentType<BaseModalProps> }
   | { type: 'closeAll' };
 
-type ModalState = ModalItem<unknown>[];
-type ModalDispatch = Dispatch<ModalAction<unknown>>;
+type ModalState = ModalItem[];
+type ModalDispatch = Dispatch<ModalAction>;
 
 const ModalContext = createContext<ModalState>([]);
 const ModalDispatchContext = createContext<ModalDispatch | null>(null);
 
-function modalReducer(state: ModalState, action: ModalAction<unknown>): ModalState {
+function modalReducer(state: ModalState, action: ModalAction): ModalState {
   switch (action.type) {
     case 'open':
       return [...state, { Component: action.Component, props: action.props }];
@@ -34,30 +37,29 @@ function modalReducer(state: ModalState, action: ModalAction<unknown>): ModalSta
     case 'closeAll':
       return [];
     default:
-      throw new Error('Unknown action');
+      return state;
   }
 }
 
-function ModalProvider({ children }: PropsWithChildren) {
+export function ModalProvider({ children }: PropsWithChildren) {
   const [state, dispatch] = useReducer(modalReducer, []);
 
   return (
     <ModalContext.Provider value={state}>
       <ModalDispatchContext.Provider value={dispatch}>
         {children}
-        <Modals />
       </ModalDispatchContext.Provider>
     </ModalContext.Provider>
   );
 }
 
-export default ModalProvider;
-
-export function useModals() {
-
+export function useModals(): ModalState {
   return useContext(ModalContext);
 }
 
-export function useModalsDispatch() {
-  return useContext(ModalDispatchContext);
+export function useModalsDispatch(): ModalDispatch {
+  const context = useContext(ModalDispatchContext);
+  if (!context) throw new Error('useModalsDispatch must be used within ModalProvider');
+  return context;
 }
+
