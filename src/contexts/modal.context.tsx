@@ -6,24 +6,20 @@ import {
   useContext,
   useReducer,
 } from 'react';
-
-type BaseModalProps = {
-  onClose: () => void;
-  onSubmit?: () => void;
-};
+import { ModalProps } from '@type/modal';
 
 type ModalItem = {
-  Component: ComponentType<BaseModalProps>;
-  props: BaseModalProps;
+  Component: ComponentType<ModalProps>;
+  props: ModalProps;
 };
 
-type ModalAction =
-  | { type: 'open'; Component: ComponentType<BaseModalProps>; props: BaseModalProps }
-  | { type: 'close'; Component: ComponentType<BaseModalProps> }
+export type ModalAction =
+  | { type: 'open'; Component: ComponentType<ModalProps>; props: ModalProps }
+  | { type: 'close'; Component: ComponentType<ModalProps> }
   | { type: 'closeAll' };
 
-type ModalState = ModalItem[];
-type ModalDispatch = Dispatch<ModalAction>;
+export type ModalState = ModalItem[];
+export type ModalDispatch = Dispatch<ModalAction>;
 
 const ModalContext = createContext<ModalState>([]);
 const ModalDispatchContext = createContext<ModalDispatch | null>(null);
@@ -37,13 +33,12 @@ function modalReducer(state: ModalState, action: ModalAction): ModalState {
     case 'closeAll':
       return [];
     default:
-      return state;
+      throw new Error('Unknown modal action');
   }
 }
 
-export function ModalProvider({ children }: PropsWithChildren) {
+const ModalProvider = ({ children }: PropsWithChildren) => {
   const [state, dispatch] = useReducer(modalReducer, []);
-
   return (
     <ModalContext.Provider value={state}>
       <ModalDispatchContext.Provider value={dispatch}>
@@ -51,15 +46,14 @@ export function ModalProvider({ children }: PropsWithChildren) {
       </ModalDispatchContext.Provider>
     </ModalContext.Provider>
   );
-}
+};
 
-export function useModals(): ModalState {
-  return useContext(ModalContext);
-}
-
-export function useModalsDispatch(): ModalDispatch {
+const useModals = () => useContext(ModalContext);
+const useModalsDispatch = () => {
   const context = useContext(ModalDispatchContext);
   if (!context) throw new Error('useModalsDispatch must be used within ModalProvider');
   return context;
-}
+};
+
+export { ModalProvider, useModals, useModalsDispatch };
 

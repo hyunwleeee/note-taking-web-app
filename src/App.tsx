@@ -1,4 +1,3 @@
-import ModalProvider from '@contexts/modal.context';
 import GlobalStyle from '@assets/styles/globalStyle';
 import Theme from '@assets/styles/theme';
 import '@styles/variables.css';
@@ -11,6 +10,7 @@ import AlertComponent from '@components/ui/toast/AlertComponent';
 import FontProvider from './contexts/font.context';
 import LightDarkProvider from './contexts/light_dark.context';
 import RootRouter from './router';
+import { ModalProvider } from './contexts/modal.context';
 
 ReactModal.setAppElement('#root');
 
