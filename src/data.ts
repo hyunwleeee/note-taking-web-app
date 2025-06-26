@@ -1,5 +1,7 @@
-{
-  "notes": [
+import { Note } from "@type/note";
+
+const data: { notes: Note[] } = {
+  notes: [
     {
       "title": "React Performance Optimization",
       "tags": ["Dev", "React"],
@@ -93,3 +95,5 @@
     }
   ]
 }
+
+export default data;
