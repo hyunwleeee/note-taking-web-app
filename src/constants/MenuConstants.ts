@@ -1,9 +1,11 @@
-export const NAV_LIST = [
+import Icon from "@type/icon";
+
+export const NAV_LIST: { name: string, path: string, icon: Icon }[] = [
   { name: 'all notes', path: '/', icon: 'home' },
   { name: 'archived', path: '/archived', icon: 'archive' },
 ];
 
-export const TAG_MENU_LIST = [
+export const TAG_MENU_LIST: { name: string, path: string }[] = [
   { name: 'Cooking', path: '/tags/Cooking' },
   { name: 'Dev', path: '/tags/Dev' },
   { name: 'Fitness', path: '/tags/Fitness' },
@@ -16,15 +18,16 @@ export const TAG_MENU_LIST = [
   { name: 'TypeScript', path: '/tags/TypeScript' },
 ];
 
-export const SETTING_MENU_LIST = [
-  { name: 'color theme', path: '/settings/color-theme', icon: 'sun' },
-  { name: 'font theme', path: '/settings/font-theme', icon: 'font' },
-  { name: 'change password', path: '/settings/change-password', icon: 'lock' },
-];
+export const SETTING_MENU_LIST:
+  { name: string, path: string, icon: Icon }[] = [
+    { name: 'color theme', path: '/settings/color-theme', icon: 'sun' },
+    { name: 'font theme', path: '/settings/font-theme', icon: 'font' },
+    { name: 'change password', path: '/settings/change-password', icon: 'lock' },
+  ];
 
-export const LOGOUT_MENU_DATA = { name: 'logout', path: '/settings/logout', icon: 'logout' };
+export const LOGOUT_MENU_DATA: { name: string; path: string; icon: Icon } = { name: 'logout', path: '/settings/logout', icon: 'logout' };
 
-export const MENU_LIST = [
+export const MENU_LIST: { name: string, path: string, icon: Icon }[] = [
   { name: 'color theme', path: '/settings/color-theme', icon: 'sun' },
   { name: 'font theme', path: '/settings/font-theme', icon: 'font' },
   { name: 'change password', path: '/settings/change-password', icon: 'lock' },
