@@ -11,23 +11,26 @@ import FontProvider from './contexts/font.context';
 import LightDarkProvider from './contexts/light_dark.context';
 import RootRouter from './router';
 import { ModalProvider } from './contexts/modal.context';
+import FirebaseAuthProvider from '@contexts/auth.context';
 
 ReactModal.setAppElement('#root');
 
 function App() {
   return (
-    <ThemeProvider theme={Theme}>
-      <LightDarkProvider>
-        <FontProvider>
-          <GlobalStyle />
-          <ModalProvider>
-            <RootRouter />
-            {/* react-toastify */}
-            {createPortal(<AlertComponent />, document.getElementById('alert-root')!)}
-          </ModalProvider>
-        </FontProvider>
-      </LightDarkProvider>
-    </ThemeProvider>
+    <FirebaseAuthProvider>
+      <ThemeProvider theme={Theme}>
+        <LightDarkProvider>
+          <FontProvider>
+            <GlobalStyle />
+            <ModalProvider>
+              <RootRouter />
+              {/* react-toastify */}
+              {createPortal(<AlertComponent />, document.getElementById('alert-root')!)}
+            </ModalProvider>
+          </FontProvider>
+        </LightDarkProvider>
+      </ThemeProvider>
+    </FirebaseAuthProvider>
   );
 }
 
