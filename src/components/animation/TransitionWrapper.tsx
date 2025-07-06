@@ -10,14 +10,14 @@ const TransitionWrapper = ({ children }: { children: ReactNode }) => {
     switch (slideDirection) {
       case 'slide-next':
         return {
-          initial: { left: '80%' },
-          animate: { left: ['80%', '0%'] },
+          initial: { left: '95%' },
+          animate: { left: ['95%', '0%'] },
           exit: { left: ['0%', '-100%'] },
         };
       case 'slide-prev':
         return {
-          initial: { left: '-80%' },
-          animate: { left: ['-80%', '0%'] },
+          initial: { left: '-95%' },
+          animate: { left: ['-95%', '0%'] },
           exit: { left: ['0%', '100%'] },
         };
       default:

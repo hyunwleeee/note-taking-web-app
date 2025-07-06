@@ -17,7 +17,6 @@ import { Note } from '@type/note';
 import { ModalProps } from '@type/modal';
 import data from '@assets/data';
 
-
 function DetailNotePage() {
   const { deviceType } = useLayoutStore();
   const isLaptop = deviceType === 'laptop';

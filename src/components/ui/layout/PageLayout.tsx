@@ -16,30 +16,50 @@ function PageLayout({ children }: { children: ReactNode }) {
   const { deviceType } = useLayoutStore();
   const isLaptop = deviceType === 'laptop';
 
+  const OutletContent = isLaptop ? (
+    <TransitionWrapper>
+      <Outlet />
+    </TransitionWrapper>
+  ) : (
+    <Outlet />
+  );
+
+  const Content = (
+    <PageContainer $needMinHeight={checkIsDetailDepth()}>
+      <FlexBox j="start" a="stretch" d="column" style={{ width: '100%' }}>
+        <PageHeader isLaptop={isLaptop} />
+        <FlexBox
+          j="start"
+          a="stretch"
+          d={isLaptop ? 'row' : 'column'}
+          style={{ width: '100%', height: '100%' }}
+        >
+          <MenuLayout isLaptop={isLaptop}>
+            <Menulist />
+          </MenuLayout>
+          {OutletContent}
+        </FlexBox>
+      </FlexBox>
+    </PageContainer>
+  );
+
   return (
     <PageWrapper>
       {isLaptop && <Navigation />}
-      <TransitionWrapper>
-        <PageContainer $needMinHeight={checkIsDetailDepth()}>
-          <FlexBox j="start" a="stretch" d="column">
-            <PageHeader isLaptop={isLaptop} />
-            <FlexBox
-              j="start"
-              a="stretch"
-              d={isLaptop ? 'row' : 'column'}
-              style={{ width: '100%', height: '100%' }}
-            >
-              <MenuLayout isLaptop={isLaptop}>
-                <Menulist />
-              </MenuLayout>
-              <Outlet />
-            </FlexBox>
-          </FlexBox>
-        </PageContainer>
-      </TransitionWrapper>
+      {isLaptop ? Content : <TransitionWrapper>{Content}</TransitionWrapper>}
     </PageWrapper>
   );
 }
+
+const PageContainer = styled.div<{ $needMinHeight: boolean }>`
+  border-radius: ${({ theme }) => theme.radius[16]};
+  background-color: var(--theme-bg-color);
+  min-height: calc(100 * var(--vh, 1vh));
+  width: 100%;
+  ${({ theme }) => theme.media.laptop`
+    border-radius: ${({ theme }) => theme.radius[0]};
+  `}
+`;
 
 const PageWrapper = styled.div`
   overflow: hidden;
@@ -55,13 +75,4 @@ const PageWrapper = styled.div`
   `}
 `;
 
-const PageContainer = styled.div<{ $needMinHeight: boolean }>`
-  border-radius: ${({ theme }) => theme.radius[16]};
-  background-color: var(--theme-bg-color);
-  min-height: calc(100 * var(--vh, 1vh));
-  ${({ theme }) => theme.media.laptop`
-    border-radius: ${({ theme }) => theme.radius[0]};
-  `}
-`;
-
-export default PageLayout;
+export default PageLayout; 
