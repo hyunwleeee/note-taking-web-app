@@ -1,11 +1,28 @@
 import useNavigation from '@hooks/useNavigation';
 import dayjs from 'dayjs';
-import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import BaseIcon from '@components/base/BaseIcon';
 import FlexBox from '@components/style/FlexBox';
+import Icon from '@type/icon';
+
+interface IMenuItemProps {
+  type?: 'normal' | 'note';
+  path: string;
+  iconType?: Icon;
+  name: string;
+  tags?: string[];
+  isHighlightIcon?: boolean;
+  lastEdited?: string;
+};
+
+interface IStyleMenuProps {
+  $note: boolean;
+  $icon?: Icon;
+  $active: boolean;
+  $highlightIcon?: boolean;
+}
 
 function MenuItem({
   type = 'normal',
@@ -15,7 +32,7 @@ function MenuItem({
   tags,
   isHighlightIcon = false,
   lastEdited,
-}) {
+}: IMenuItemProps) {
   const location = useLocation();
   const { Navigate } = useNavigation();
 
@@ -60,9 +77,7 @@ function MenuItem({
   );
 }
 
-export default MenuItem;
-
-const Menu = styled.li`
+const Menu = styled.li<IStyleMenuProps>`
   ${({ $note, theme }) => ($note ? theme.typography.textPreset3 : theme.typography.textPreset4)};
   height: ${({ $note }) => ($note ? 'auto' : '40px')};
   padding: ${({ $note, theme }) => ($note ? theme.spacing[100] : `${theme.spacing[0]} ${theme.spacing[150]}`)};
@@ -73,19 +88,19 @@ const Menu = styled.li`
   border-bottom: ${({ $active, $note }) => !$active && $note && `1px solid var(--theme-divider2-color)`};
   svg path {
     ${({ $icon }) =>
-      $icon === 'home' || $icon === 'font'
-        ? css`
+    $icon === 'home' || $icon === 'font'
+      ? css`
             fill: var(--theme-text-color);
           `
-        : css`
+      : css`
             stroke: var(--theme-text-color);
           `};
   }
   svg path {
     fill: ${({ $active, $highlightIcon, $icon, theme }) =>
-      $active && $highlightIcon && $icon === 'home' ? theme.colors.blue500 : ''};
+    $active && $highlightIcon && $icon === 'home' ? theme.colors.blue500 : ''};
     stroke: ${({ $active, $highlightIcon, $icon, theme }) =>
-      $active && $highlightIcon && $icon !== 'home' ? theme.colors.blue500 : ''};
+    $active && $highlightIcon && $icon !== 'home' ? theme.colors.blue500 : ''};
   }
 
   &:hover {
@@ -126,12 +141,4 @@ const Menu = styled.li`
   }
 `;
 
-MenuItem.propTypes = {
-  type: PropTypes.oneOf(['normal', 'note']),
-  path: PropTypes.string,
-  iconType: PropTypes.oneOf(['home', 'archive', 'tags']),
-  name: PropTypes.string,
-  tags: PropTypes.array,
-  isHighlightIcon: PropTypes.bool,
-  lastEdited: PropTypes.string,
-};
+export default MenuItem;

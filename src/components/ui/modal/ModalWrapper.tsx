@@ -6,15 +6,15 @@ import FlexBox from '@components/style/FlexBox';
 import { ReactElement, ReactNode } from 'react';
 
 interface IModalWrapperProps {
-  icon: ReactElement;
+  icon?: ReactElement;
   title: string;
   sub: string;
   onSubmit: () => void;
   onClose: () => void;
-  cancelText: string;
-  submitText: string;
-  isDangerous: boolean;
-  children: ReactNode;
+  cancelText?: string;
+  submitText?: string;
+  isDangerous?: boolean;
+  children?: ReactNode;
 };
 
 function ModalWrapper({

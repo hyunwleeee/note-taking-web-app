@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import BaseIcon from '@components/base/BaseIcon';
@@ -7,11 +7,12 @@ import BaseInput from '@components/base/BaseInput';
 function PageHeaderSearch() {
   const [searchValue, setSearchValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
-  const wrapperRef = useRef();
+  const wrapperRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    const blurFocus = (e) => {
-      if (!wrapperRef.current.contains(e.target)) setIsFocused(false);
+    const blurFocus = (e: MouseEvent) => {
+      if (!wrapperRef.current?.contains(e.target as Node))
+        setIsFocused(false);
     };
 
     document.addEventListener('mousedown', blurFocus);
@@ -36,7 +37,7 @@ function PageHeaderSearch() {
   );
 }
 
-const HeaderSearchWrapper = styled.div`
+const HeaderSearchWrapper = styled.div<{ $open: boolean }>`
   width: ${({ $open }) => ($open ? '400px' : '300px')};
   transition: 0.2s ease-in;
 `;

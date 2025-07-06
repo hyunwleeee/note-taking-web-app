@@ -1,7 +1,13 @@
-import { toast } from 'react-toastify';
+import { toast, ToastOptions } from 'react-toastify';
+
+type AlertType = 'info' | 'success' | 'error';
 
 const useAlert = () => {
-  const alert = (content, type, options) => {
+  const alert = (
+    content: string,
+    type: AlertType = 'success',
+    options?: ToastOptions
+  ) => {
     switch (type) {
       case 'error':
         toast.error(content, { ...options });
@@ -15,7 +21,7 @@ const useAlert = () => {
     }
   };
 
-  return (content, type = 'error', options) => alert(content, type, options);
+  return alert;
 };
 
 export default useAlert;

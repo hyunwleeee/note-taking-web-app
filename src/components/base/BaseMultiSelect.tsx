@@ -19,9 +19,9 @@ interface IBaseMultiSelectProps {
   value: string[];
   onChange: (value: string[]) => void;
   options: { name: string, value: string }[];
-  isSearch: boolean;
-  style: CSSProperties;
-  selectStyle: CSSProperties;
+  isSearch?: boolean;
+  style?: CSSProperties;
+  selectStyle?: CSSProperties;
 };
 
 interface IMultiSelectWrapperProps {
@@ -51,7 +51,7 @@ const variants = {
   },
 };
 
-const BaseMultiSelect = ({ value = [], onChange, options, isSearch, style, selectStyle }: IBaseMultiSelectProps) => {
+const BaseMultiSelect = ({ value = [], onChange, options, isSearch = false, style, selectStyle }: IBaseMultiSelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [text, setText] = useState('');
   const [searchValue, setSearchValue] = useState('');

@@ -9,11 +9,13 @@ import BaseInput from '@components/base/BaseInput';
 import BaseMultiSelect from '@components/base/BaseMultiSelect';
 import BaseTextarea from '@components/base/BaseTextarea';
 import FlexBox from '@components/style/FlexBox';
+import { Note } from '@type/note';
+
 
 function CreateNotePage() {
   const { deviceType } = useLayoutStore();
   const isLaptop = deviceType === 'laptop';
-  const { formState, formDispatch } = useFormState({
+  const { formState, formDispatch } = useFormState<Note>({
     title: '',
     tags: [],
     content: '',
@@ -26,7 +28,7 @@ function CreateNotePage() {
       <div className="left_wrapper">
         <BaseInput
           value={formState.title}
-          onChange={(value) => formDispatch({ type: 'title', value })}
+          onChange={(value: string) => formDispatch({ type: 'title', value })}
           placeholder="Enter a title..."
         />
         <div className="information">
@@ -67,7 +69,7 @@ function CreateNotePage() {
         <div className="content_wrapper">
           <BaseTextarea
             value={formState.content}
-            onChange={(value) => formDispatch({ type: 'content', value })}
+            onChange={(value: string) => formDispatch({ type: 'content', value })}
             placeholder="Start typing your note here"
           />
         </div>

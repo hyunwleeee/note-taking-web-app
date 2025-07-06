@@ -2,10 +2,11 @@ import { makeSlugByTitle } from '@utils/makeSlug';
 import styled from 'styled-components';
 
 import MenuItem from './MenuItem';
-import data from '/data.json';
+import { Note } from '@type/note';
+import data from '@assets/data';
 
 function AllNotesMenu() {
-  const changeToOptionList = (list) => {
+  const changeToOptionList = (list: Note[]) => {
     return list.map(({ title, tags, lastEdited }) => ({
       name: title,
       value: title,
@@ -23,7 +24,6 @@ function AllNotesMenu() {
         <MenuItem
           key={idx}
           type="note"
-          iconType={item.icon}
           name={item.name}
           path={item.path}
           tags={item.tags}
@@ -92,7 +92,7 @@ const AllNotesContainer = styled.div`
       position: sticky;
       top: 0;
        padding: ${({ theme }) =>
-         `${theme.spacing[250]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
+      `${theme.spacing[250]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
       display: inline-block;
       width: 100%;
       position: sticky;
@@ -106,7 +106,7 @@ const AllNotesContainer = styled.div`
     }
     .top_list {
       padding: ${({ theme }) =>
-        `${theme.spacing[0]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
+      `${theme.spacing[0]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
       display: flex;
       flex-flow: column nowrap;
       gap: 4px;

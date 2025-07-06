@@ -5,8 +5,7 @@ import BaseIcon from '@components/base/BaseIcon';
 
 type OnChange =
   | ((value: string | number) => void)
-  | Dispatch<SetStateAction<string | number>>
-  | ((name: string, value: string | number) => void)
+  | ((name: string, value: string | number) => void);
 
 interface IBaseInputProps {
   theme?: 'normal' | 'disabled' | 'error';
@@ -22,7 +21,7 @@ interface IBaseInputProps {
   label?: string;
   name?: string;
   max?: number;
-  onEnterDown?: (e: KeyboardEvent<HTMLInputElement>, name?: string) => {}
+  onEnterDown?: (e: KeyboardEvent<HTMLInputElement>, name?: string) => void;
 
   description?: string;
 };
@@ -56,7 +55,7 @@ const BaseInput = forwardRef<HTMLInputElement, IBaseInputProps>(
       const _value = type !== 'number' || value === '' ? value : Number(value);
 
       if (name)
-        (onChange as (name: string, value: string | number) => void)(name, _value);
+        onChange(name, _value);
       else
         (onChange as (value: string | number) => void | Dispatch<SetStateAction<string | number>>)(_value);
     };

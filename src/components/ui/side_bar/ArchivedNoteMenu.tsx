@@ -1,10 +1,11 @@
 import { makeSlugByTitle } from '@utils/makeSlug';
 
 import MenuItem from './MenuItem';
-import data from '/data.json';
+import { Note } from '@type/note';
+import data from '@assets/data';
 
 function ArchivedNoteMenu() {
-  const changeToOptionList = (list) => {
+  const changeToOptionList = (list: Note[]) => {
     return list
       .filter(({ isArchived }) => isArchived)
       .map(({ title, tags, lastEdited }) => ({
@@ -16,6 +17,7 @@ function ArchivedNoteMenu() {
       }));
   };
 
+
   const settingList = changeToOptionList(data.notes);
 
   return (
@@ -24,11 +26,9 @@ function ArchivedNoteMenu() {
         <MenuItem
           key={idx}
           type="note"
-          iconType={item.icon}
           name={item.name}
           path={item.path}
           tags={item.tags}
-          isArchived
           lastEdited={item.lastEdited}
         />
       ))}

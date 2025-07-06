@@ -4,7 +4,6 @@ import { useLayoutStore } from '@store/layoutStore';
 import { makeSlugByTitle } from '@utils/makeSlug';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -14,15 +13,17 @@ import BaseIcon from '@components/base/BaseIcon';
 import FlexBox from '@components/style/FlexBox';
 import ModalWrapper from '@components/ui/modal/ModalWrapper';
 import PageController from '@components/ui/page/PageController';
+import { Note } from '@type/note';
+import { ModalProps } from '@type/modal';
+import data from '@assets/data';
 
-import data from '/data.json';
 
 function DetailNotePage() {
   const { deviceType } = useLayoutStore();
   const isLaptop = deviceType === 'laptop';
   const { slug } = useParams();
-  const [note, setNote] = useState();
-  const { openModal } = useModal();
+  const [note, setNote] = useState<Note>();
+  const { openModal, closeModal } = useModal();
 
   const isArchived = true;
 
@@ -35,6 +36,7 @@ function DetailNotePage() {
 
   const handleModal = () => {
     openModal(ArchivedModal, {
+      onClose: () => closeModal(ArchivedModal),
       onSubmit: () => {
         console.log('Archive Note');
       },
@@ -43,6 +45,7 @@ function DetailNotePage() {
 
   const handleDeleteModal = () => {
     openModal(DeleteModal, {
+      onClose: () => closeModal(DeleteModal),
       onSubmit: () => {
         console.log('Delete Note');
       },
@@ -175,7 +178,7 @@ const PageContainer = styled.div`
 
 export default DetailNotePage;
 
-function ArchivedModal({ onClose, onSubmit }) {
+function ArchivedModal({ onClose, onSubmit }: ModalProps) {
   const alert = useAlert();
   const handleSubmit = () => {
     onSubmit();
@@ -194,12 +197,8 @@ function ArchivedModal({ onClose, onSubmit }) {
   );
 }
 
-ArchivedModal.propTypes = {
-  onClose: PropTypes.func,
-  onSubmit: PropTypes.func,
-};
 
-function DeleteModal({ onClose, onSubmit }) {
+function DeleteModal({ onClose, onSubmit }: ModalProps) {
   const alert = useAlert();
   const handleSubmit = () => {
     onSubmit();
@@ -219,7 +218,4 @@ function DeleteModal({ onClose, onSubmit }) {
   );
 }
 
-DeleteModal.propTypes = {
-  onClose: PropTypes.func,
-  onSubmit: PropTypes.func,
-};
+

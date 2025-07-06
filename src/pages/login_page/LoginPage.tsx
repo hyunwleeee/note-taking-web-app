@@ -1,5 +1,5 @@
 import useNavigation from '@hooks/useNavigation';
-import { useEffect, useRef, useState } from 'react';
+import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import BaseButton from '@components/base/BaseButton';
@@ -11,7 +11,10 @@ import BaseInput from '@components/base/BaseInput';
 function LoginPage() {
   // const auth = useAuth();
   const { Navigate } = useNavigation();
-  const refs = useRef({
+  const refs = useRef<{
+    email: HTMLInputElement | null;
+    password: HTMLInputElement | null;
+  }>({
     email: null,
     password: null,
   });
@@ -23,29 +26,36 @@ function LoginPage() {
 
   const [isPwType, setIsPwType] = useState(false);
 
-  const handleChange = (name, value) => {
+  const handleChange: (name: string, value: string | number) => void = (name, value) => {
     setLoginData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const submitLogin = async () => {
     // await auth.login(loginData);
+  }
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await submitLogin();
   };
 
-  const handleEnterInput = (e, name) => {
+  const handleEnterInput = (e: KeyboardEvent<HTMLInputElement>, name: string) => {
     if (e.key !== 'Enter') return;
     if (name === 'email') {
       e.preventDefault();
-      refs.current.password.focus();
-    } else handleSubmit(e);
+      refs.current.password?.focus();
+    } else {
+      e.preventDefault();
+      submitLogin();
+    }
   };
 
   /* 전체 프로젝트에 우 클릭 막음 */
   useEffect(() => {
-    const handleContextMenu = (event) => {
+    const handleContextMenu = (event: MouseEvent) => {
       event.preventDefault();
     };
     window.addEventListener('contextmenu', handleContextMenu);
@@ -56,7 +66,7 @@ function LoginPage() {
   }, []);
 
   useEffect(() => {
-    refs.current.email.focus();
+    refs.current.email?.focus();
   }, []);
 
   return (
@@ -69,7 +79,7 @@ function LoginPage() {
           name="email"
           placeholder="email@example.com"
           value={loginData.email}
-          onChange={handleChange}
+          onChange={(name: string, value: string) => handleChange(name, value)}
           onEnterDown={handleEnterInput}
           ref={(el) => (refs.current.email = el)}
         />

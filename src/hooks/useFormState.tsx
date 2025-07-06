@@ -1,7 +1,24 @@
 import { useReducer } from 'react';
 
-const useFormState = (init) => {
-  const [formState, formDispatch] = useReducer(formStateReducer, init);
+type FormAction<T> =
+  | { type: 'set-data', value: T }
+  | ({ type: keyof T; value: T[keyof T] })
+
+const formStateReducer = <T,>(state: T, action: FormAction<T>) => {
+  if (action.type === 'set-data')
+    return action.value as T;
+
+  return {
+    ...state,
+    [action.type]: action.value,
+  };
+};
+
+const useFormState = <T,>(init: T) => {
+  const [formState, formDispatch] = useReducer(
+    formStateReducer<T>,
+    init
+  );
 
   return {
     formState,
@@ -9,18 +26,5 @@ const useFormState = (init) => {
   };
 };
 
-const formStateReducer = (state, action) => {
-  let result = state;
-
-  Object.keys(state).forEach((key) => {
-    if (action.type === key) {
-      result = { ...state, [key]: action.value };
-    }
-  });
-
-  if (action.type === 'set-data') result = action.value;
-
-  return result;
-};
 
 export default useFormState;

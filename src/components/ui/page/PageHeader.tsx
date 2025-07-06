@@ -1,6 +1,5 @@
 import useNavigation from '@hooks/useNavigation';
 import { checkIsDetailDepth } from '@utils/path';
-import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -10,7 +9,7 @@ import FlexBox from '@components/style/FlexBox';
 
 import PageHeaderSearch from './PageHeaderSearch';
 
-function PageHeader({ isLaptop }) {
+function PageHeader({ isLaptop }: { isLaptop: boolean }) {
   const { Navigate } = useNavigation();
   const location = useLocation();
 
@@ -83,7 +82,3 @@ const PageHeaderContainer = styled.div`
 `;
 
 export default PageHeader;
-
-PageHeader.propTypes = {
-  isLaptop: PropTypes.bool,
-};

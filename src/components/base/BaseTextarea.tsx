@@ -8,12 +8,12 @@ type OnChange =
 
 
 interface IBaseTextareaProps {
-  name: string;
+  name?: string;
   value: string;
   placeholder: string;
   onChange: OnChange;
-  disabled: boolean;
-  maxLength: number;
+  disabled?: boolean;
+  maxLength?: number;
 };
 
 interface ICounterProps {

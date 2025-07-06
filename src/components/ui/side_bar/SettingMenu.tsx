@@ -9,7 +9,12 @@ function SettingMenu() {
       <nav>
         <ul className="top_list">
           {SETTING_MENU_LIST.map((menu, idx) => (
-            <MenuItem key={idx} iconType={menu.icon} name={menu.name} path={menu.path} />
+            <MenuItem
+              key={idx}
+              iconType={menu.icon}
+              name={menu.name}
+              path={menu.path}
+            />
           ))}
         </ul>
         <ul className="bottom_list">
