@@ -16,7 +16,7 @@
       "@components/*": [
         "src/components/*"
       ],
-      "@firebase/*": [
+      "@firebase_/*": [
         "src/firebase/*"
       ],
       "@pages/*": [

@@ -1,6 +1,6 @@
 import { type ReactNode, createContext, useEffect, useState } from 'react';
-import { onAuthStateChanged, type User } from 'firebase/auth/cordova';
-import { auth } from '@firebase/client';
+import { onAuthStateChanged, type User } from 'firebase/auth';
+import { auth } from '@firebase_/client';
 
 
 interface AuthContextType {

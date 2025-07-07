@@ -1,5 +1,5 @@
-import { auth } from '@firebase/client';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth/cordova';
+import { auth } from './client';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
 export const signUp = async (
   email: string,
