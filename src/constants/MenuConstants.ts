@@ -25,7 +25,11 @@ export const SETTING_MENU_LIST:
     { name: 'change password', path: '/settings/change-password', icon: 'lock' },
   ];
 
-export const LOGOUT_MENU_DATA: { name: string; path: string; icon: Icon } = { name: 'logout', path: '/settings/logout', icon: 'logout' };
+export const LOGOUT_MENU_DATA: {
+  name: string;
+  path: string;
+  icon: Icon
+} = { name: 'logout', path: '/settings/logout', icon: 'logout' };
 
 export const MENU_LIST: { name: string, path: string, icon: Icon }[] = [
   { name: 'color theme', path: '/settings/color-theme', icon: 'sun' },

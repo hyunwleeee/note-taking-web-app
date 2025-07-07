@@ -9,12 +9,13 @@ import Icon from '@type/icon';
 
 interface IMenuItemProps {
   type?: 'normal' | 'note';
-  path: string;
+  path?: string;
   iconType?: Icon;
   name: string;
   tags?: string[];
   isHighlightIcon?: boolean;
   lastEdited?: string;
+  onClick?: () => void;
 };
 
 interface IStyleMenuProps {
@@ -32,6 +33,7 @@ function MenuItem({
   tags,
   isHighlightIcon = false,
   lastEdited,
+  onClick,
 }: IMenuItemProps) {
   const location = useLocation();
   const { Navigate } = useNavigation();
@@ -39,7 +41,11 @@ function MenuItem({
   const pathname = location.pathname;
 
   const handleClick = () => {
-    Navigate.move(path);
+    if (path) {
+      Navigate.move(path);
+      return;
+    }
+    onClick && onClick();
   };
   const getIsActive = () => {
     if (path === '/' && pathname.includes('notes')) return true;

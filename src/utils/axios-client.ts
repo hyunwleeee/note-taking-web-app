@@ -4,7 +4,6 @@ import { getRefreshToken } from "@/apis";
 import { toast } from "react-toastify";
 
 }
-
 export const axiosClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   paramsSerializer: {

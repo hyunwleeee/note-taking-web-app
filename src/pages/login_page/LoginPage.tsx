@@ -6,6 +6,7 @@ import BaseButton from '@components/base/BaseButton';
 import BaseIcon from '@components/base/BaseIcon';
 import BaseInput from '@components/base/BaseInput';
 import clsx from 'clsx';
+import { login } from '@firebase_/auth';
 
 // import useAuth from '@hooks/useAuth.js';
 
@@ -35,7 +36,13 @@ function LoginPage() {
   };
 
   const submitLogin = async () => {
-    // await auth.login(loginData);
+    //TODO: 횡단관심사 useMutation이나 axios-client에서 redirect 처리
+    try {
+      login(loginData.email, loginData.password);
+      Navigate.move('/');
+    } catch (error) {
+
+    }
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {

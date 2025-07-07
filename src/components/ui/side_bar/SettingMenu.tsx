@@ -2,8 +2,23 @@ import { LOGOUT_MENU_DATA, SETTING_MENU_LIST } from '@constants/MenuConstants';
 import styled from 'styled-components';
 
 import MenuItem from './MenuItem';
+import { logout } from '@firebase_/auth';
+import useNavigation from '@hooks/useNavigation';
+import useAlert from '@hooks/useAlert';
 
 function SettingMenu() {
+  const alert = useAlert();
+  const { Navigate } = useNavigation();
+
+  const handleLogout = async () => {
+    try {
+      logout();
+      alert('정상적으로 로그아웃 되었습니다.');
+      Navigate.move('/');
+    } catch (error) {
+    }
+  }
+
   return (
     <SettingContainer>
       <nav>
@@ -21,7 +36,7 @@ function SettingMenu() {
           <MenuItem
             iconType={LOGOUT_MENU_DATA.icon}
             name={LOGOUT_MENU_DATA.name}
-            path={LOGOUT_MENU_DATA.path}
+            onClick={handleLogout}
           />
         </ul>
       </nav>
