@@ -34,8 +34,6 @@ export default SettingMenu;
 const SettingContainer = styled.div`
   width: 100%;
   height: 100%;
-  padding: ${({ theme }) => `0 ${theme.spacing[200]}`};
-  ${({ theme }) => theme.inner};
   .logo_wrapper {
     height: 52px;
     display: flex;
@@ -48,12 +46,13 @@ const SettingContainer = styled.div`
 
   .top_list {
     display: flex;
-    flex-flow: column nowrap;
-    width: 100%;
-    gap: 4px;
+    flex-flow: column;
     padding-bottom: ${({ theme }) => theme.spacing[100]};
-    border-bottom: 1px solid var(--theme-divider2-color);
-    margin-bottom: ${({ theme }) => theme.spacing[100]};
+  }
+
+  .bottom_list {
+    border-top: 1px solid var(--theme-divider-color);
+    padding-top: ${({ theme }) => theme.spacing[100]};
   }
 
   ${({ theme }) => theme.media.tablet`
@@ -63,7 +62,8 @@ const SettingContainer = styled.div`
   ${({ theme }) => theme.media.laptop`
     width: 290px;
     height: calc(100% - 80px);
-    padding: ${({ theme }) =>
-      `${theme.spacing[250]} ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
+    .bottom_list {
+      margin: ${({ theme }) => `0 ${theme.spacing[200]} 0 ${theme.spacing[400]}`};
+    }
   `}
 `;
