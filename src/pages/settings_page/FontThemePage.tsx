@@ -16,7 +16,7 @@ function FontThemePage() {
         list={[
           {
             label: 'Sans-serif',
-            sub: 'Clean and modren, easy to read.',
+            sub: 'Clean and modern, easy to read.',
             value: 'sans-serif',
             iconType: 'font-sans-serif',
           },

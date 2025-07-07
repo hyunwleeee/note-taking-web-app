@@ -21,7 +21,7 @@ function ColorThemePage() {
           },
           {
             label: 'Dark Mode',
-            sub: 'Select a sllek and modren dark theme',
+            sub: 'Select a sleek and modern dark theme',
             value: 'dark',
             iconType: 'moon',
           },

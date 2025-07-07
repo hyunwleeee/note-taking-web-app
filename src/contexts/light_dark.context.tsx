@@ -21,18 +21,18 @@ const LightDarkContext = createContext<LightDarkState>('light');
 const LightDarkDispatchContext = createContext<Dispatch<LightDarkAction> | null>(null);
 
 function LightDarkProvider({ children }: { children: ReactNode }) {
-  const [theme, dispatch] = useReducer(lightDarkReducer, 'light');
-
-  useEffect(() => {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const localTheme = window.localStorage.getItem('theme');
-
-    if (localTheme === 'dark') {
-      dispatch({ type: 'toggle' });
-    } else if (!localTheme && prefersDark) {
-      dispatch({ type: 'toggle' });
+  const [theme, dispatch] = useReducer(
+    lightDarkReducer,
+    null,
+    () => {
+      const localTheme = window.localStorage.getItem('theme') as LightDarkState;
+      if (localTheme) {
+        return localTheme;
+      }
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      return prefersDark ? 'dark' : 'light';
     }
-  }, []);
+  );
 
   useEffect(() => {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
