@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import BaseButton from '@components/base/BaseButton';
 import BaseIcon from '@components/base/BaseIcon';
 import BaseInput from '@components/base/BaseInput';
+import clsx from 'clsx';
 
 // import useAuth from '@hooks/useAuth.js';
 
@@ -93,7 +94,7 @@ function LoginPage() {
             name="password"
             rightIcon={
               <BaseButton theme="ghost" onClick={() => setIsPwType((prev) => !prev)}>
-                <BaseIcon type="show-password" color={isPwType ? '#0E121B' : '#717784'} />
+                <BaseIcon type="show-password" className={clsx(isPwType && 'pw-type')} />
               </BaseButton>
             }
             value={loginData.password}
@@ -127,14 +128,14 @@ const LoginContainer = styled.section`
   > h2 {
     ${({ theme }) => theme.typography.textPreset1};
     text-align: center;
-    color: ${({ theme }) => theme.colors.neutral950};
+    color: var(--theme-text-color);
     margin-bottom: ${({ theme }) => theme.spacing[100]};
   }
   > p {
     ${({ theme }) => theme.typography.textPreset5};
     text-align: center;
     color: ${({ theme }) => theme.colors.neutral600};
-    margin-bottom: ${({ theme }) => theme.spacing[200]};
+    margin-bottom: ${({ theme }) => theme.spacing[400]};
   }
 `;
 
@@ -146,15 +147,26 @@ const LoginFormContainer = styled.form`
     position: relative;
     > button {
       position: absolute;
+      top: -${({ theme }) => `${theme.spacing[75]}`};
       right: 0;
       text-decoration: underline;
       text-decoration-color: ${({ theme }) => theme.colors.neutral600};
       text-underline-offset: ${({ theme }) => theme.spacing[50]};
     }
+    div svg {
+      stroke: transparent;
+      path {
+        fill: var(--theme-menu-text-color);
+      }
+      &.pw-type path {
+        fill: var(--theme-text-color);
+        stroke: var(--theme-text-color);
+      }
+    }
   }
   .oauth_wrapper {
     text-align: center;
-    border-top: ${({ theme }) => `1px solid ${theme.colors.neutral200}`};
+    border-top: 1px solid var(--theme-border-color);
     ${({ theme }) => theme.typography.textPreset6};
     color: ${({ theme }) => theme.colors.neutral600};
     > p {
@@ -163,13 +175,13 @@ const LoginFormContainer = styled.form`
   }
   .sign_up_wrapper {
     padding-top: ${({ theme }) => theme.spacing[200]};
-    border-top: ${({ theme }) => `1px solid ${theme.colors.neutral200}`};
+    border-top: 1px solid var(--theme-border-color);
     text-align: center;
     > span {
       color: ${({ theme }) => theme.colors.neutral600};
     }
     > button {
-      color: ${({ theme }) => theme.colors.neutral950};
+      color: var(--theme-text-color);
       ${({ theme }) => theme.typography.textPreset5};
     }
   }

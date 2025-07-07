@@ -4,9 +4,10 @@ interface IBaseIconProps {
   type: Icon;
   size?: number;
   color?: string;
+  className?: string;
 }
 
-function BaseIcon({ type, size = 24, color = '#0E121B' }: IBaseIconProps) {
+function BaseIcon({ type, size = 24, color = '#0E121B', className }: IBaseIconProps) {
   const icons = {
     archive: (
       <>
@@ -356,6 +357,7 @@ function BaseIcon({ type, size = 24, color = '#0E121B' }: IBaseIconProps) {
       height={size}
       viewBox={`0 0 24 24`}
       fill="none"
+      className={className}
     >
       {icons[type]}
     </svg>

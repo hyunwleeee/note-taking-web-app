@@ -48,6 +48,7 @@ const OverLay = styled.div`
     width: ${({ theme }) => `calc(100% - 2 * ${theme.spacing[200]})`};
     box-shadow: ${({ theme }) => theme.shadow};
     border-radius: ${({ theme }) => theme.radius[8]};
+    background: var(--theme-bg-color);
     /* responsive tablet */
     ${({ theme }) => theme.media.tablet`
       width: 522px;
