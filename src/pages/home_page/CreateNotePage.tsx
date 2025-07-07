@@ -11,7 +11,6 @@ import BaseTextarea from '@components/base/BaseTextarea';
 import FlexBox from '@components/style/FlexBox';
 import { Note } from '@type/note';
 
-
 function CreateNotePage() {
   const { deviceType } = useLayoutStore();
   const isLaptop = deviceType === 'laptop';

@@ -9,6 +9,11 @@ import {
 
 import AuthLayout from '@components/ui/layout/AuthLayout';
 import SiteLayout from '@components/ui/layout/SiteLayout';
+import ProtectedRouter from './ProtectedRouter';
+import LoginPage from '@pages/login_page/LoginPage';
+import SignUpPage from '@pages/sign_up_page/SignUpPage';
+import ForgotPasswordPage from '@pages/forgot_password_page/ForgotPasswordPage';
+import ResetYourPasswordPage from '@pages/reset_your_password_page/ResetYourPasswordPage';
 
 const CreateNotePage = lazy(() => import('@pages/home_page/CreateNotePage'));
 const DetailNotePage = lazy(() => import('@pages/home_page/DetailNotePage'));
@@ -26,13 +31,6 @@ const ColorThemePage = lazy(() => import('@pages/settings_page/ColorThemePage'))
 const FontThemePage = lazy(() => import('@pages/settings_page/FontThemePage'));
 const ChangePasswordPage = lazy(() => import('@pages/settings_page/ChangePasswordPage'));
 
-const LoginPage = lazy(() => import('@pages/login_page/LoginPage'));
-const SignUpPage = lazy(() => import('@pages/sign_up_page/SignUpPage'));
-const ForgotPasswordPage = lazy(() => import('@pages/forgot_password_page/ForgotPasswordPage'));
-const ResetYourPasswordPage = lazy(
-  () => import('@pages/reset_your_password_page/ResetYourPasswordPage')
-);
-
 const RootRouter = () => {
   const createRouteGroup = (
     <>
@@ -41,7 +39,10 @@ const RootRouter = () => {
         <Route path="search" element={<SearchPage />} />
         <Route path="archived" element={<ArchivedPage />} />
 
-        <Route path="notes/create" element={<CreateNotePage />} />
+        <Route element={<ProtectedRouter />}>
+          <Route path="notes/create" element={<CreateNotePage />} />
+        </Route>
+
         <Route path="notes/:slug" element={<DetailNotePage />} />
         <Route path="archived/:slug" element={<DetailNotePage />} />
 
