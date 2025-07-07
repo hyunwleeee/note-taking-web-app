@@ -25,7 +25,13 @@ function FontProvider({ children }: { children: ReactNode }) {
   const [font, dispatch] = useReducer(
     fontReducer,
     null,
-    () => window.localStorage.getItem('font') as FontState || 'sans-serif'
+    () => {
+      const localFont = window.localStorage.getItem('font') as FontState;
+      if (localFont) {
+        return localFont;
+      }
+      return 'sans-serif';
+    }
   );
 
   useEffect(() => {
@@ -43,7 +49,6 @@ function FontProvider({ children }: { children: ReactNode }) {
     </FontContext.Provider>
   );
 }
-
 
 export function useFont() {
   return useContext(FontContext);
