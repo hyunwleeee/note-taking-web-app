@@ -23,7 +23,7 @@ function MenuLayout({ children, isLaptop }: PropsWithChildren<{ isLaptop: boolea
 
   return (
     <MenuWrapper $needMinHeight={checkIsDetailDepth()}>
-      <ButtonWrapper className="button_wrapper">
+      {!location.pathname.includes('settings') && <ButtonWrapper className="button_wrapper">
         <BaseButton
           texture={isLaptop ? '+ Create New Note' : ''}
           size={isLaptop ? 'full' : 'normal'}
@@ -33,7 +33,7 @@ function MenuLayout({ children, isLaptop }: PropsWithChildren<{ isLaptop: boolea
         >
           {!isLaptop && <BaseIcon type="plus" color="#fff" />}
         </BaseButton>
-      </ButtonWrapper>
+      </ButtonWrapper>}
       {description && <p>{description}</p>}
       {children}
     </MenuWrapper>
@@ -58,6 +58,7 @@ const MenuWrapper = styled.div<IMenuWrapperProps>`
     padding: ${({ theme }) => `0 ${theme.spacing[200]} ${theme.spacing[200]} 0`};
     ${({ theme }) => theme.typography.textPreset5};
     color: var(--theme-text3-color);
+    margin: 0;
   }
 
   
@@ -71,7 +72,7 @@ const MenuWrapper = styled.div<IMenuWrapperProps>`
     padding: 0;
     width: 290px;
     min-width: 290px;
-     height: calc(100 * var(--vh, 1vh) - 77px);
+    height: calc(100 * var(--vh, 1vh) - 77px);
     border-right: 1px solid var(--theme-divider2-color);
     > p {
        padding: ${({ theme }) => `0 ${theme.spacing[200]} ${theme.spacing[200]} ${theme.spacing[400]}`};
