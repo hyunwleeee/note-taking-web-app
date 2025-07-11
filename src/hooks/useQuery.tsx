@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import axiosClient from '@utils/axios-client';
 import { AxiosError, AxiosRequestConfig, AxiosResponse, isAxiosError } from 'axios';
 import { toast } from 'react-toastify';
@@ -12,7 +12,7 @@ export function useQuery<T>(
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<AxiosError | null>(null);
 
-  const fetchData = useCallback(async () => {
+  const fetchData = async () => {
     setIsLoading(true);
     setError(null);
 
@@ -28,7 +28,7 @@ export function useQuery<T>(
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  };
 
   useEffect(() => {
     if (enabled) {
@@ -36,15 +36,13 @@ export function useQuery<T>(
     } else {
       setIsLoading(false);
     }
-  }, [enabled, fetchData]);
+  }, [enabled, url]);
 
   const refetch = () => {
-    if (enabled !== false) {
-      fetchData();
-    }
+    fetchData();
   };
 
-  return { data, isLoading, error, refetch };
+  return { data, isLoading, error, refetch }
 }
 
 export type UseQueryReturnType<T> = {

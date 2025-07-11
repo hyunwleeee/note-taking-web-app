@@ -7,10 +7,9 @@ import Logo from '@components/ui/header/Logo';
 import MenuItem from './MenuItem';
 import { getRepoLabels } from '@apis/github';
 import { info } from '@constants/info';
-import { ListLabelsType } from '@type/github';
 
 function Navigation() {
-  const { data: labels, isLoading } = getRepoLabels<ListLabelsType>(info.username, info.repo);
+  const { data: labels, isLoading } = getRepoLabels(info.username, info.repo);
   return (
     <NavigationContainer>
       <FlexBox j="start" a="stretch" d="column" g="16px" className="logo_wrapper">

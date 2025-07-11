@@ -1,10 +1,8 @@
 import useAlert from '@hooks/useAlert';
 import useModal from '@hooks/useModal';
 import { useLayoutStore } from '@store/layoutStore';
-import { makeSlugByTitle } from '@utils/makeSlug';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -13,23 +11,21 @@ import BaseIcon from '@components/base/BaseIcon';
 import FlexBox from '@components/style/FlexBox';
 import ModalWrapper from '@components/ui/modal/ModalWrapper';
 import PageController from '@components/ui/page/PageController';
-import { Note } from '@type/note';
 import { ModalProps } from '@type/modal';
-import data from '@assets/data';
+import { getRepoIssue } from '@apis/github';
+import { info } from '@constants/info';
+import LabelList from '@components/ui/LabelList';
 
 function DetailNotePage() {
   const { deviceType } = useLayoutStore();
   const isLaptop = deviceType === 'laptop';
-  const { slug } = useParams();
-  const [note, setNote] = useState<Note>();
+  const { id } = useParams();
   const { openModal, closeModal } = useModal();
 
-  const isArchived = true;
+  const { data: note } = getRepoIssue(info.username, info.repo, Number(id));
 
-  useEffect(() => {
-    const foundNote = data.notes.find((item) => makeSlugByTitle(item.title) === slug);
-    setNote(foundNote);
-  }, [slug]);
+  // NOTE:
+  const isArchived = note?.labels.some((label) => typeof label === 'object' && label.name === 'Archived');
 
   if (!note) return;
 
@@ -63,7 +59,9 @@ function DetailNotePage() {
               <span>Tags</span>
             </FlexBox>
           </div>
-          <div className="value">{note.tags.join(', ')}</div>
+          <div className="value">
+            <LabelList labelList={note.labels} />
+          </div>
 
           {isArchived && (
             <>
@@ -83,9 +81,9 @@ function DetailNotePage() {
               <span>Last edited</span>
             </FlexBox>
           </div>
-          <div className="value">{dayjs(note.lastEdited).format('DD MMM YYYY')}</div>
+          <div className="value">{dayjs(note.updated_at).format('DD MMM YYYY')}</div>
         </div>
-        <p>{note.content}</p>
+        <p>{note.body}</p>
       </div>
       {isLaptop && (
         <div className="right_wrapper">
@@ -124,7 +122,7 @@ const PageContainer = styled.div`
     ${({ theme }) => theme.typography.textPreset6};
     display: grid;
     grid-template-columns: max-content 1fr;
-    row-gap: ${({ theme }) => theme.spacing[50]};
+    row-gap: ${({ theme }) => theme.spacing[75]};
     column-gap: ${({ theme }) => theme.spacing[50]};
     align-items: center;
     padding-bottom: ${({ theme }) => theme.spacing[150]};
@@ -204,6 +202,7 @@ function DeleteModal({ onClose, onSubmit }: ModalProps) {
     alert('정상으로 삭제되었습니다.', 'success');
     onClose();
   };
+
   return (
     <ModalWrapper
       icon={<BaseIcon type="delete" />}

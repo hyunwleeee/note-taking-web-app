@@ -7,6 +7,7 @@ import BaseIcon from '@components/base/BaseIcon';
 import FlexBox from '@components/style/FlexBox';
 import Icon from '@type/icon';
 import { IssueType } from '@type/github';
+import LabelList from '@components/ui/LabelList';
 
 interface IMenuItemProps extends Pick<IssueType, 'title'> {
   labels?: IssueType['labels'];
@@ -47,10 +48,15 @@ function MenuItem({
     }
     onClick && onClick();
   };
+
   const getIsActive = () => {
     if (path === '/' && pathname.includes('notes')) return true;
     return pathname === path;
   };
+
+  const filteredLabelList = (labels as { name: string }[])?.filter(
+    (label) => label.name !== 'Archived'
+  );
 
   return (
     <Menu
@@ -60,7 +66,7 @@ function MenuItem({
       $highlightIcon={isHighlightIcon}
       onClick={handleClick}
     >
-      <FlexBox a="center" style={{ height: '100%' }}>
+      <FlexBox a="center" style={{ height: '100%', marginBottom: '12px' }}>
         <FlexBox j="start" g="8px">
           {iconType && <BaseIcon type={iconType} />}
           {title}
@@ -71,21 +77,7 @@ function MenuItem({
           </div>
         )}
       </FlexBox>
-      {labels && <ul className='tags'>
-        {labels?.map((item, idx) => {
-          if (typeof item !== 'object') return null;
-          if (typeof item.color !== 'string') return null;
-
-          return (
-            <LabelContainer
-              key={idx}
-              $color={item.color}
-            >
-              {item.name}
-            </LabelContainer>
-          );
-        })}
-      </ul>}
+      <LabelList labelList={filteredLabelList} />
       {updated_at && <div className="date">{dayjs(updated_at).format('DD MMM YYYY')}</div>}
     </Menu>
   );
@@ -136,30 +128,10 @@ const Menu = styled.li<IStyleMenuProps>`
     }
   }
 
-  .tags {
-    display: flex;
-    margin-top: ${({ theme }) => theme.spacing[150]};
-    gap: ${({ theme }) => theme.spacing[50]};
-  }
-
   .date {
     margin-top: ${({ theme }) => theme.spacing[150]};
     ${({ theme }) => theme.typography.textPreset6};
     color: var(--theme-text3-color);
-  }
-`;
-
-const LabelContainer = styled.li<{ $color: string }>`
-  padding: ${({ theme }) => `${theme.spacing[25]} ${theme.spacing[75]}`};
-  border-radius: ${({ theme }) => theme.radius[4]};
-  ${({ theme }) => theme.typography.textPreset6};
-  border: ${({ $color }) => `1px solid #${$color}`};
-  position: relative;
-  &::after {
-    position: absolute;
-    content: '';
-    inset: 0;
-    background: ${({ $color }) => `#${$color}50`};
   }
 `;
 

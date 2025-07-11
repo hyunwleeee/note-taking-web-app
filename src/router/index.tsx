@@ -43,8 +43,8 @@ const RootRouter = () => {
           <Route path="notes/create" element={<CreateNotePage />} />
         </Route>
 
-        <Route path="notes/:slug" element={<DetailNotePage />} />
-        <Route path="archived/:slug" element={<DetailNotePage />} />
+        <Route path="notes/:id" element={<DetailNotePage />} />
+        <Route path="archived/:id" element={<DetailNotePage />} />
 
         <Route path="tags">
           <Route path="" element={<TagsPage />} />

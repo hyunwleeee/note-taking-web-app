@@ -1,3 +1,4 @@
+import { info } from "@constants/info";
 import { useAuthStore } from "@store/authStore";
 import { type AxiosRequestConfig, isAxiosError } from "axios";
 import { toast } from "react-toastify";
@@ -9,11 +10,11 @@ type WithAuthCallback<R> = (
 
 export const withAuth = <R>(callback: WithAuthCallback<R>): R => {
   try {
-    const { token } = useAuthStore.getState();
+    // const { token } = useAuthStore.getState();
 
     return callback({
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${info.accessToken}`,
       },
     });
   } catch (error: unknown) {

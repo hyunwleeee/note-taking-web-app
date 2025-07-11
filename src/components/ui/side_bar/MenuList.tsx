@@ -5,12 +5,11 @@ import ArchivedNoteMenu from './ArchivedNoteMenu';
 import SettingMenu from './SettingMenu';
 import { getRepoIssues } from '@apis/github';
 import { info } from '@constants/info';
-import { IssueType } from '@type/github';
 
 function Menulist() {
   const location = useLocation();
 
-  const { data: noteList } = getRepoIssues<IssueType[]>(info.username, info.repo, 1, 10);
+  const { data: noteList } = getRepoIssues(info.username, info.repo, 1, 10);
 
   switch (true) {
     case location.pathname.includes('archived'):
