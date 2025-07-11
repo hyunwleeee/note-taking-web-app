@@ -22,7 +22,7 @@ function Navigation() {
             <MenuItem
               key={idx}
               iconType={item.icon}
-              name={item.name}
+              title={item.title}
               path={item.path}
               isHighlightIcon
             />
@@ -34,7 +34,7 @@ function Navigation() {
             <MenuItem
               key={`item_${idx}`}
               iconType="tag"
-              name={item.name}
+              title={item.name}
               isHighlightIcon
             />
           ))}

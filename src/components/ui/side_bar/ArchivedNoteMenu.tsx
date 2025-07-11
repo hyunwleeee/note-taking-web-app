@@ -26,10 +26,8 @@ function ArchivedNoteMenu() {
         <MenuItem
           key={idx}
           type="note"
-          name={item.name}
+          title={item.name}
           path={item.path}
-          tags={item.tags}
-          lastEdited={item.lastEdited}
         />
       ))}
     </ul>

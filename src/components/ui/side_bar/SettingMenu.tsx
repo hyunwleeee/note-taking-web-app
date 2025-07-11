@@ -27,7 +27,7 @@ function SettingMenu() {
             <MenuItem
               key={idx}
               iconType={menu.icon}
-              name={menu.name}
+              title={menu.title}
               path={menu.path}
             />
           ))}
@@ -35,7 +35,7 @@ function SettingMenu() {
         <ul className="bottom_list">
           <MenuItem
             iconType={LOGOUT_MENU_DATA.icon}
-            name={LOGOUT_MENU_DATA.name}
+            title={LOGOUT_MENU_DATA.title}
             onClick={handleLogout}
           />
         </ul>

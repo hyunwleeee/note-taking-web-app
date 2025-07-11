@@ -6,16 +6,15 @@ import styled, { css } from 'styled-components';
 import BaseIcon from '@components/base/BaseIcon';
 import FlexBox from '@components/style/FlexBox';
 import Icon from '@type/icon';
-import { ListLabelsType } from '@type/github';
+import { IssueType } from '@type/github';
 
-interface IMenuItemProps {
+interface IMenuItemProps extends Pick<IssueType, 'title'> {
+  labels?: IssueType['labels'];
+  updated_at?: IssueType['updated_at'];
   type?: 'normal' | 'note';
-  path?: string;
   iconType?: Icon;
-  name: string;
-  labels?: ListLabelsType;
   isHighlightIcon?: boolean;
-  lastEdited?: string;
+  path?: string;
   onClick?: () => void;
 };
 
@@ -30,10 +29,10 @@ function MenuItem({
   type = 'normal',
   path,
   iconType,
-  name,
+  title,
   labels,
   isHighlightIcon = false,
-  lastEdited,
+  updated_at,
   onClick,
 }: IMenuItemProps) {
   const location = useLocation();
@@ -64,7 +63,7 @@ function MenuItem({
       <FlexBox a="center" style={{ height: '100%' }}>
         <FlexBox j="start" g="8px">
           {iconType && <BaseIcon type={iconType} />}
-          {name}
+          {title}
         </FlexBox>
         {type === 'normal' && (
           <div className="arrow_icon_wrapper">
@@ -72,19 +71,22 @@ function MenuItem({
           </div>
         )}
       </FlexBox>
-      {labels && (
-        <ul className="tags">
-          {labels.map((item, idx) => (
+      {labels && <ul className='tags'>
+        {labels?.map((item, idx) => {
+          if (typeof item !== 'object') return null;
+          if (typeof item.color !== 'string') return null;
+
+          return (
             <LabelContainer
               key={idx}
               $color={item.color}
             >
               {item.name}
             </LabelContainer>
-          ))}
-        </ul>
-      )}
-      {lastEdited && <div className="date">{dayjs(lastEdited).format('DD MMM YYYY')}</div>}
+          );
+        })}
+      </ul>}
+      {updated_at && <div className="date">{dayjs(updated_at).format('DD MMM YYYY')}</div>}
     </Menu>
   );
 }

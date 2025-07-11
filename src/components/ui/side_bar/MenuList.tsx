@@ -18,7 +18,7 @@ function Menulist() {
     case location.pathname.includes('settings'):
       return <SettingMenu />;
     default:
-      return <AllNotesMenu noteList={noteList} />;
+      return <AllNotesMenu noteList={noteList ?? []} />;
   }
 }
 
