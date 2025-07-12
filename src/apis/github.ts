@@ -14,10 +14,6 @@ export const getRepoLabels = (owner: string, repo: string) => {
   );
 };
 
-// export const getRepoLabels = <T>(owner: string, repo: string) =>
-//   useQuery<T>(GITHUB_API_ROUTES.repos.labels(owner, repo));
-//
-
 export const getRepoIssues = (owner: string, repo: string, page: number, per_page: number) => {
   return withAuth<UseQueryReturnType<IssueType[]>>((options) =>
     useQuery(GITHUB_API_ROUTES.repos.issues(owner, repo, page, per_page), options)

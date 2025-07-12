@@ -10,6 +10,7 @@ import BaseMultiSelect from '@components/base/BaseMultiSelect';
 import BaseTextarea from '@components/base/BaseTextarea';
 import FlexBox from '@components/style/FlexBox';
 import { Note } from '@type/note';
+import { useLabelStore } from '@store/labelStore';
 
 function CreateNotePage() {
   const { deviceType } = useLayoutStore();
@@ -18,9 +19,10 @@ function CreateNotePage() {
     title: '',
     tags: [],
     content: '',
-    lastEdited: null,
     isArchived: false,
   });
+
+  const { labelList } = useLabelStore();
 
   return (
     <PageContainer>
@@ -42,14 +44,11 @@ function CreateNotePage() {
               isSearch
               value={formState.tags}
               onChange={(value) => formDispatch({ type: 'tags', value })}
-              options={[
-                { name: 'React', value: '1' },
-                { name: 'Vite', value: '2' },
-                { name: 'Next.js', value: '3' },
-                { name: 'Git', value: '4' },
-                { name: 'SCSS', value: '5' },
-                { name: 'styled-component', value: '6' },
-              ]}
+              options={
+                labelList?.map((label) => {
+                  return { name: label.name, value: String(label.id) };
+                }) || []
+              }
             />
           </div>
 

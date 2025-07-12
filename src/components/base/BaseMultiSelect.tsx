@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import styled from 'styled-components';
@@ -28,7 +28,7 @@ interface IMultiSelectWrapperProps {
   $open: boolean;
 }
 
-const variants = {
+const variants: Variants = {
   initial: {
     opacity: 0,
     scaleY: 0,
@@ -149,6 +149,7 @@ const BaseMultiSelect = ({ value = [], onChange, options, isSearch = false, styl
             <ToggleContainer
               initial="initial"
               animate="animate"
+              exit="exit"
               variants={variants}
               ref={selectRef}
               style={{

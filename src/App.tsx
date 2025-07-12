@@ -12,6 +12,7 @@ import LightDarkProvider from './contexts/light_dark.context';
 import RootRouter from './router';
 import { ModalProvider } from './contexts/modal.context';
 import FirebaseAuthProvider from '@contexts/auth.context';
+import Modals from '@components/ui/modal/Modals';
 
 ReactModal.setAppElement('#root');
 
@@ -24,6 +25,7 @@ function App() {
             <GlobalStyle />
             <ModalProvider>
               <RootRouter />
+              <Modals />
               {/* react-toastify */}
               {createPortal(<AlertComponent />, document.getElementById('alert-root')!)}
             </ModalProvider>

@@ -3,13 +3,13 @@ import styled from 'styled-components';
 
 import FlexBox from '@components/style/FlexBox';
 import Logo from '@components/ui/header/Logo';
+import { useLabelStore } from '@store/labelStore';
 
 import MenuItem from './MenuItem';
-import { getRepoLabels } from '@apis/github';
-import { info } from '@constants/info';
 
 function Navigation() {
-  const { data: labels, isLoading } = getRepoLabels(info.username, info.repo);
+  const { labelList } = useLabelStore();
+
   return (
     <NavigationContainer>
       <FlexBox j="start" a="stretch" d="column" g="16px" className="logo_wrapper">
@@ -27,9 +27,9 @@ function Navigation() {
             />
           ))}
         </ul>
-        {!isLoading && <ul className="tag_list">
+        {<ul className="tag_list">
           <h3>Tags</h3>
-          {labels?.map((item, idx) => (
+          {labelList?.map((item, idx) => (
             <MenuItem
               key={`item_${idx}`}
               iconType="tag"

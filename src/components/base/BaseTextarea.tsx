@@ -59,6 +59,7 @@ const TextareaContainer = styled.div`
     padding: ${({ theme }) => `${theme.spacing[150]} ${theme.spacing[200]}`};
     ${({ theme }) => theme.typography.textPreset5};
     background: transparent;
+    color: var(--theme-text-color);
     &::placeholder {
       color: ${({ theme }) => theme.colors.neutral500};
     }

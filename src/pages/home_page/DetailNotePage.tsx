@@ -91,7 +91,7 @@ function DetailNotePage() {
             theme="border"
             leftIcon={<BaseIcon type="archive" />}
             texture="Archive Note"
-            onClick={handleModal}
+            onClick={() => handleModal()}
           />
           <BaseButton
             theme="border"
@@ -118,6 +118,7 @@ const PageContainer = styled.div`
     ${({ theme }) => theme.typography.textPreset1};
     margin: ${({ theme }) => `${theme.spacing[200]} 0`};
   }
+
   .information {
     ${({ theme }) => theme.typography.textPreset6};
     display: grid;
@@ -182,6 +183,7 @@ function ArchivedModal({ onClose, onSubmit }: ModalProps) {
     alert('정상으로 보관되었습니다.', 'success');
     onClose();
   };
+
   return (
     <ModalWrapper
       icon={<BaseIcon type="archive" />}
@@ -193,7 +195,6 @@ function ArchivedModal({ onClose, onSubmit }: ModalProps) {
     />
   );
 }
-
 
 function DeleteModal({ onClose, onSubmit }: ModalProps) {
   const alert = useAlert();
