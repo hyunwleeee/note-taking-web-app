@@ -17,11 +17,13 @@ export function useQuery<T>(
     setError(null);
 
     try {
-      const response: AxiosResponse<T> = await axiosClient<T>(url, options);
+      // NOTE: cache busting
+      const cacheBustingUrl = `${url}${url.includes('?') ? '&' : '?'}_=${new Date().getTime()}`;
+      const response: AxiosResponse<T> = await axiosClient<T>(cacheBustingUrl, options);
       setData(response.data);
     } catch (err) {
-      if (isAxiosError(error)) {
-        setError(error);
+      if (isAxiosError(err)) {
+        setError(err);
       } else {
         toast.error('알 수 없는 오류가 발생했습니다.');
       }
@@ -51,5 +53,3 @@ export type UseQueryReturnType<T> = {
   error: AxiosError | null;
   refetch: () => void;
 };
-
-

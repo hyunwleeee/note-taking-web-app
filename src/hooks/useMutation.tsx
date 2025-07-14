@@ -1,43 +1,43 @@
-import { useState, useCallback } from 'react';
+import axiosClient from '@utils/axios-client';
+import { type AxiosResponse, type AxiosRequestConfig, isAxiosError, AxiosError } from 'axios';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 
-interface UseMutationOptions<T, K> {
-  onSuccess?: (data: K) => void;
-  onError?: (error: Error) => void;
-}
-
-export function useMutation<T, K>(
-  mutationFn: (variables: T) => Promise<K>,
-  options: UseMutationOptions<T, K> = {},
+export function useMutation<T, R>(
+  url: string,
+  options?: AxiosRequestConfig,
 ) {
-  const { onSuccess, onError } = options;
+  const [data, setData] = useState<R | null>(null);
+  const [error, setError] = useState<AxiosError | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const [data, setData] = useState<K | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
-
-  const mutate = useCallback(
-    async (variables: T) => {
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        const result = await mutationFn(variables);
-        setData(result);
-        if (onSuccess) {
-          onSuccess(result);
-        }
-      } catch (err) {
-        const mutationError = err instanceof Error ? err : new Error('An unknown error occurred');
-        setError(mutationError);
-        if (onError) {
-          onError(mutationError);
-        }
-      } finally {
-        setIsLoading(false);
+  const mutate = async (body: T, slug?: string) => {
+    setIsLoading(true);
+    try {
+      const baseurl = slug ? `${url}/${slug}` : url;
+      const response: AxiosResponse<R> = await axiosClient(baseurl, {
+        ...options,
+        method: options?.method || 'POST',
+        data: body
+      });
+      setData(response.data);
+    } catch (err) {
+      if (isAxiosError(err)) {
+        setError(err);
+      } else {
+        toast.error('알 수 없는 오류가 발생했습니다.');
       }
-    },
-    [mutationFn, onSuccess, onError],
-  );
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
-  return { mutate, data, isLoading, error };
+  return { data, isLoading, error, mutate };
 }
+
+export type UseMutationReturnType<T, R> = {
+  data: R | null;
+  isLoading: boolean;
+  error: AxiosError | null;
+  mutate: (body: T, slug?: string) => Promise<void>;
+};

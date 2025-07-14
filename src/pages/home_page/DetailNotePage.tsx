@@ -12,7 +12,7 @@ import FlexBox from '@components/style/FlexBox';
 import ModalWrapper from '@components/ui/modal/ModalWrapper';
 import PageController from '@components/ui/page/PageController';
 import { ModalProps } from '@type/modal';
-import { getRepoIssue } from '@apis/github';
+import { addLabelsToIssue, getRepoIssue, removeLabelFromIssue } from '@apis/github';
 import { info } from '@constants/info';
 import LabelList from '@components/ui/LabelList';
 
@@ -22,18 +22,20 @@ function DetailNotePage() {
   const { id } = useParams();
   const { openModal, closeModal } = useModal();
 
-  const { data: note } = getRepoIssue(info.username, info.repo, Number(id));
+  const { data: note, refetch } = getRepoIssue(info.username, info.repo, Number(id));
+  const { data: addedData, mutate: addLabel } = addLabelsToIssue(info.username, info.repo, Number(id));
+  const { data: removedData, mutate: removeLabel } = removeLabelFromIssue(info.username, info.repo, Number(id));
 
   // NOTE:
   const isArchived = note?.labels.some((label) => typeof label === 'object' && label.name === 'Archived');
 
-  if (!note) return;
-
   const handleModal = () => {
     openModal(ArchivedModal, {
       onClose: () => closeModal(ArchivedModal),
-      onSubmit: () => {
-        console.log('Archive Note');
+      onSubmit: async () => {
+        !isArchived ? await addLabel({ labels: ['Archived'] })
+          : await removeLabel(null, 'Archived');
+        refetch();
       },
     });
   };
@@ -46,6 +48,8 @@ function DetailNotePage() {
       },
     });
   };
+
+  if (!note) return;
 
   return (
     <PageContainer>

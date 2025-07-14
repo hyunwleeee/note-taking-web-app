@@ -37,5 +37,24 @@ export const GITHUB_API_ROUTES = {
      */
     issue: (owner: string, repo: string, issue_number: number) =>
       `${API_URL}/repos/${owner}/${repo}/issues/${issue_number}`,
+
+    /**
+     * @name POST /repos/{owner}/{repo}/issues/{issue_number}/labels
+     * @description 해당 이슈에 라벨 추가하기
+     * @link https://docs.github.com/ko/rest/issues/labels?apiVersion=2022-11-28#add-labels-to-an-issue
+     */
+    addLabelsToIssue: (owner: string, repo: string, issue_number: number) =>
+      `${API_URL}/repos/${owner}/${repo}/issues/${issue_number}/labels`,
+
+    /**
+     * @name DELETE /repos/{owner}/{repo}/issues/{issue_number}/labels/{name}
+     * @description 해당 이슈에서 특정 라벨 제거하기
+     * @link https://docs.github.com/ko/rest/issues/labels?apiVersion=2022-11-28#remove-a-label-from-an-issue
+     */
+    removeLabelFromIssue: (
+      owner: string,
+      repo: string,
+      issue_number: number,
+    ) => `${API_URL}/repos/${owner}/${repo}/issues/${issue_number}/labels`,
   },
 } as const;

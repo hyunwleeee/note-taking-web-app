@@ -14,7 +14,9 @@ export const withAuth = <R>(callback: WithAuthCallback<R>): R => {
 
     return callback({
       headers: {
+        accept: 'application/vnd.github+json',
         Authorization: `Bearer ${info.accessToken}`,
+        'X-Github-Api-Version': '2022-11-28'
       },
     });
   } catch (error: unknown) {
