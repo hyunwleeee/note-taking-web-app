@@ -61,10 +61,10 @@ const Test = () => {
   const [value, setValue] = useState('');
   const { openModal } = useModal();
   const alert = useAlert();
-  const { Navigate } = useNavigation();
+  const { move } = useNavigation();
 
   const handleMove = (path) => {
-    Navigate.move(path);
+    move(path);
   };
 
   const handleModal = () => {

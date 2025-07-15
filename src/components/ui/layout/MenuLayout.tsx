@@ -11,7 +11,7 @@ interface IMenuWrapperProps {
 }
 
 function MenuLayout({ children, isLaptop }: PropsWithChildren<{ isLaptop: boolean }>) {
-  const { Navigate } = useNavigation();
+  const { move } = useNavigation();
   if (!isLaptop && checkIsDetailDepth()) {
     return <></>;
   }
@@ -28,7 +28,7 @@ function MenuLayout({ children, isLaptop }: PropsWithChildren<{ isLaptop: boolea
           texture={isLaptop ? '+ Create New Note' : ''}
           size={isLaptop ? 'full' : 'normal'}
           onClick={() => {
-            Navigate.move('/notes/create');
+            move('/notes/create');
           }}
         >
           {!isLaptop && <BaseIcon type="plus" color="#fff" />}

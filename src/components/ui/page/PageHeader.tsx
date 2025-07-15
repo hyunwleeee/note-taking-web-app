@@ -10,7 +10,7 @@ import FlexBox from '@components/style/FlexBox';
 import PageHeaderSearch from './PageHeaderSearch';
 
 function PageHeader({ isLaptop }: { isLaptop: boolean }) {
-  const { Navigate } = useNavigation();
+  const { move } = useNavigation();
   const location = useLocation();
 
   const header = location.pathname;
@@ -49,7 +49,7 @@ function PageHeader({ isLaptop }: { isLaptop: boolean }) {
             theme="ghost"
             className="svg_fill"
             onClick={() => {
-              Navigate.move('/settings');
+              move('/settings');
             }}
           >
             <BaseIcon type="settings" color="#525866" />

@@ -11,3 +11,4 @@ export type UserType = Endpoints['GET /users/{username}']['response']['data'];
 
 export type AddLabelsToIssueType =
   components['requestBodies']['label-array']['content']['application/json'];
+

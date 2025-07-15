@@ -37,13 +37,13 @@ function MenuItem({
   onClick,
 }: IMenuItemProps) {
   const location = useLocation();
-  const { Navigate } = useNavigation();
+  const { move } = useNavigation();
 
   const pathname = location.pathname;
 
   const handleClick = () => {
     if (path) {
-      Navigate.move(path);
+      move(path);
       return;
     }
     onClick && onClick();

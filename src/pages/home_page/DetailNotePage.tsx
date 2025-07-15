@@ -15,6 +15,7 @@ import { ModalProps } from '@type/modal';
 import { addLabelsToIssue, getRepoIssue, removeLabelFromIssue } from '@apis/github';
 import { info } from '@constants/info';
 import LabelList from '@components/ui/LabelList';
+import { withUserAuth } from '@utils/withAuth';
 
 function DetailNotePage() {
   const { deviceType } = useLayoutStore();
@@ -30,23 +31,23 @@ function DetailNotePage() {
   const isArchived = note?.labels.some((label) => typeof label === 'object' && label.name === 'Archived');
 
   const handleModal = () => {
-    openModal(ArchivedModal, {
+    withUserAuth(() => openModal(ArchivedModal, {
       onClose: () => closeModal(ArchivedModal),
       onSubmit: async () => {
         !isArchived ? await addLabel({ labels: ['Archived'] })
           : await removeLabel(null, 'Archived');
         refetch();
       },
-    });
+    }));
   };
 
   const handleDeleteModal = () => {
-    openModal(DeleteModal, {
+    withUserAuth(() => openModal(DeleteModal, {
       onClose: () => closeModal(DeleteModal),
       onSubmit: () => {
         console.log('Delete Note');
       },
-    });
+    }));
   };
 
   if (!note) return;

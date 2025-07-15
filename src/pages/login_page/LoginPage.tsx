@@ -8,9 +8,12 @@ import BaseInput from '@components/base/BaseInput';
 import clsx from 'clsx';
 import { login, loginWithGithub, loginWithGoogle } from '@firebase_/auth';
 import { useAuthStore } from '@store/authStore';
+import { type Role } from '@firebase_/role';
+import useAlert from '@hooks/useAlert';
 
 function LoginPage() {
-  const { Navigate } = useNavigation();
+  const { move } = useNavigation();
+  const alert = useAlert();
   const refs = useRef<{
     email: HTMLInputElement | null;
     password: HTMLInputElement | null;
@@ -34,42 +37,48 @@ function LoginPage() {
   };
 
   const submitLogin = async () => {
-    //TODO: 횡단관심사 useMutation이나 axios-client에서 redirect 처리
     try {
-      login(loginData.email, loginData.password);
-      Navigate.move('/');
+      const { user, role } = await login(loginData.email, loginData.password);
+      useAuthStore.getState().setUser(user, role as Role);
     } catch (error) {
-
+      throw error;
     }
   }
 
   const handleGithubLogin = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      const { user, token } = await loginWithGithub();
-      useAuthStore.getState().setUser(user, token);
-      Navigate.move('/');
+      const { user, role } = await loginWithGithub();
+      useAuthStore.getState().setUser(user, role as Role);
     } catch (error) {
-      console.log('error: ', error);
+      console.error(error);
+      throw error;
     }
   };
 
-  const handleGoogleLogin = async (e) => {
+  const handleGoogleLogin = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      loginWithGoogle();
-      Navigate.move('/');
+      const { user, role } = await loginWithGoogle();
+      useAuthStore.getState().setUser(user, role as Role);
     } catch (error) {
-
+      console.error(error);
+      throw error;
     }
   }
 
 
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await submitLogin();
+    try {
+      await submitLogin();
+      move('/');
+    } catch (error) {
+      console.error(error);
+      alert('로그인에 실패했습니다.', 'error');
+    }
   };
+
 
   const handleEnterInput = (e: KeyboardEvent<HTMLInputElement>, name: string) => {
     if (e.key !== 'Enter') return;
@@ -87,6 +96,7 @@ function LoginPage() {
     const handleContextMenu = (event: MouseEvent) => {
       event.preventDefault();
     };
+
     window.addEventListener('contextmenu', handleContextMenu);
 
     return () => {
@@ -113,7 +123,7 @@ function LoginPage() {
           ref={(el) => (refs.current.email = el)}
         />
         <div className="password_wrapper">
-          <BaseButton theme="ghost" onClick={() => Navigate.move('/forgot-password-page')}>
+          <BaseButton theme="ghost" onClick={() => move('/forgot-password-page')}>
             Forgot
           </BaseButton>
           <BaseInput
@@ -151,7 +161,7 @@ function LoginPage() {
         </div>
         <div className="sign_up_wrapper">
           <span>No account yet? </span>
-          <BaseButton theme="ghost" onClick={() => Navigate.move('/sign-up')}>
+          <BaseButton type='button' theme="ghost" onClick={() => move('/sign-up')}>
             Sign Up
           </BaseButton>
         </div>

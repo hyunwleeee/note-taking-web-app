@@ -64,14 +64,12 @@ const useNavigation = <T,>() => {
   };
 
   return {
-    Navigate: {
-      move,
-      goBack,
-      goHome,
-      fade,
-      moveWithQuery,
-      inner,
-    },
+    move,
+    goBack,
+    goHome,
+    fade,
+    moveWithQuery,
+    inner,
   };
 };
 

@@ -5,16 +5,19 @@ import MenuItem from './MenuItem';
 import { logout } from '@firebase_/auth';
 import useNavigation from '@hooks/useNavigation';
 import useAlert from '@hooks/useAlert';
+import { useAuthStore } from '@store/authStore';
 
 function SettingMenu() {
   const alert = useAlert();
-  const { Navigate } = useNavigation();
+  const { move } = useNavigation();
+  const { setUser } = useAuthStore();
 
   const handleLogout = async () => {
     try {
       logout();
       alert('정상적으로 로그아웃 되었습니다.');
-      Navigate.move('/');
+      setUser(null, null);
+      move('/');
     } catch (error) {
     }
   }

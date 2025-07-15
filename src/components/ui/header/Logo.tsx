@@ -11,7 +11,7 @@ function Logo({ ...restProps }) {
 }
 
 function LogoSvg() {
-  const { Navigate } = useNavigation();
+  const { move } = useNavigation();
   return (
     <LogoSvgContainer
       xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +19,7 @@ function LogoSvg() {
       height="28"
       fill="none"
       viewBox="0 0 95 28"
-      onClick={() => Navigate.move('/')}
+      onClick={() => move('/')}
     >
       <g clipPath="url(#a)">
         <g fill="#335CFF" fillRule="evenodd" clipPath="url(#b)" clipRule="evenodd">

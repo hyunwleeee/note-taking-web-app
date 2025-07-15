@@ -9,7 +9,7 @@ import FlexBox from '@components/style/FlexBox';
 import Icon from '@type/icon';
 
 function MenuBar() {
-  const { Navigate } = useNavigation();
+  const { move } = useNavigation();
   const { deviceType } = useLayoutStore();
   const isTablet = deviceType === 'tablet';
   const navList: { name: string; path: string; icon: Icon }[] = [
@@ -25,7 +25,7 @@ function MenuBar() {
   const isVisibleDivider = (idx: number) => isTablet && idx < navList.length - 1;
 
   const handleMove = (path: string) => {
-    Navigate.move(path);
+    move(path);
   };
 
   return (

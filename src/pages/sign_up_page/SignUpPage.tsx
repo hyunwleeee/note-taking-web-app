@@ -1,17 +1,17 @@
 import useNavigation from '@hooks/useNavigation';
-import { useEffect, useRef, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState, KeyboardEvent } from 'react';
 import styled from 'styled-components';
 
 import BaseButton from '@components/base/BaseButton';
 import BaseIcon from '@components/base/BaseIcon';
 import BaseInput from '@components/base/BaseInput';
 import clsx from 'clsx';
-
-// import useAuth from '@hooks/useAuth.js';
+import { signUpUser } from '@firebase_/auth';
+import useAlert from '@hooks/useAlert';
 
 function SignUpPage() {
-  // const auth = useAuth();
-  const { Navigate } = useNavigation();
+  const { move } = useNavigation();
+  const alert = useAlert();
   const refs = useRef({
     email: null,
     password: null,
@@ -24,19 +24,24 @@ function SignUpPage() {
 
   const [isPwType, setIsPwType] = useState(false);
 
-  const handleChange = (name, value) => {
+  const handleChange = (name: string, value: string) => {
     setLoginData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // await auth.login(loginData);
+    try {
+      await signUpUser(loginData.email, loginData.password);
+      move('/login');
+    } catch (error) {
+      alert(error);
+    }
   };
 
-  const handleEnterInput = (e, name) => {
+  const handleEnterInput = (e: KeyboardEvent<HTMLInputElement>, name: string) => {
     if (e.key !== 'Enter') return;
     if (name === 'email') {
       e.preventDefault();
@@ -89,7 +94,7 @@ function SignUpPage() {
         </div>
         <div className="sign_up_wrapper">
           <span>Already have an account? </span>
-          <BaseButton theme="ghost" onClick={() => Navigate.move('/login')}>
+          <BaseButton theme="ghost" onClick={() => move('/login')}>
             Login
           </BaseButton>
         </div>
