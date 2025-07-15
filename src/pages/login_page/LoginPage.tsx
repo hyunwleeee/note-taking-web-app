@@ -10,6 +10,7 @@ import { login, loginWithGithub, loginWithGoogle } from '@firebase_/auth';
 import { useAuthStore } from '@store/authStore';
 import { type Role } from '@firebase_/role';
 import useAlert from '@hooks/useAlert';
+import { APIError } from '@type/errors/api-error';
 
 function LoginPage() {
   const { move } = useNavigation();
@@ -29,6 +30,8 @@ function LoginPage() {
 
   const [isPwType, setIsPwType] = useState(false);
 
+  const { setUser } = useAuthStore();
+
   const handleChange: (name: string, value: string | number) => void = (name, value) => {
     setLoginData((prev) => ({
       ...prev,
@@ -39,11 +42,33 @@ function LoginPage() {
   const submitLogin = async () => {
     try {
       const { user, role } = await login(loginData.email, loginData.password);
-      useAuthStore.getState().setUser(user, role as Role);
+      setUser(user, role);
+      move('/');
     } catch (error) {
-      throw error;
+      if (error instanceof APIError) {
+        alert(error.message, 'error');
+      } else {
+        alert('알 수 없는 오류가 발생헀습니다.', 'error');
+      }
     }
   }
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await submitLogin();
+  };
+
+
+  const handleEnterInput = (e: KeyboardEvent<HTMLInputElement>, name: string) => {
+    if (e.key !== 'Enter') return;
+    if (name === 'email') {
+      e.preventDefault();
+      refs.current.password?.focus();
+    } else {
+      e.preventDefault();
+      submitLogin();
+    }
+  };
 
   const handleGithubLogin = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -66,30 +91,6 @@ function LoginPage() {
       throw error;
     }
   }
-
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      await submitLogin();
-      move('/');
-    } catch (error) {
-      console.error(error);
-      alert('로그인에 실패했습니다.', 'error');
-    }
-  };
-
-
-  const handleEnterInput = (e: KeyboardEvent<HTMLInputElement>, name: string) => {
-    if (e.key !== 'Enter') return;
-    if (name === 'email') {
-      e.preventDefault();
-      refs.current.password?.focus();
-    } else {
-      e.preventDefault();
-      submitLogin();
-    }
-  };
 
   /* 전체 프로젝트에 우 클릭 막음 */
   useEffect(() => {

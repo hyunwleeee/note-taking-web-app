@@ -11,7 +11,7 @@ const axiosClient = axios.create({
   },
 });
 
-/* 클로저와 커링으로 만들어진 withAuth로 대체 */
+/* curring 헬퍼 withAuth로 대체 */
 // axiosClient.interceptors.request.use((config) => {
 //   const { token } = useAuthStore.getState();
 //

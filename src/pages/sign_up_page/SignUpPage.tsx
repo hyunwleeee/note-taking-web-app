@@ -8,6 +8,7 @@ import BaseInput from '@components/base/BaseInput';
 import clsx from 'clsx';
 import { signUpUser } from '@firebase_/auth';
 import useAlert from '@hooks/useAlert';
+import { APIError } from '@type/errors/api-error';
 
 function SignUpPage() {
   const { move } = useNavigation();
@@ -37,7 +38,11 @@ function SignUpPage() {
       await signUpUser(loginData.email, loginData.password);
       move('/login');
     } catch (error) {
-      alert(error);
+      if (error instanceof APIError) {
+        alert(error.message, 'error');
+      } else {
+        alert('알 수 없는 오류가 발생헀습니다.', 'error');
+      }
     }
   };
 

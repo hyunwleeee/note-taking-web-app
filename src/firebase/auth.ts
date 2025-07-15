@@ -9,29 +9,32 @@ import {
 } from 'firebase/auth';
 import { auth } from './client';
 import { getUserRole, setUserRole } from './role';
+import { withFirebaseErrorHandling } from '@utils/withFirebaseErrorHandling';
 
 const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
 
 
-export const signUpUser = async (
+export const signUpUser = (
   email: string,
   password: string,
-) => {
+) => withFirebaseErrorHandling(async () => {
   const credential = await createUserWithEmailAndPassword(auth, email, password);
   const uid = credential.user.uid;
 
   await setUserRole(uid, 'user');
   return credential;
-};
+});
 
-export const login = async (email: string, password: string) => {
-  const credential = await signInWithEmailAndPassword(auth, email, password)
-  const user = credential.user;
+export const login = (email: string, password: string) =>
+  withFirebaseErrorHandling(
+    async () => {
+      const credential = await signInWithEmailAndPassword(auth, email, password)
+      const user = credential.user;
 
-  const role = await getUserRole(user.uid);
-  return { user, role };
-}
+      const role = await getUserRole(user.uid);
+      return { user, role };
+    });
 
 export const logout = () => {
   return auth.signOut();
