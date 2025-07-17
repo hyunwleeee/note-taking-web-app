@@ -1,57 +1,52 @@
 import { GITHUB_API_ROUTES } from '@constants/github-api-routes';
 import { useQuery } from '@hooks/useQuery';
 import { IssueType, ListLabelsType } from '@type/github';
-import { withOwnerAuth } from '@utils/withAuth';
-import { type UseQueryReturnType } from '@hooks/useQuery';
-import { useMutation, UseMutationReturnType } from '@hooks/useMutation';
+import { withGithubOwnerAuth } from '@utils/withAuth';
+import { info } from '@constants/info';
+import { mutate, query } from '@utils/apis';
 
 export const getUserInfo = (username: string) => {
   return useQuery(GITHUB_API_ROUTES.users.users(username));
 };
 
-export const getRepoLabels = (owner: string, repo: string) => {
-  return withOwnerAuth<UseQueryReturnType<ListLabelsType>>((options) =>
-    useQuery(GITHUB_API_ROUTES.repos.labels(owner, repo), options)
+export const getRepoIssues = (page: number, per_page: number) => {
+  return withGithubOwnerAuth<Promise<IssueType[]>>((options) =>
+    query(GITHUB_API_ROUTES.repos.issues(info.username, info.repo), { params: { page, per_page }, ...options })
   );
 };
 
-export const getRepoIssues = (owner: string, repo: string, page: number, per_page: number) => {
-  return withOwnerAuth<UseQueryReturnType<IssueType[]>>((options) =>
-    useQuery(GITHUB_API_ROUTES.repos.issues(owner, repo, page, per_page), options)
+export const getRepoIssue = (issue_number: number) => {
+  return withGithubOwnerAuth<Promise<IssueType>>((options) =>
+    query(GITHUB_API_ROUTES.repos.issue(info.username, info.repo, issue_number), options)
   );
 };
 
-export const getRepoIssue = (owner: string, repo: string, issue_number: number) => {
-  return withOwnerAuth<UseQueryReturnType<IssueType>>((options) =>
-    useQuery(GITHUB_API_ROUTES.repos.issue(owner, repo, issue_number), options)
+export const getRepoLabels = () => {
+  return withGithubOwnerAuth<Promise<ListLabelsType>>((options) =>
+    query(GITHUB_API_ROUTES.repos.labels(info.username, info.repo), options)
   );
 };
 
 export const addLabelsToIssue = (
-  owner: string,
-  repo: string,
-  issue_number: number
+  issue_number: number,
+  labels: string[],
 ) => {
-  return withOwnerAuth<
-    UseMutationReturnType<{ labels: string[] }, ListLabelsType>
-  >((options) =>
-    useMutation<{ labels: string[] }, ListLabelsType>(
-      GITHUB_API_ROUTES.repos.addLabelsToIssue(owner, repo, issue_number),
-      { ...options, method: 'POST' }
+  return withGithubOwnerAuth<Promise<ListLabelsType>>((options) =>
+    mutate<ListLabelsType, { labels: string[] }>(
+      GITHUB_API_ROUTES.repos.addLabelsToIssue(info.username, info.repo, issue_number),
+      { ...options, method: 'POST' },
+      { labels }
     )
   );
 };
 
 export const removeLabelFromIssue = (
-  owner: string,
-  repo: string,
   issue_number: number,
+  label_name: string,
 ) => {
-  return withOwnerAuth<
-    UseMutationReturnType<any, ListLabelsType>
-  >((options) =>
-    useMutation<any, ListLabelsType>(
-      GITHUB_API_ROUTES.repos.removeLabelFromIssue(owner, repo, issue_number),
+  return withGithubOwnerAuth((options) =>
+    mutate<void, { labels: string[] }>(
+      GITHUB_API_ROUTES.repos.removeLabelFromIssue(info.username, info.repo, issue_number, label_name),
       { ...options, method: 'DELETE' }
     )
   );

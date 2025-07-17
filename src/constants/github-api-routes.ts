@@ -23,12 +23,8 @@ export const GITHUB_API_ROUTES = {
      * @description 해당 레포지토리의 이슈 모두 가져오기
      * @link https://docs.github.com/ko/rest/issues/issues?apiVersion=2022-11-28#list-repository-issues
      */
-    issues: (owner: string, repo: string, page: number, per_page: number) => {
-      const searchParams = new URLSearchParams({
-        page: page.toString(),
-        per_page: per_page.toString(),
-      });
-      return `${API_URL}/repos/${owner}/${repo}/issues?${searchParams.toString()}`;
+    issues: (owner: string, repo: string) => {
+      return `${API_URL}/repos/${owner}/${repo}/issues`;
     },
     /**
      * @name GET /repos/{owner}/{repo}/issues/{issue_number}
@@ -55,6 +51,7 @@ export const GITHUB_API_ROUTES = {
       owner: string,
       repo: string,
       issue_number: number,
-    ) => `${API_URL}/repos/${owner}/${repo}/issues/${issue_number}/labels`,
+      label_name: string
+    ) => `${API_URL}/repos/${owner}/${repo}/issues/${issue_number}/labels/${label_name}`,
   },
 } as const;

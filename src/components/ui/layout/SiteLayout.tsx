@@ -1,5 +1,5 @@
 import { useLayoutStore } from '@store/layoutStore';
-import { useEffect, useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useOutlet } from 'react-router-dom';
 
 import { BREAK_POINTS } from '@assets/styles/media';
@@ -8,15 +8,10 @@ import Header from '@components/ui/header/Header';
 import MenuBar from '@components/ui/menu_bar/MenuBar';
 
 import PageLayout from './PageLayout';
-import { useLabelStore } from '@store/labelStore';
-import { getRepoLabels } from '@apis/github';
-import { info } from '@constants/info';
 
 function SiteLayout() {
   const { setDeviceType } = useLayoutStore();
   const outlet = useOutlet();
-  const { setLabelList } = useLabelStore();
-  const { data: labelList } = getRepoLabels(info.username, info.repo);
 
   //반응형 vh설정
   useLayoutEffect(() => {
@@ -33,12 +28,6 @@ function SiteLayout() {
     window.addEventListener('resize', setVh);
     return () => window.removeEventListener('resize', setVh);
   }, []);
-
-  useEffect(() => {
-    if (labelList) {
-      setLabelList(labelList);
-    }
-  }, [labelList])
 
   return (
     <>

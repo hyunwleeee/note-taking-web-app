@@ -14,7 +14,6 @@ import { withFirebaseErrorHandling } from '@utils/withFirebaseErrorHandling';
 const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
 
-
 export const signUpUser = (
   email: string,
   password: string,
@@ -70,17 +69,3 @@ export const loginWithGoogle = async () => {
   const { user, role } = await handleOAuthLogin(result);
   return { user, role };
 };
-
-// export const loginWithGithub = async () => {
-//   const result = await signInWithPopup(auth, githubProvider);
-//   const credential = GithubAuthProvider.credentialFromResult(result);
-//   const token = credential?.accessToken;
-//
-//   return { user: result.user, token };
-// };
-//
-// export const loginWithGoogle = async () => {
-//   const userCredential = await signInWithPopup(auth, googleProvider);
-//
-//   return userCredential.user;
-// };

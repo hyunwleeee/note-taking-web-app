@@ -6,9 +6,14 @@ import Logo from '@components/ui/header/Logo';
 import { useLabelStore } from '@store/labelStore';
 
 import MenuItem from './MenuItem';
+import { useEffect } from 'react';
 
 function Navigation() {
-  const { labelList } = useLabelStore();
+  const { labelList, fetchLabelList } = useLabelStore();
+
+  useEffect(() => {
+    fetchLabelList();
+  }, [])
 
   return (
     <NavigationContainer>

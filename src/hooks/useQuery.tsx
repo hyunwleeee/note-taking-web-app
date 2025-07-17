@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import axiosClient from '@utils/axios-client';
 import { AxiosError, AxiosRequestConfig, AxiosResponse, isAxiosError } from 'axios';
-import { toast } from 'react-toastify';
 
 export function useQuery<T>(
   url: string,
@@ -24,9 +23,8 @@ export function useQuery<T>(
     } catch (err) {
       if (isAxiosError(err)) {
         setError(err);
-      } else {
-        toast.error('알 수 없는 오류가 발생했습니다.');
       }
+      throw err;
     } finally {
       setIsLoading(false);
     }

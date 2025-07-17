@@ -8,7 +8,6 @@ export const withFirebaseErrorHandling = async <T>(
     return await callback();
   } catch (error) {
     if (error instanceof FirebaseError) {
-      console.log('error: ', error);
       throw mapFirebaseError(error.code);
     }
     throw error;

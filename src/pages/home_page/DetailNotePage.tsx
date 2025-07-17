@@ -12,33 +12,34 @@ import FlexBox from '@components/style/FlexBox';
 import ModalWrapper from '@components/ui/modal/ModalWrapper';
 import PageController from '@components/ui/page/PageController';
 import { ModalProps } from '@type/modal';
-import { addLabelsToIssue, getRepoIssue, removeLabelFromIssue } from '@apis/github';
-import { info } from '@constants/info';
 import LabelList from '@components/ui/LabelList';
 import { withUserAuth } from '@utils/withAuth';
+import { useEffect, useState } from 'react';
+import { useLabelStore } from '@store/labelStore';
+import { IssueType } from '@type/github';
+import { getRepoIssue } from '@apis/github';
 
 function DetailNotePage() {
   const { deviceType } = useLayoutStore();
   const isLaptop = deviceType === 'laptop';
   const { id } = useParams();
   const { openModal, closeModal } = useModal();
-
-  const { data: note, refetch } = getRepoIssue(info.username, info.repo, Number(id));
-  const { data: addedData, mutate: addLabel } = addLabelsToIssue(info.username, info.repo, Number(id));
-  const { data: removedData, mutate: removeLabel } = removeLabelFromIssue(info.username, info.repo, Number(id));
+  const alert = useAlert();
+  const [note, setNote] = useState<IssueType | null>(null);
+  const { fetchLabelList, addLabelList, deleteLabel } = useLabelStore();
 
   // NOTE:
   const isArchived = note?.labels.some((label) => typeof label === 'object' && label.name === 'Archived');
 
   const handleModal = () => {
-    withUserAuth(() => openModal(ArchivedModal, {
+    openModal(ArchivedModal, {
       onClose: () => closeModal(ArchivedModal),
       onSubmit: async () => {
-        !isArchived ? await addLabel({ labels: ['Archived'] })
-          : await removeLabel(null, 'Archived');
-        refetch();
+        !isArchived ? await addLabelList(Number(id), ['Archived'])
+          : await deleteLabel(Number(id), 'Archived');
+        await Promise.all([getHttp(), fetchLabelList()]);
       },
-    }));
+    });
   };
 
   const handleDeleteModal = () => {
@@ -50,10 +51,20 @@ function DetailNotePage() {
     }));
   };
 
+  const getHttp = async () => {
+    const data = await getRepoIssue(Number(id));
+    setNote(data);
+  }
+
+  useEffect(() => {
+    getHttp();
+  }, [id]);
+
   if (!note) return;
 
   return (
     <PageContainer>
+      <div>{'hi: ' + isArchived}</div>
       <div className="left_wrapper">
         <PageController onArchiveModal={handleModal} onDeleteModal={handleDeleteModal} />
         <h2>{note?.title}</h2>
@@ -65,7 +76,7 @@ function DetailNotePage() {
             </FlexBox>
           </div>
           <div className="value">
-            <LabelList labelList={note.labels} />
+            <LabelList labelList={note?.labels} />
           </div>
 
           {isArchived && (
@@ -102,7 +113,7 @@ function DetailNotePage() {
             theme="border"
             leftIcon={<BaseIcon type="delete" />}
             texture="Delete Note"
-            onClick={handleDeleteModal}
+            onClick={() => handleDeleteModal()}
           />
         </div>
       )}
