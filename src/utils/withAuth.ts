@@ -1,7 +1,8 @@
 import { info } from "@constants/info";
-import { useAuthStore } from "@store/authStore";
+import { Role } from "@firebase_/role";
 import { mapGitHubError } from "@type/errors/github-error";
 import { isAxiosError, type AxiosRequestConfig } from "axios";
+import { User } from "firebase/auth";
 import { toast } from "react-toastify";
 
 type WithGithubOwnerAuthCallback<R> = (
@@ -30,8 +31,11 @@ export const withGithubOwnerAuth = async <R>(callback: WithGithubOwnerAuthCallba
 
 type WithUserCallback<R> = () => R;
 
-export const withUserAuth = <R>(callback: WithUserCallback<R>): R => {
-  const { user, role } = useAuthStore();
+export const withUserAuth = <R>(
+  user: User | null,
+  role: Role | null,
+  callback: WithUserCallback<R>
+): R => {
 
   if (!user) {
     toast.error('로그인이 필요합니다.');

@@ -18,6 +18,7 @@ import { useEffect, useState } from 'react';
 import { useLabelStore } from '@store/labelStore';
 import { IssueType } from '@type/github';
 import { getRepoIssue } from '@apis/github';
+import { useAuthStore } from '@store/authStore';
 
 function DetailNotePage() {
   const { deviceType } = useLayoutStore();
@@ -27,23 +28,24 @@ function DetailNotePage() {
   const alert = useAlert();
   const [note, setNote] = useState<IssueType | null>(null);
   const { fetchLabelList, addLabelList, deleteLabel } = useLabelStore();
+  const { user, role } = useAuthStore();
 
   // NOTE:
   const isArchived = note?.labels.some((label) => typeof label === 'object' && label.name === 'Archived');
 
   const handleModal = () => {
-    openModal(ArchivedModal, {
+    withUserAuth(user, role, () => openModal(ArchivedModal, {
       onClose: () => closeModal(ArchivedModal),
       onSubmit: async () => {
         !isArchived ? await addLabelList(Number(id), ['Archived'])
           : await deleteLabel(Number(id), 'Archived');
         await Promise.all([getHttp(), fetchLabelList()]);
       },
-    });
+    }));
   };
 
   const handleDeleteModal = () => {
-    withUserAuth(() => openModal(DeleteModal, {
+    withUserAuth(user, role, () => openModal(DeleteModal, {
       onClose: () => closeModal(DeleteModal),
       onSubmit: () => {
         console.log('Delete Note');
@@ -64,7 +66,6 @@ function DetailNotePage() {
 
   return (
     <PageContainer>
-      <div>{'hi: ' + isArchived}</div>
       <div className="left_wrapper">
         <PageController onArchiveModal={handleModal} onDeleteModal={handleDeleteModal} />
         <h2>{note?.title}</h2>
