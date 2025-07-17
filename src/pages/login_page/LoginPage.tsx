@@ -1,17 +1,15 @@
 import useNavigation from '@hooks/useNavigation';
-import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
+import { FormEvent, KeyboardEvent, MouseEvent, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import BaseButton from '@components/base/BaseButton';
 import BaseIcon from '@components/base/BaseIcon';
 import BaseInput from '@components/base/BaseInput';
 import clsx from 'clsx';
-import { login } from '@firebase_/auth';
-
-// import useAuth from '@hooks/useAuth.js';
+import { login, loginWithGithub, loginWithGoogle } from '@firebase_/auth';
+import { useAuthStore } from '@store/authStore';
 
 function LoginPage() {
-  // const auth = useAuth();
   const { Navigate } = useNavigation();
   const refs = useRef<{
     email: HTMLInputElement | null;
@@ -44,6 +42,29 @@ function LoginPage() {
 
     }
   }
+
+  const handleGithubLogin = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      const { user, token } = await loginWithGithub();
+      useAuthStore.getState().setUser(user, token);
+      Navigate.move('/');
+    } catch (error) {
+      console.log('error: ', error);
+    }
+  };
+
+  const handleGoogleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      loginWithGoogle();
+      Navigate.move('/');
+    } catch (error) {
+
+    }
+  }
+
+
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -115,9 +136,17 @@ function LoginPage() {
           <p>Or log in with</p>
           <BaseButton
             theme="border"
-            leftIcon={<BaseIcon type="google" color={'#0E121B'} />}
+            leftIcon={<BaseIcon type="github" />}
+            texture="Github"
+            size="full"
+            onClick={(e) => handleGithubLogin(e)}
+          />
+          <BaseButton
+            theme="border"
+            leftIcon={<BaseIcon type="google" />}
             texture="Google"
             size="full"
+            onClick={(e) => handleGoogleLogin(e)}
           />
         </div>
         <div className="sign_up_wrapper">
@@ -178,6 +207,9 @@ const LoginFormContainer = styled.form`
     color: ${({ theme }) => theme.colors.neutral600};
     > p {
       padding: ${({ theme }) => `${theme.spacing[300]} 0 ${theme.spacing[200]}`};
+    }
+    > button:first-of-type {
+      margin-bottom: ${({ theme }) => theme.spacing[100]};
     }
   }
   .sign_up_wrapper {

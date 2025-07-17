@@ -1,4 +1,4 @@
-import { LOGOUT_MENU_DATA, SETTING_MENU_LIST } from '@constants/MenuConstants';
+import { LOGOUT_MENU_DATA, SETTING_MENU_LIST } from '@constants/menu';
 import styled from 'styled-components';
 
 import MenuItem from './MenuItem';

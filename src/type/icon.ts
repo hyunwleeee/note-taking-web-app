@@ -11,6 +11,7 @@ type Icon =
   | 'font-serif'
   | 'font'
   | 'google'
+  | 'github'
   | 'hide-password'
   | 'home'
   | 'info'

@@ -4,8 +4,10 @@ import styled from 'styled-components';
 import MenuItem from './MenuItem';
 import { Note } from '@type/note';
 import data from '@assets/data';
+import { IssueType } from '@type/github';
 
-function AllNotesMenu() {
+function AllNotesMenu({ noteList }: { noteList: IssueType[] }) {
+
   const changeToOptionList = (list: Note[]) => {
     return list.map(({ title, tags, lastEdited }) => ({
       name: title,
@@ -20,16 +22,26 @@ function AllNotesMenu() {
 
   return (
     <ul className="top_list">
+      {noteList?.map((item) => (
+        <MenuItem
+          key={item.id}
+          type="note"
+          name={item.title}
+          path={makeSlugByTitle(item.title)}
+          labels={item.labels}
+          lastEdited={item.created_at}
+        />
+      ))}
       {settingList.map((item, idx) => (
         <MenuItem
           key={idx}
           type="note"
           name={item.name}
           path={item.path}
-          tags={item.tags}
           lastEdited={item.lastEdited}
         />
       ))}
+
     </ul>
   );
 }

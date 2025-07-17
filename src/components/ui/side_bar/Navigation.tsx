@@ -1,12 +1,16 @@
-import { NAV_LIST, TAG_MENU_LIST } from '@constants/MenuConstants';
+import { NAV_LIST } from '@constants/menu';
 import styled from 'styled-components';
 
 import FlexBox from '@components/style/FlexBox';
 import Logo from '@components/ui/header/Logo';
 
 import MenuItem from './MenuItem';
+import { getRepoLabels } from '@apis/github';
+import { info } from '@constants/info';
+import { ListLabelsType } from '@type/github';
 
 function Navigation() {
+  const { data: labels, isLoading } = getRepoLabels<ListLabelsType>(info.username, info.repo);
   return (
     <NavigationContainer>
       <FlexBox j="start" a="stretch" d="column" g="16px" className="logo_wrapper">
@@ -24,18 +28,17 @@ function Navigation() {
             />
           ))}
         </ul>
-        <ul className="tag_list">
+        {!isLoading && <ul className="tag_list">
           <h3>Tags</h3>
-          {TAG_MENU_LIST.map((item, idx) => (
+          {labels?.map((item, idx) => (
             <MenuItem
               key={`item_${idx}`}
               iconType="tag"
               name={item.name}
-              path={item.path}
               isHighlightIcon
             />
           ))}
-        </ul>
+        </ul>}
       </nav>
     </NavigationContainer>
   );

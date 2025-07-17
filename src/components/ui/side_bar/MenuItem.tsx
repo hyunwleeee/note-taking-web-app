@@ -6,13 +6,14 @@ import styled, { css } from 'styled-components';
 import BaseIcon from '@components/base/BaseIcon';
 import FlexBox from '@components/style/FlexBox';
 import Icon from '@type/icon';
+import { ListLabelsType } from '@type/github';
 
 interface IMenuItemProps {
   type?: 'normal' | 'note';
   path?: string;
   iconType?: Icon;
   name: string;
-  tags?: string[];
+  labels?: ListLabelsType;
   isHighlightIcon?: boolean;
   lastEdited?: string;
   onClick?: () => void;
@@ -30,7 +31,7 @@ function MenuItem({
   path,
   iconType,
   name,
-  tags,
+  labels,
   isHighlightIcon = false,
   lastEdited,
   onClick,
@@ -71,10 +72,15 @@ function MenuItem({
           </div>
         )}
       </FlexBox>
-      {tags && (
+      {labels && (
         <ul className="tags">
-          {tags.map((item, idx) => (
-            <li key={idx}>{item}</li>
+          {labels.map((item, idx) => (
+            <LabelContainer
+              key={idx}
+              $color={item.color}
+            >
+              {item.name}
+            </LabelContainer>
           ))}
         </ul>
       )}
@@ -132,18 +138,26 @@ const Menu = styled.li<IStyleMenuProps>`
     display: flex;
     margin-top: ${({ theme }) => theme.spacing[150]};
     gap: ${({ theme }) => theme.spacing[50]};
-    > li {
-      padding: ${({ theme }) => `${theme.spacing[25]} ${theme.spacing[75]}`};
-      background: var(--theme-bg3-color);
-      border-radius: ${({ theme }) => theme.radius[4]};
-      ${({ theme }) => theme.typography.textPreset6};
-    }
   }
 
   .date {
     margin-top: ${({ theme }) => theme.spacing[150]};
     ${({ theme }) => theme.typography.textPreset6};
     color: var(--theme-text3-color);
+  }
+`;
+
+const LabelContainer = styled.li<{ $color: string }>`
+  padding: ${({ theme }) => `${theme.spacing[25]} ${theme.spacing[75]}`};
+  border-radius: ${({ theme }) => theme.radius[4]};
+  ${({ theme }) => theme.typography.textPreset6};
+  border: ${({ $color }) => `1px solid #${$color}`};
+  position: relative;
+  &::after {
+    position: absolute;
+    content: '';
+    inset: 0;
+    background: ${({ $color }) => `#${$color}50`};
   }
 `;
 

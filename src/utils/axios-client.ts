@@ -1,89 +1,40 @@
-import axios from "axios";
-import { useAuthStore } from "@/stores";
-import { getRefreshToken } from "@/apis";
-import { toast } from "react-toastify";
+import axios from 'axios';
 
-}
-export const axiosClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
-  paramsSerializer: {
-    indexes: null,
+if (!import.meta.env.VITE_GITHUB_API_URL)
+  throw new Error('VITE_GITHUB_API_URL is not set');
+
+const axiosClient = axios.create({
+  baseURL: import.meta.env.VITE_GITHUB_API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/vnd.github+json',
   },
 });
 
-const buildAuthorizationHeader = ({
-  tokenType,
-  accessToken,
-}: {
-  tokenType: string;
-  accessToken: string;
-}) => {
-  switch (tokenType) {
-    case "bearer":
-    case "Bearer":
-      return `Bearer ${accessToken}`;
-    default:
-      throw new Error("Invalid token type");
-  }
-};
+/* 클로저와 커링으로 만들어진 withAuth로 대체 */
+// axiosClient.interceptors.request.use((config) => {
+//   const { token } = useAuthStore.getState();
+//
+//   if (token) {
+//     config.headers.Authorization = `Bearer ${token}`;
+//   }
+//   return config;
+// });
+//
+// axiosClient.interceptors.response.use(
+//   (response) => response,
+//   async (error) => {
+//     const { response } = error;
+//     const status = response?.status;
+//
+//     if (status === 401) {
+//       toast.error('로그인이 필요합니다.');
+//       window.location.replace('/login');
+//       return Promise.reject(error);
+//     }
+//
+//     return Promise.reject(error);
+//   },
+// );
 
-axiosClient.interceptors.request.use((config) => {
-  const { tokenType, accessToken } = useAuthStore.getState().auth;
-
-  if (tokenType && accessToken) {
-    config.headers.Authorization = buildAuthorizationHeader({
-      tokenType,
-      accessToken,
-    });
-  }
-  return config;
-});
-
-axiosClient.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const { config, response } = error;
-    const status = response?.status;
-    const { auth, logout } = useAuthStore.getState();
-
-    if (status === 401 && !auth.refreshToken) {
-      toast.error("로그인이 필요합니다.");
-      window.location.replace("/login");
-      return Promise.reject(error);
-    }
-
-    if (status !== 401 || config.sent || !auth.refreshToken) {
-      return Promise.reject(error);
-    }
-
-    config.sent = true;
-    try {
-      const { data } = await getRefreshToken({
-        refreshToken: auth.refreshToken,
-      });
-
-      if (!data) {
-        return Promise.reject(error);
-      }
-
-      const { tokenType, accessToken } = data;
-      config.headers.Authorization = buildAuthorizationHeader({
-        tokenType,
-        accessToken,
-      });
-      useAuthStore.setState({
-        auth: {
-          ...auth,
-          ...data,
-        },
-      });
-    } catch (e) {
-      logout();
-      toast.info("로그아웃 되었습니다.");
-      window.location.href = "/login";
-      return Promise.reject(error);
-    }
-
-    return axios(config);
-  },
-);
+export default axiosClient;
