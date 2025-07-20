@@ -1,0 +1,38 @@
+name: Vite CD
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Git clone
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+
+      - name: Create .env
+        env:
+          ENV: ${{ secrets.ENV }}
+        run: |
+          touch ./.env
+          echo "$ENV" > ./.env
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Executing remote scp
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ubuntu 
+          key: ${{ secrets.KEY }}
+          source: "dist/"
+          target: "/var/www/til-dist"
