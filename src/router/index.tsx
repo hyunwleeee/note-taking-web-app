@@ -70,7 +70,7 @@ const RootRouter = () => {
     </>
   );
 
-  const router = createBrowserRouter(createRoutesFromElements(createRouteGroup));
+  const router = createBrowserRouter(createRoutesFromElements(createRouteGroup), { basename: '/TIL' });
 
   return <RouterProvider router={router} />;
 };

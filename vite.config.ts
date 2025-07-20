@@ -5,6 +5,7 @@ import { defineConfig } from 'vite';
 const __dirname = path.resolve();
 
 export default defineConfig({
+  base: '/TIL/',
   plugins: [react()],
   resolve: {
     alias: {

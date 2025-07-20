@@ -7,7 +7,7 @@ import { useAuthStore } from '@store/authStore';
 export default function ProtectedRouter() {
   const { currentUser } = useAuth();
   const location = useLocation();
-  const { role } = useAuthStore.getState();
+  const { role } = useAuthStore();
 
   if (!currentUser) {
     return <Navigate to="/login" state={{ from: location }} replace />;
